@@ -1,3 +1,21 @@
+# Purpose
+A word clock screensaver. Still work in progress...
+
+Why? Because I like them and I want one. 
+
+Why not just use an existing implementation? I wanted to do adapt the implementation a bit myself and the ones I've found are either not in English (I'm mono-lingual) or the code is not to my liking. 
+
+Forked the "engine" from [https://github.com/TheBauwssss/TimeInWords](https://github.com/TheBauwssss/TimeInWords)
+
+Adding a new sreensaver project, adapting portions from [https://github.com/sedrubal/WordClockScr](https://github.com/sedrubal/WordClockScr)
+
+Original TimeInWords README below...
+
+
+
+
+
+
 # TimeInWords
 Multilingual implementation of a word clock algorithm. Converts a timestamp to its text representation and then to a bit-mask for an LED grid. Currently supports English and Dutch. 
 

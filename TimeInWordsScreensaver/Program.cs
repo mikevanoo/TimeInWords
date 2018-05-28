@@ -1,0 +1,103 @@
+﻿using System;
+using System.Windows.Forms;
+
+namespace TimeInWordsScreensaver
+{
+    static class Program
+    {
+        private static ScreenSaverForm _screenSaver;
+        //public static SettingsDialog optionsForm;
+
+        /// <summary>
+        /// The main entry point for the application.
+        /// </summary>
+        [STAThread]
+        static void Main(string[] args)
+        {
+            Application.EnableVisualStyles();
+
+            if (args.Length > 0)
+            {
+                // Get the command line arguments
+
+                string firstArgument = args[0].ToLower().Trim();
+                string secondArgument = null;
+
+                if (firstArgument.Length > 2)
+                {
+                    secondArgument = firstArgument.Substring(3).Trim();
+                    firstArgument = firstArgument.Substring(0, 2);
+                }
+                else if (args.Length > 1)
+                    secondArgument = args[1];
+
+                // analize command line arguments
+                switch (firstArgument)
+                {
+                    case "/c":
+                        // Show the options dialog
+                        //ShowOptions();
+                        break;
+                    case "/p":
+                        // Preview
+                        ShowPreview(secondArgument);
+                        break;
+                    case "/s":
+                        // Show screensaver form
+                        ShowScreenSaver();
+                        break;
+                    case "/d":
+                        // Show screensver in debug mode
+                        ShowProgram();
+                        break;
+                    default:
+                        MessageBox.Show($"Invalid command line argument: {firstArgument}", "Invalid Command Line Argument", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                }
+            }
+            else
+            {
+                // If no arguments were passed in, show the program
+                ShowProgram();
+            }
+        }
+
+        //static void ShowOptions()
+        //{
+        //    optionsForm = new SettingsDialog(new WordClockScr.Elements.SettingsMachine(), true);
+        //    Application.Run(optionsForm);
+        //}
+
+        static void ShowScreenSaver()
+        {
+            _screenSaver = new ScreenSaverForm(true);
+            Application.Run(_screenSaver);
+        }
+
+        static void ShowProgram()
+        {
+            // TODO show on all displays?
+            //foreach (Screen screen in Screen.AllScreens)
+            //{
+            //    ScreenSaverForm screensaver = new ScreenSaverForm(false);
+            //    screensaver.Show();
+            //}
+            //Application.Run();
+
+            _screenSaver = new ScreenSaverForm(false);
+            Application.Run(_screenSaver);
+        }
+
+        static void ShowPreview(string secondArgument)
+        {
+            if (secondArgument == null)
+            {
+                MessageBox.Show("Sorry, but the expected window handle was not provided.", "ScreenSaver", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+            IntPtr previewWndHandle = new IntPtr(long.Parse(secondArgument));
+            _screenSaver = new ScreenSaverForm(true, previewWndHandle);
+            Application.Run(_screenSaver);
+        }
+    }
+}
