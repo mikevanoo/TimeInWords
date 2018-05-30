@@ -110,16 +110,16 @@ namespace TimeInWordsScreensaver
 
         #region Constructors
 
-        public ScreenSaverForm(bool screensaver = false, IntPtr previewHandle = default(IntPtr))
+        public ScreenSaverForm(bool isScreensaver = false, IntPtr previewHandle = default(IntPtr))
         {
-            if (screensaver && !(previewHandle != default(IntPtr)))// && this.MySettingsMachine.Animations)
+            if (isScreensaver && !(previewHandle != default(IntPtr)))// && this.MySettingsMachine.Animations)
             {
                 //this.Opacity = 0.0;
             }
 
             InitializeComponent();
 
-            IsScreensaver = screensaver;
+            IsScreensaver = isScreensaver;
             previewWndHandle = previewHandle;
             IsPreview = (previewHandle != default(IntPtr));
 

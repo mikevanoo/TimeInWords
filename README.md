@@ -1,13 +1,13 @@
 # Purpose
-A word clock screensaver. Still work in progress...
+A word clock screensaver. Still a work in progress...
 
 Why? Because I like them and I want one. 
 
-Why not just use an existing implementation? I wanted to do adapt the implementation a bit myself and the ones I've found are either not in English (I'm mono-lingual) or the code is not to my liking. 
+Why not just use an existing implementation? I wanted to adapt the implementation a bit myself and the ones I've found are either not in English (I'm mono-lingual) or the code is not to my liking. 
 
 Forked the "engine" from [https://github.com/TheBauwssss/TimeInWords](https://github.com/TheBauwssss/TimeInWords)
 
-Adding a new sreensaver project, adapting portions from [https://github.com/sedrubal/WordClockScr](https://github.com/sedrubal/WordClockScr)
+Added a new screensaver project, adapting portions from [https://github.com/sedrubal/WordClockScr](https://github.com/sedrubal/WordClockScr)
 
 Original TimeInWords README below...
 

@@ -5,9 +5,6 @@ namespace TimeInWordsScreensaver
 {
     static class Program
     {
-        private static ScreenSaverForm _screenSaver;
-        //public static SettingsDialog optionsForm;
-
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -19,7 +16,6 @@ namespace TimeInWordsScreensaver
             if (args.Length > 0)
             {
                 // Get the command line arguments
-
                 string firstArgument = args[0].ToLower().Trim();
                 string secondArgument = null;
 
@@ -29,9 +25,11 @@ namespace TimeInWordsScreensaver
                     firstArgument = firstArgument.Substring(0, 2);
                 }
                 else if (args.Length > 1)
+                {
                     secondArgument = args[1];
+                }
 
-                // analize command line arguments
+                // analyze command line arguments
                 switch (firstArgument)
                 {
                     case "/c":
@@ -70,22 +68,14 @@ namespace TimeInWordsScreensaver
 
         static void ShowScreenSaver()
         {
-            _screenSaver = new ScreenSaverForm(true);
-            Application.Run(_screenSaver);
+            ScreensaverApplicationContext context = new ScreensaverApplicationContext(true);
+            Application.Run(context);
         }
 
         static void ShowProgram()
         {
-            // TODO show on all displays?
-            //foreach (Screen screen in Screen.AllScreens)
-            //{
-            //    ScreenSaverForm screensaver = new ScreenSaverForm(false);
-            //    screensaver.Show();
-            //}
-            //Application.Run();
-
-            _screenSaver = new ScreenSaverForm(false);
-            Application.Run(_screenSaver);
+            ScreenSaverForm form = new ScreenSaverForm(false);
+            Application.Run(form);
         }
 
         static void ShowPreview(string secondArgument)
@@ -96,8 +86,8 @@ namespace TimeInWordsScreensaver
                 return;
             }
             IntPtr previewWndHandle = new IntPtr(long.Parse(secondArgument));
-            _screenSaver = new ScreenSaverForm(true, previewWndHandle);
-            Application.Run(_screenSaver);
+            ScreenSaverForm form = new ScreenSaverForm(false, previewWndHandle);
+            Application.Run(form);
         }
     }
 }
