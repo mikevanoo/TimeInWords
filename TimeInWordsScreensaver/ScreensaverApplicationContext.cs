@@ -35,6 +35,7 @@ namespace TimeInWordsScreensaver
             foreach (Form form in _forms)
             {
                 form.Closed -= OnFormClosed;
+                form.Close();
             }
             ExitThread();
         }
