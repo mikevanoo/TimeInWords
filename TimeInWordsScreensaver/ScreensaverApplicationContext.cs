@@ -10,7 +10,7 @@ namespace TimeInWordsScreensaver
 {
     internal class ScreensaverApplicationContext : ApplicationContext
     {
-        private int _formCount;
+        private readonly List<Form> _forms = new List<Form>();
         
         public ScreensaverApplicationContext(bool isScreensaver = false, IntPtr previewHandle = default(IntPtr))
             : base()
@@ -18,25 +18,25 @@ namespace TimeInWordsScreensaver
             foreach (Screen screen in Screen.AllScreens)
             {
                 ScreenSaverForm form = new ScreenSaverForm(isScreensaver, previewHandle);
-                form.Closed += OnFormClosed; 
+                _forms.Add(form);
+                form.Closed += OnFormClosed;
                 
                 // position the form on the relevant screen
                 form.StartPosition = FormStartPosition.Manual;
                 Rectangle bounds = screen.Bounds;
                 form.SetBounds(bounds.X, bounds.Y, bounds.Width, bounds.Height);
                 form.Show();
-
-                _formCount++;
             }
         }
         
         private void OnFormClosed(object sender, EventArgs e) 
         {
-            _formCount--;
-            if (_formCount == 0) 
+            // if one form closes, close all of them and then exit
+            foreach (Form form in _forms)
             {
-                ExitThread();
+                form.Closed -= OnFormClosed;
             }
+            ExitThread();
         }
     }
 }
