@@ -7,7 +7,7 @@ namespace TimeToTextLib.Presets
 {
     public class EnglishPreset : LanguagePreset
     {
-        public override string Format(DateTime time)
+        public override TimeToTextFormat Format(DateTime time)
         {
             StringBuilder s = new StringBuilder();
 
@@ -21,14 +21,17 @@ namespace TimeToTextLib.Presets
 
             int minute = time.Minute;
 
-            //round minute to multiple of five, always up
-            minute = (int)(5.0d * (Math.Ceiling(Math.Abs(minute / 5.0d))));
+            //round minute to multiple of five, always down
+            minute = (int)(5.0d * (Math.Floor(Math.Abs(minute / 5.0d))));
+            
+            //if (minute == 0)
+            //{
+            //    minute = 55;
+            //    hour--;
+            //}
 
-            if (minute == 60)
-            {
-                minute = 0;
-                hour++;
-            }
+            //now get the additional minutes, on top of the rounded value
+            int additionalMinutes = time.Minute - minute;
 
             switch (minute)
             {
@@ -70,8 +73,11 @@ namespace TimeToTextLib.Presets
                     break;
             }
 
-
-            return s.ToString();
+            return new TimeToTextFormat()
+            {
+                TimeAsText = s.ToString(),
+                AdditionalMinutes = additionalMinutes
+            };
         }
 
         protected override string[] Numbers

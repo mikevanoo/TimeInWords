@@ -39,14 +39,14 @@ namespace Debug
             {
                 if (!(bool)checkBox.IsChecked)
                 {
-                    time.Content = TimeToText.GetSimple(lang, DateTime.Now);
+                    time.Content = TimeToText.GetSimple(lang, DateTime.Now).ToString();
                 }
                 else
                 {
-                    val = val.AddMinutes(5);
+                    val = val.AddMinutes(1);
                     //if (val.Minute == 0)
                     //    val = val.AddHours(1);
-                    time.Content = TimeToText.GetSimple(lang, val);
+                    time.Content = TimeToText.GetSimple(lang, val).ToString();
                 }
 
                 var mask = grid.GetBitMask((string)time.Content, (bool)chkForce.IsChecked);
@@ -80,7 +80,7 @@ namespace Debug
             {
                 for (int m = 0; m < 60; m += 5)
                 {
-                    b.AppendLine(TimeToText.GetSimple(lang, new DateTime(2000, 1, 1, h, m, 0)));
+                    b.AppendLine(TimeToText.GetSimple(lang, new DateTime(2000, 1, 1, h, m, 0)).ToString());
                 }
             }
 
@@ -106,6 +106,11 @@ namespace Debug
                 lang = LanguagePreset.Language.Dutch;
                 grid = new TimeGridDutch();
             }
+        }
+
+        private void CheckBox_OnChecked(object sender, RoutedEventArgs e)
+        {
+            val = DateTime.Now;
         }
     }
 }

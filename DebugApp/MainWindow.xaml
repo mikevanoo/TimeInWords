@@ -14,7 +14,7 @@
                 <Button x:Name="button" Content="Export all possible values to clipboard" Margin="10,10,10,0" VerticalAlignment="Top" Click="button_Click"/>
                 <ComboBox x:Name="comboLanguage" Margin="77,40,10,0" VerticalAlignment="Top" Loaded="comboLanguage_Loaded" Height="26" SelectionChanged="comboLanguage_SelectionChanged"/>
                 <Label x:Name="label" Content="Language" HorizontalAlignment="Left" Margin="10,40,0,0" VerticalAlignment="Top"/>
-                <CheckBox x:Name="checkBox" Content="Automagically advance the time every second" Margin="10,75,10,0" VerticalAlignment="Top"/>
+                <CheckBox x:Name="checkBox" Content="Automagically advance the time every second" Margin="10,75,10,0" VerticalAlignment="Top" Checked="CheckBox_OnChecked"/>
                 <CheckBox x:Name="chkForce" Content="Force matches to whole words only" Margin="10,95,10,0" VerticalAlignment="Top" IsChecked="True"/>
             </Grid>
         </GroupBox>

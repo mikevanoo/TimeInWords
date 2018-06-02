@@ -59,7 +59,7 @@ namespace TimeInWordsScreensaver
         {
             DateTime now = DateTime.Now;
             lblTime.Text = now.ToLongTimeString();
-            lblTimeAsText.Text = TimeToText.GetSimple(LanguagePreset.Language.English, now);
+            lblTimeAsText.Text = TimeToText.GetSimple(LanguagePreset.Language.English, now).ToString();
         }
 
         private void UpdateSettings(WordClockSettings settings)

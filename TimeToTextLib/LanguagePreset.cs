@@ -44,7 +44,7 @@ namespace TimeToTextLib
             return instances[lang];
         }
 
-        public abstract string Format(DateTime time);
+        public abstract TimeToTextFormat Format(DateTime time);
 
         protected virtual string Hour(int h)
         {

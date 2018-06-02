@@ -9,7 +9,7 @@ namespace TimeToTextLib
     public class TimeToText
     {
 
-        public static string GetSimple(LanguagePreset.Language lang, DateTime time)
+        public static TimeToTextFormat GetSimple(LanguagePreset.Language lang, DateTime time)
         {
             return LanguagePreset.Get(lang).Format(time);
         }
