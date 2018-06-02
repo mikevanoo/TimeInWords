@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace TimeToTextLib
 {
-    public class TimeToText
+    public static class TimeToText
     {
-
         public static TimeToTextFormat GetSimple(LanguagePreset.Language lang, DateTime time)
         {
             return LanguagePreset.Get(lang).Format(time);

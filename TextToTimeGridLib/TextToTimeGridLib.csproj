@@ -45,6 +45,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TimeGrid.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TimeToTextLib\TimeToTextLib.csproj">
+      <Project>{539FF51B-1674-4849-85F2-59C752497BFF}</Project>
+      <Name>TimeToTextLib</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

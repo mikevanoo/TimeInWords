@@ -32,6 +32,7 @@
             this.lblTime = new System.Windows.Forms.Label();
             this.lblTimeAsText = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.tblLayout = new System.Windows.Forms.TableLayoutPanel();
             this.SuspendLayout();
             // 
             // lblTime
@@ -60,10 +61,27 @@
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // tblLayout
+            // 
+            this.tblLayout.ColumnCount = 1;
+            this.tblLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tblLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tblLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tblLayout.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
+            this.tblLayout.Location = new System.Drawing.Point(0, 0);
+            this.tblLayout.Name = "tblLayout";
+            this.tblLayout.Padding = new System.Windows.Forms.Padding(100);
+            this.tblLayout.RowCount = 1;
+            this.tblLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tblLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tblLayout.Size = new System.Drawing.Size(200, 100);
+            this.tblLayout.TabIndex = 0;
+            // 
             // WordClockPanel
             // 
             this.Controls.Add(this.lblTime);
             this.Controls.Add(this.lblTimeAsText);
+            this.Controls.Add(this.tblLayout);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -74,5 +92,6 @@
         private System.Windows.Forms.Label lblTime;
         private System.Windows.Forms.Label lblTimeAsText;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.TableLayoutPanel tblLayout;
     }
 }

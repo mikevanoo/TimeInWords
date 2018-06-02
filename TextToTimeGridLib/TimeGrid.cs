@@ -3,17 +3,34 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using TextToTimeGridLib.Grids;
+using TimeToTextLib;
 
 namespace TextToTimeGridLib
 {
     public abstract class TimeGrid
     {
+        public static TimeGrid Get(LanguagePreset.Language lang)
+        {
+            switch (lang)
+            {
+                case LanguagePreset.Language.English:
+                    return new TimeGridEnglish();
+                    
+                case LanguagePreset.Language.Dutch:
+                    return new TimeGridDutch();
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(lang), lang, "Language not implemented");
+            }
+        }
 
         public abstract string RawGrid { get; }
 
         private char[][] _charGrid;
-        private const int _gridWidth = 11;
-        private const int _gridHeight = 10;
+        
+        public const int GridWidth = 11;
+        public const int GridHeight = 10;
 
         public char[][] CharGrid
         {
@@ -28,10 +45,10 @@ namespace TextToTimeGridLib
 
         private void BuildCharGrid()
         {
-            _charGrid = new char[_gridHeight][];
+            _charGrid = new char[GridHeight][];
 
-            for(int i = 0; i < _gridHeight; i++)
-                _charGrid[i] = new char[_gridWidth];
+            for(int i = 0; i < GridHeight; i++)
+                _charGrid[i] = new char[GridWidth];
 
             int x = 0;
             int y = 0;
@@ -52,9 +69,9 @@ namespace TextToTimeGridLib
 
         public Bitmask GetBitMask(string input, bool strict)
         {
-            var output = new bool[_gridHeight][];
-            for (int i = 0; i < _gridHeight; i++)
-                output[i] = new bool[_gridWidth];
+            var output = new bool[GridHeight][];
+            for (int i = 0; i < GridHeight; i++)
+                output[i] = new bool[GridWidth];
 
             if (!strict)
             {

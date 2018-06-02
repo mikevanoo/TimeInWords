@@ -90,6 +90,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TextToTimeGridLib\TextToTimeGridLib.csproj">
+      <Project>{A97C3F37-5726-4241-B78B-62EE4CD556A9}</Project>
+      <Name>TextToTimeGridLib</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TimeToTextLib\TimeToTextLib.csproj">
       <Project>{539ff51b-1674-4849-85f2-59c752497bff}</Project>
       <Name>TimeToTextLib</Name>
