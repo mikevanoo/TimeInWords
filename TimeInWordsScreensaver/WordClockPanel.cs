@@ -35,10 +35,7 @@ namespace TimeInWordsScreensaver
         public WordClockPanel()
         {
             InitializeComponent();
-
-            // Use double buffering to improve drawing performance
-            this.SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint, true);
-
+            
             Settings = new WordClockSettings();
             Initialise(Settings);
         }
@@ -79,19 +76,12 @@ namespace TimeInWordsScreensaver
             {
                 for (int columnIndex = 0; columnIndex < TimeGrid.GridWidth; columnIndex++)
                 {
-                    Label lbl= new Label();
-                    lbl.Height = 50;
-                    lbl.Width = 50;
-                    lbl.Font = new Font(FontFamily.GenericSansSerif, 25);
-                    lbl.TextAlign = ContentAlignment.MiddleCenter;
-                    lbl.Text = charGrid[rowIndex][columnIndex].ToString();
-                    lbl.ForeColor = settings.ActiveFontColour;
-                    //lbl.BackColor = settings.InactiveFontColour;
-
-                    tblLayout.Controls.Add(lbl, columnIndex, rowIndex);
+                    LedLetter led= new LedLetter(settings, charGrid[rowIndex][columnIndex].ToString());
+                    tblLayout.Controls.Add(led, columnIndex, rowIndex);
                 }
             }
 
+            //Resize += PositionLayout;
         }
 
         private void SetTime(WordClockSettings settings, bool force = false)
@@ -110,20 +100,24 @@ namespace TimeInWordsScreensaver
                 {
                     for (int columnIndex = 0; columnIndex < tblLayout.ColumnCount; columnIndex++)
                     {
-                        Label lbl = tblLayout.GetControlFromPosition(columnIndex, rowIndex) as Label;
-                        bool active = bitMask[rowIndex][columnIndex];
-                        if (active)
+                        if (tblLayout.GetControlFromPosition(columnIndex, rowIndex) is LedLetter led)
                         {
-                            lbl.ForeColor = settings.ActiveFontColour;
-                        }
-                        else
-                        {
-                            lbl.ForeColor = settings.InactiveFontColour;
+                            led.Active = bitMask[rowIndex][columnIndex];
                         }
                     }
                 }
 
             }
+        }
+
+        private void PositionLayout(object sender, EventArgs args)
+        {
+            // FIXME doesn't work
+            //tblLayout.Location = new Point(
+            //    ClientSize.Width / 2 - tblLayout.Size.Width / 2,
+            //    ClientSize.Height / 2 - tblLayout.Size.Height / 2);
+            //tblLayout.Anchor = AnchorStyles.None;
+            //tblLayout.Dock = DockStyle.Fill;
         }
 
         private void UpdateSettings(WordClockSettings settings)

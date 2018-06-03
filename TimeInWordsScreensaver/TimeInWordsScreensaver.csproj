@@ -45,6 +45,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LedLetter.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ScreensaverApplicationContext.cs" />
     <Compile Include="ScreenSaverForm.cs">
       <SubType>Form</SubType>

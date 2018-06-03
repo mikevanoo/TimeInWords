@@ -118,16 +118,13 @@ namespace TimeInWordsScreensaver
             }
 
             InitializeComponent();
-
+            
             IsScreensaver = isScreensaver;
             previewWndHandle = previewHandle;
             IsPreview = (previewHandle != default(IntPtr));
 
             //this.TimeLBL.Visible = (this.MySettingsMachine.ShowTimeBanner && !this.IsScreensaver);
-
-            // Use double buffering to improve drawing performance
-            SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint, true);
-
+            
             //this.MyWordClockControler = new WordClockControler(this.WordClockPNL, new TimeMachine(), this.MySettingsMachine, new Timer(), new NightModeController());
 
             //if (IsScreensaver && !IsPreview && this.MySettingsMachine.Animations)
@@ -135,7 +132,7 @@ namespace TimeInWordsScreensaver
             //    this.StartFading(true);
             //}
         }
-
+        
         #endregion
 
         #region Events
@@ -231,6 +228,18 @@ namespace TimeInWordsScreensaver
         }
 
         #endregion Fullscreen
+
+        #region Overrides
+
+        protected override CreateParams CreateParams {
+            get {
+                var cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000;    // Turn on WS_EX_COMPOSITED
+                return cp;
+            } 
+        }
+
+        #endregion
 
         #region Native
 

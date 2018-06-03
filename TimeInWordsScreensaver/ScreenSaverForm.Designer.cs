@@ -28,31 +28,35 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.wordClockPanel2 = new TimeInWordsScreensaver.WordClockPanel();
+            this.wordClockPanel = new TimeInWordsScreensaver.WordClockPanel();
             this.SuspendLayout();
             // 
-            // wordClockPanel2
+            // wordClockPanel
             // 
-            this.wordClockPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.wordClockPanel2.Location = new System.Drawing.Point(0, 0);
-            this.wordClockPanel2.Name = "wordClockPanel2";
-            this.wordClockPanel2.Size = new System.Drawing.Size(800, 450);
-            this.wordClockPanel2.TabIndex = 1;
+            this.wordClockPanel.BackColor = System.Drawing.Color.Black;
+            this.wordClockPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.wordClockPanel.Location = new System.Drawing.Point(0, 0);
+            this.wordClockPanel.Name = "wordClockPanel";
+            this.wordClockPanel.Size = new System.Drawing.Size(852, 688);
+            this.wordClockPanel.TabIndex = 1;
             // 
             // ScreenSaverForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.wordClockPanel2);
+            this.ClientSize = new System.Drawing.Size(852, 688);
+            this.Controls.Add(this.wordClockPanel);
+            this.DoubleBuffered = true;
             this.Name = "ScreenSaverForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Time in Words";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private WordClockPanel wordClockPanel2;
+        private WordClockPanel wordClockPanel;
     }
 }
 

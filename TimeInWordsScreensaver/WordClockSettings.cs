@@ -16,6 +16,6 @@ namespace TimeInWordsScreensaver
 
         public Color ActiveFontColour { get; set; } = Color.White;
 
-        public Color InactiveFontColour { get; set; } = Color.FromArgb(77, 77, 77);
+        public Color InactiveFontColour { get; set; } = Color.FromArgb(55, 55, 55);
     }
 }

@@ -63,14 +63,15 @@
             // 
             // tblLayout
             // 
+            this.tblLayout.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tblLayout.ColumnCount = 1;
             this.tblLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tblLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tblLayout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tblLayout.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
-            this.tblLayout.Location = new System.Drawing.Point(0, 0);
+            this.tblLayout.Location = new System.Drawing.Point(100, 100);
             this.tblLayout.Name = "tblLayout";
-            this.tblLayout.Padding = new System.Windows.Forms.Padding(100);
             this.tblLayout.RowCount = 1;
             this.tblLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tblLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
