@@ -81,7 +81,7 @@ namespace TimeInWordsScreensaver
                 }
             }
 
-            //Resize += PositionLayout;
+            Resize += PositionLayout;
         }
 
         private void SetTime(WordClockSettings settings, bool force = false)
@@ -113,11 +113,15 @@ namespace TimeInWordsScreensaver
         private void PositionLayout(object sender, EventArgs args)
         {
             // FIXME doesn't work
-            //tblLayout.Location = new Point(
-            //    ClientSize.Width / 2 - tblLayout.Size.Width / 2,
-            //    ClientSize.Height / 2 - tblLayout.Size.Height / 2);
-            //tblLayout.Anchor = AnchorStyles.None;
-            //tblLayout.Dock = DockStyle.Fill;
+            Form form = FindForm();
+            if (form != null)
+            {
+                tblLayout.Location = new Point(
+                    form.ClientSize.Width / 2 - tblLayout.Size.Width / 2,
+                    form.ClientSize.Height / 2 - tblLayout.Size.Height / 2);
+                tblLayout.Size = form.ClientSize;
+                Console.WriteLine(tblLayout.Location);
+            }
         }
 
         private void UpdateSettings(WordClockSettings settings)

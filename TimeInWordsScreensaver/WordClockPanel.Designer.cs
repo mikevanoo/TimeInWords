@@ -63,12 +63,11 @@
             // 
             // tblLayout
             // 
-            this.tblLayout.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tblLayout.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.tblLayout.ColumnCount = 1;
             this.tblLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tblLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tblLayout.Dock = System.Windows.Forms.DockStyle.None;
             this.tblLayout.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
             this.tblLayout.Location = new System.Drawing.Point(100, 100);
             this.tblLayout.Name = "tblLayout";

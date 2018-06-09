@@ -27,15 +27,9 @@ namespace TimeInWordsScreensaver
                     Bounds = Screen.PrimaryScreen.Bounds;
 
                     KeyDown += Screensaver_KeyDown;
-                    //this.WordClockPNL.KeyDown += this.Screensaver_KeyDown;
                     MouseMove += Screensaver_MouseMove;
-                    //this.WordClockPNL.MouseMove += this.Screensaver_MouseMove;
                     FormClosing += Screensaver_FormClosing;
-
-                    //this.TimeTMR.Tick -= this.TimeTMR_Tick;
-                    //this.OptionsBTN.Click -= this.OptionsBTN_Click;
                     MouseDoubleClick -= ToggleFullscreen;
-                    //this.WordClockPNL.MouseDoubleClick -= new System.Windows.Forms.MouseEventHandler(this.ToggleFullscreen);
                     KeyDown -= Window_KeyDown;
 
                     ShowInTaskbar = false;
@@ -47,15 +41,9 @@ namespace TimeInWordsScreensaver
                     ToggleFullscreen(FullscreenMode.PreventFullscreen);
 
                     KeyDown -= Screensaver_KeyDown;
-                    //this.WordClockPNL.KeyDown -= new System.Windows.Forms.KeyEventHandler(this.Screensaver_KeyDown);
                     MouseMove -= Screensaver_MouseMove;
-                    //this.WordClockPNL.MouseMove -= new System.Windows.Forms.MouseEventHandler(this.Screensaver_MouseMove);
                     FormClosing -= Screensaver_FormClosing;
-
-                    //this.TimeTMR.Tick += new System.EventHandler(this.TimeTMR_Tick);
-                    //this.OptionsBTN.Click += new System.EventHandler(this.OptionsBTN_Click);
                     MouseDoubleClick += ToggleFullscreen;
-                    //this.WordClockPNL.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.ToggleFullscreen);
                     KeyDown += Window_KeyDown;
 
                     ShowInTaskbar = true;
@@ -112,25 +100,11 @@ namespace TimeInWordsScreensaver
 
         public ScreenSaverForm(bool isScreensaver = false, IntPtr previewHandle = default(IntPtr))
         {
-            if (isScreensaver && !(previewHandle != default(IntPtr)))// && this.MySettingsMachine.Animations)
-            {
-                //this.Opacity = 0.0;
-            }
-
             InitializeComponent();
             
             IsScreensaver = isScreensaver;
             previewWndHandle = previewHandle;
             IsPreview = (previewHandle != default(IntPtr));
-
-            //this.TimeLBL.Visible = (this.MySettingsMachine.ShowTimeBanner && !this.IsScreensaver);
-            
-            //this.MyWordClockControler = new WordClockControler(this.WordClockPNL, new TimeMachine(), this.MySettingsMachine, new Timer(), new NightModeController());
-
-            //if (IsScreensaver && !IsPreview && this.MySettingsMachine.Animations)
-            //{
-            //    this.StartFading(true);
-            //}
         }
         
         #endregion
@@ -139,19 +113,9 @@ namespace TimeInWordsScreensaver
 
         private void Screensaver_KeyDown(object sender, KeyEventArgs e)
         {
-            if (IsScreensaver && !IsPreview)// && this.Fading != FadeMode.fadeOut)
+            if (IsScreensaver && !IsPreview)
             {
-                //if (this.MySettingsMachine.Animations)
-                //{
-                //    this.StartFading(false);
-                //}
-                //else
-                //{
-                    Close();
-                //}
-                //this.Hide();
-                //Application.Exit();
-
+                Close();
             }
         }
 
@@ -162,18 +126,9 @@ namespace TimeInWordsScreensaver
             //if so, the screen saver is ended.
             if ((OldX > 0 & OldY > 0) & (Math.Abs(e.X - OldX) > 3 | Math.Abs(e.Y - OldY) > 3))
             {
-                if (IsScreensaver && !IsPreview)// && this.Fading != FadeMode.fadeOut)
+                if (IsScreensaver && !IsPreview)
                 {
-                    //if (this.MySettingsMachine.Animations)
-                    //{
-                    //    this.StartFading(false);
-                    //}
-                    //else
-                    //{
-                        Close();
-                    //}
-                    //this.Hide();
-                    //Application.Exit();
+                    Close();
                 }
             }
 
@@ -207,16 +162,12 @@ namespace TimeInWordsScreensaver
                 FormBorderStyle = FormBorderStyle.None;
                 WindowState = FormWindowState.Maximized;
                 TopMost = true;
-                //OptionsBTN.Visible = false;
-                //this.TimeLBL.Visible = (this.MySettingsMachine.ShowTimeBanner && !this.IsScreensaver);
             }
             else
             {
                 FormBorderStyle = FormBorderStyle.Sizable;
                 WindowState = FormWindowState.Normal;
                 TopMost = false;
-                //OptionsBTN.Visible = !(this.IsScreensaver);
-                //this.TimeLBL.Visible = this.MySettingsMachine.ShowTimeBanner;
             }
         }
         private void Window_KeyDown(object sender, KeyEventArgs e)

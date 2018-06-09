@@ -86,8 +86,8 @@ namespace TimeInWordsScreensaver
                 return;
             }
             IntPtr previewWndHandle = new IntPtr(long.Parse(secondArgument));
-            ScreenSaverForm form = new ScreenSaverForm(false, previewWndHandle);
-            Application.Run(form);
+            ScreensaverApplicationContext context = new ScreensaverApplicationContext(false, previewWndHandle);
+            Application.Run(context);
         }
     }
 }
