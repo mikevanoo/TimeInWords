@@ -1,4 +1,7 @@
-﻿namespace TimeInWordsScreensaver
+﻿using System.Drawing;
+using System.Windows.Forms;
+
+namespace TimeInWordsScreensaver
 {
     partial class WordClockPanel
     {
@@ -44,6 +47,7 @@
             this.lblTime.Size = new System.Drawing.Size(53, 17);
             this.lblTime.TabIndex = 0;
             this.lblTime.Text = "lblTime";
+            this.lblTime.Visible = false;
             // 
             // lblTimeAsText
             // 
@@ -54,6 +58,7 @@
             this.lblTimeAsText.Size = new System.Drawing.Size(96, 17);
             this.lblTimeAsText.TabIndex = 0;
             this.lblTimeAsText.Text = "lblTimeAsText";
+            this.lblTime.Visible = false;
             // 
             // timer1
             // 
@@ -68,13 +73,15 @@
             this.tblLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tblLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tblLayout.Dock = System.Windows.Forms.DockStyle.None;
+            //this.tblLayout.BackColor = Color.Red;
+            this.tblLayout.Padding = new Padding(50);
             this.tblLayout.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
             this.tblLayout.Location = new System.Drawing.Point(100, 100);
             this.tblLayout.Name = "tblLayout";
             this.tblLayout.RowCount = 1;
             this.tblLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tblLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tblLayout.Size = new System.Drawing.Size(200, 100);
+            this.tblLayout.Size = new System.Drawing.Size(750,600);
             this.tblLayout.TabIndex = 0;
             // 
             // WordClockPanel

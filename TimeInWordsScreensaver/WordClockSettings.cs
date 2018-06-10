@@ -8,7 +8,7 @@ using TimeToTextLib;
 
 namespace TimeInWordsScreensaver
 {
-    internal class WordClockSettings
+    public class WordClockSettings
     {
         public LanguagePreset.Language Language { get; set; } = LanguagePreset.Language.English;
 
@@ -17,5 +17,7 @@ namespace TimeInWordsScreensaver
         public Color ActiveFontColour { get; set; } = Color.White;
 
         public Color InactiveFontColour { get; set; } = Color.FromArgb(55, 55, 55);
+
+        public bool Debug { get; set; } = false;
     }
 }

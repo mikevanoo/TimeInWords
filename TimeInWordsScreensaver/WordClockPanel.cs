@@ -32,11 +32,11 @@ namespace TimeInWordsScreensaver
 
         #region Constructor
 
-        public WordClockPanel()
+        public WordClockPanel(WordClockSettings settings)
         {
             InitializeComponent();
             
-            Settings = new WordClockSettings();
+            Settings = settings;
             Initialise(Settings);
         }
 
@@ -55,12 +55,16 @@ namespace TimeInWordsScreensaver
 
         private void Initialise(WordClockSettings settings)
         {
+            lblTime.Visible = settings.Debug;
+            lblTimeAsText.Visible = settings.Debug;
             BuildGrid(settings);
             SetTime(settings, true);
         }
 
         private void BuildGrid(WordClockSettings settings)
         {
+            BackColor = settings.BackgroundColour;
+
             tblLayout.RowStyles.Clear();
             tblLayout.RowStyles.Add(new RowStyle(SizeType.Percent));
             tblLayout.ColumnStyles.Clear();
@@ -82,6 +86,9 @@ namespace TimeInWordsScreensaver
             }
 
             Resize += PositionLayout;
+
+            // set initial position
+            PositionLayout(this, EventArgs.Empty);
         }
 
         private void SetTime(WordClockSettings settings, bool force = false)
@@ -113,15 +120,9 @@ namespace TimeInWordsScreensaver
         private void PositionLayout(object sender, EventArgs args)
         {
             // FIXME doesn't work
-            Form form = FindForm();
-            if (form != null)
-            {
-                tblLayout.Location = new Point(
-                    form.ClientSize.Width / 2 - tblLayout.Size.Width / 2,
-                    form.ClientSize.Height / 2 - tblLayout.Size.Height / 2);
-                tblLayout.Size = form.ClientSize;
-                Console.WriteLine(tblLayout.Location);
-            }
+            tblLayout.Location = new Point(
+                    ClientSize.Width / 2 - tblLayout.Size.Width / 2,
+                    ClientSize.Height / 2 - tblLayout.Size.Height / 2);
         }
 
         private void UpdateSettings(WordClockSettings settings)

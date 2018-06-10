@@ -12,12 +12,12 @@ namespace TimeInWordsScreensaver
     {
         private readonly List<Form> _forms = new List<Form>();
         
-        public ScreensaverApplicationContext(bool isScreensaver = false, IntPtr previewHandle = default(IntPtr))
+        public ScreensaverApplicationContext(WordClockSettings settings, bool isScreensaver = false, IntPtr previewHandle = default(IntPtr))
             : base()
         {
             foreach (Screen screen in Screen.AllScreens)
             {
-                ScreenSaverForm form = new ScreenSaverForm(isScreensaver, previewHandle);
+                ScreenSaverForm form = new ScreenSaverForm(settings, isScreensaver, previewHandle);
                 _forms.Add(form);
                 form.Closed += OnFormClosed;
                 

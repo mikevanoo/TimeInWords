@@ -28,17 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.wordClockPanel = new TimeInWordsScreensaver.WordClockPanel();
+            this.wordClockPanel = new TimeInWordsScreensaver.WordClockPanel(_settings);
             this.SuspendLayout();
             // 
             // wordClockPanel
             // 
             this.wordClockPanel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.wordClockPanel.BackColor = System.Drawing.Color.Black;
             this.wordClockPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.wordClockPanel.Location = new System.Drawing.Point(0, 0);
             this.wordClockPanel.Name = "wordClockPanel";
-            this.wordClockPanel.Size = new System.Drawing.Size(1024, 768);
+            //this.wordClockPanel.Size = new System.Drawing.Size(1024, 768);
             this.wordClockPanel.TabIndex = 1;
             // 
             // ScreenSaverForm

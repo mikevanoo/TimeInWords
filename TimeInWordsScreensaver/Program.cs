@@ -5,6 +5,8 @@ namespace TimeInWordsScreensaver
 {
     static class Program
     {
+        private static WordClockSettings _settings = new WordClockSettings();
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -68,13 +70,14 @@ namespace TimeInWordsScreensaver
 
         static void ShowScreenSaver()
         {
-            ScreensaverApplicationContext context = new ScreensaverApplicationContext(true);
+            ScreensaverApplicationContext context = new ScreensaverApplicationContext(_settings, true);
             Application.Run(context);
         }
 
         static void ShowProgram()
         {
-            ScreenSaverForm form = new ScreenSaverForm(false);
+            _settings.Debug = true;
+            ScreenSaverForm form = new ScreenSaverForm(_settings, false);
             Application.Run(form);
         }
 
@@ -86,7 +89,7 @@ namespace TimeInWordsScreensaver
                 return;
             }
             IntPtr previewWndHandle = new IntPtr(long.Parse(secondArgument));
-            ScreensaverApplicationContext context = new ScreensaverApplicationContext(false, previewWndHandle);
+            ScreensaverApplicationContext context = new ScreensaverApplicationContext(_settings, false, previewWndHandle);
             Application.Run(context);
         }
     }

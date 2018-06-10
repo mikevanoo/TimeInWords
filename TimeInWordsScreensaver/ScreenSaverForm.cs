@@ -9,6 +9,7 @@ namespace TimeInWordsScreensaver
     {
         #region Properties
 
+        private WordClockSettings _settings;
         private bool _isScreensaver = false;
         public bool IsScreensaver
         {
@@ -98,12 +99,14 @@ namespace TimeInWordsScreensaver
 
         #region Constructors
 
-        public ScreenSaverForm(bool isScreensaver = false, IntPtr previewHandle = default(IntPtr))
+        public ScreenSaverForm(WordClockSettings settings, bool isScreensaver = false, IntPtr previewHandle = default(IntPtr))
         {
+            _settings = settings;
+            previewWndHandle = previewHandle;
+
             InitializeComponent();
             
             IsScreensaver = isScreensaver;
-            previewWndHandle = previewHandle;
             IsPreview = (previewHandle != default(IntPtr));
         }
         
