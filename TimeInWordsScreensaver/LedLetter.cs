@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace TimeInWordsScreensaver
@@ -20,8 +16,12 @@ namespace TimeInWordsScreensaver
             {
                 if (_active != value)
                 {
+                    Color startColor = _active.HasValue && _active.Value ? _settings.ActiveFontColour : _settings.InactiveFontColour;
+                    Color endColor = value.HasValue && value.Value ? _settings.ActiveFontColour : _settings.InactiveFontColour;
+
                     _active = value;
-                    ForeColor = _active.HasValue && _active.Value ? _settings.ActiveFontColour : _settings.InactiveFontColour;
+                    
+                    ColorFader.SetControlForeColor(this, endColor);
                 }
             }
         }
@@ -41,7 +41,7 @@ namespace TimeInWordsScreensaver
             Font = new Font(FontFamily.GenericSansSerif, 25);
             TextAlign = ContentAlignment.MiddleCenter;
             Text = text;
-            ForeColor = _settings.ActiveFontColour;
+            ForeColor = _settings.InactiveFontColour;
             BackColor = _settings.BackgroundColour;
         }
     }

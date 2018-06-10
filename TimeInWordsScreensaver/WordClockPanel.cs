@@ -16,6 +16,7 @@ namespace TimeInWordsScreensaver
     {
         #region Member Data
 
+        private DateTime _debugDateTime = DateTime.Now;
         private WordClockSettings _settings;
 
         internal WordClockSettings Settings
@@ -35,7 +36,12 @@ namespace TimeInWordsScreensaver
         public WordClockPanel(WordClockSettings settings)
         {
             InitializeComponent();
-            
+
+            if (settings.Debug)
+            {
+                _debugDateTime = _debugDateTime.AddSeconds(0 - _debugDateTime.Second);
+            }
+
             Settings = settings;
             Initialise(Settings);
         }
@@ -92,6 +98,13 @@ namespace TimeInWordsScreensaver
         private void SetTime(WordClockSettings settings, bool force = false)
         {
             DateTime now = DateTime.Now;
+
+            if (settings.Debug)
+            {
+                // force the minutes to move forward with every tick
+                _debugDateTime = _debugDateTime.AddMinutes(1);
+                now = _debugDateTime;
+            }
             
             // debug
             lblTime.Text = now.ToLongTimeString();
