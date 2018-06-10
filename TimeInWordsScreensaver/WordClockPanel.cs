@@ -63,8 +63,6 @@ namespace TimeInWordsScreensaver
 
         private void BuildGrid(WordClockSettings settings)
         {
-            BackColor = settings.BackgroundColour;
-
             tblLayout.RowStyles.Clear();
             tblLayout.RowStyles.Add(new RowStyle(SizeType.Percent));
             tblLayout.ColumnStyles.Clear();
@@ -94,10 +92,15 @@ namespace TimeInWordsScreensaver
         private void SetTime(WordClockSettings settings, bool force = false)
         {
             DateTime now = DateTime.Now;
+            
+            // debug
             lblTime.Text = now.ToLongTimeString();
+            
             if (now.Second == 0 || force)
             {
                 TimeToTextFormat timeToText = TimeToText.GetSimple(settings.Language, now);
+
+                // debug
                 lblTimeAsText.Text = timeToText.ToString();
 
                 TimeGrid grid = TimeGrid.Get(settings.Language);
@@ -119,7 +122,6 @@ namespace TimeInWordsScreensaver
 
         private void PositionLayout(object sender, EventArgs args)
         {
-            // FIXME doesn't work
             tblLayout.Location = new Point(
                     ClientSize.Width / 2 - tblLayout.Size.Width / 2,
                     ClientSize.Height / 2 - tblLayout.Size.Height / 2);
