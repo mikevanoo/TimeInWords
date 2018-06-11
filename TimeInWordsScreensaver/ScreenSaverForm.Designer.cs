@@ -37,7 +37,6 @@
             this.wordClockPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.wordClockPanel.Location = new System.Drawing.Point(0, 0);
             this.wordClockPanel.Name = "wordClockPanel";
-            //this.wordClockPanel.Size = new System.Drawing.Size(1024, 768);
             this.wordClockPanel.TabIndex = 1;
             // 
             // ScreenSaverForm
@@ -47,9 +46,7 @@
             this.ClientSize = new System.Drawing.Size(1024, 768);
             this.Controls.Add(this.wordClockPanel);
             this.Name = "ScreenSaverForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Time in Words";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.ResumeLayout(false);
 
         }
