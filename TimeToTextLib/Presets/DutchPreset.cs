@@ -54,7 +54,7 @@ namespace TimeToTextLib.Presets
                     s.Append(Numbers[4] + " VOOR HALF " + Hour(hour + 1));
                     break;
                 case 30:
-                    s.Append("HALF " + Hour(hour + 1));
+                    s.Append("HALF " + Hour(hour));
                     break;
                 case 35:
                     s.Append(Numbers[4] + " OVER HALF " + Hour(hour + 1));

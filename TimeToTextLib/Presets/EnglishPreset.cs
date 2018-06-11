@@ -54,7 +54,7 @@ namespace TimeToTextLib.Presets
                     s.Append("TWENTYFIVE PAST " + Hour(hour));
                     break;
                 case 30:
-                    s.Append("HALF PAST " + Hour(hour + 1));
+                    s.Append("HALF PAST " + Hour(hour));
                     break;
                 case 35:
                     s.Append("TWENTYFIVE TO " + Hour(hour + 1));
