@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace TimeInWordsScreensaver
 {
-    internal sealed class LedLetter : Label
+    internal class LedLetter : Label
     {
         private readonly WordClockSettings _settings;
         private bool? _active;
@@ -16,7 +16,6 @@ namespace TimeInWordsScreensaver
             {
                 if (_active != value)
                 {
-                    Color startColor = _active.HasValue && _active.Value ? _settings.ActiveFontColour : _settings.InactiveFontColour;
                     Color endColor = value.HasValue && value.Value ? _settings.ActiveFontColour : _settings.InactiveFontColour;
 
                     _active = value;

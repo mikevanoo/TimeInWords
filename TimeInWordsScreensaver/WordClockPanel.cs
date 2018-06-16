@@ -29,6 +29,13 @@ namespace TimeInWordsScreensaver
             }
         }
 
+        private LedLight _additionalMinute1;
+        private LedLight _additionalMinute2;
+        private LedLight _additionalMinute3;
+        private LedLight _additionalMinute4;
+
+        delegate void LoopMainGridAction(int rowIndex, int columnIndex, int gridRowIndex, int gridColumnIndex);
+
         #endregion
 
         #region Constructor
@@ -77,17 +84,25 @@ namespace TimeInWordsScreensaver
             TimeGrid grid = TimeGrid.Get(settings.Language);
             char[][] charGrid = grid.CharGrid;
             
-            tblLayout.RowCount = TimeGrid.GridHeight;
-            tblLayout.ColumnCount = TimeGrid.GridWidth;
+            // +2 on the row and column counts to accommodate the additional minute LEDs
+            tblLayout.RowCount = TimeGrid.GridHeight + 2;
+            tblLayout.ColumnCount = TimeGrid.GridWidth + 2;
 
-            for (int rowIndex = 0; rowIndex < TimeGrid.GridHeight; rowIndex++)
+            // add the additional minute LEDs;
+            _additionalMinute1 = new LedLight(settings);
+            _additionalMinute2 = new LedLight(settings);
+            _additionalMinute3 = new LedLight(settings);
+            _additionalMinute4 = new LedLight(settings);
+            tblLayout.Controls.Add(_additionalMinute1, 0, 0);
+            tblLayout.Controls.Add(_additionalMinute2, tblLayout.ColumnCount - 1, 0);
+            tblLayout.Controls.Add(_additionalMinute3, 0, tblLayout.RowCount - 1);
+            tblLayout.Controls.Add(_additionalMinute4, tblLayout.ColumnCount - 1, tblLayout.RowCount - 1);
+            
+            LoopMainGrid((rowIndex, columnIndex, gridRowIndex, gridColumnIndex) =>
             {
-                for (int columnIndex = 0; columnIndex < TimeGrid.GridWidth; columnIndex++)
-                {
-                    LedLetter led= new LedLetter(settings, charGrid[rowIndex][columnIndex].ToString());
-                    tblLayout.Controls.Add(led, columnIndex, rowIndex);
-                }
-            }
+                LedLetter led = new LedLetter(settings, charGrid[gridRowIndex][gridColumnIndex].ToString());
+                tblLayout.Controls.Add(led, columnIndex, rowIndex);
+            });
 
             Resize += PositionLayout;
 
@@ -119,17 +134,20 @@ namespace TimeInWordsScreensaver
                 TimeGrid grid = TimeGrid.Get(settings.Language);
                 bool[][] bitMask = grid.GetBitMask(timeToText.TimeAsText, true).Mask;
 
-                for (int rowIndex = 0; rowIndex < tblLayout.RowCount; rowIndex++)
+                // activate the letter grid
+                LoopMainGrid((rowIndex, columnIndex, gridRowIndex, gridColumnIndex) =>
                 {
-                    for (int columnIndex = 0; columnIndex < tblLayout.ColumnCount; columnIndex++)
+                    if (tblLayout.GetControlFromPosition(columnIndex, rowIndex) is LedLetter led)
                     {
-                        if (tblLayout.GetControlFromPosition(columnIndex, rowIndex) is LedLetter led)
-                        {
-                            led.Active = bitMask[rowIndex][columnIndex];
-                        }
+                        led.Active = bitMask[gridRowIndex][gridColumnIndex];
                     }
-                }
+                });
 
+                // activate the additional minutes
+                _additionalMinute1.Active = timeToText.AdditionalMinutes >= 1;
+                _additionalMinute2.Active = timeToText.AdditionalMinutes >= 2;
+                _additionalMinute3.Active = timeToText.AdditionalMinutes >= 3;
+                _additionalMinute4.Active = timeToText.AdditionalMinutes >= 4;
             }
         }
 
@@ -148,6 +166,24 @@ namespace TimeInWordsScreensaver
             lblTimeAsText.ForeColor = settings.ActiveFontColour;
         }
 
+        /// <summary>
+        /// Loops the main grid.
+        /// </summary>
+        /// <param name="action">The action to execute for each cell in the main grid.</param>
+        private void LoopMainGrid(LoopMainGridAction action)
+        {
+            // the additional minute LEDs are in the first/last rows and columns
+            // the main grid starts in the 2nd row and column so start at index 1
+            for (int rowIndex = 1; rowIndex < TimeGrid.GridHeight + 1; rowIndex++)
+            {
+                for (int columnIndex = 1; columnIndex < TimeGrid.GridWidth + 1; columnIndex++)
+                {
+                    int gridRowIndex = rowIndex - 1;
+                    int gridColumnIndex = columnIndex - 1;
+                    action(rowIndex, columnIndex, gridRowIndex, gridColumnIndex);
+                }
+            }
+        }
 
         #endregion
     }

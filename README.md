@@ -1,5 +1,5 @@
 # Purpose
-A word clock screensaver. Still a work in progress...
+A word clock screensaver. See note about [code quality](https://mikevanoo.github.io/CodeQuality.html).
 
 Why? Because I like them and I want one. 
 

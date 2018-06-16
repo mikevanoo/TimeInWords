@@ -49,6 +49,9 @@
     <Compile Include="LedLetter.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="LedLight.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ScreensaverApplicationContext.cs" />
     <Compile Include="ScreenSaverForm.cs">
       <SubType>Form</SubType>

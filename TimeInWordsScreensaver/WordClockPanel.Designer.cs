@@ -73,7 +73,10 @@ namespace TimeInWordsScreensaver
             this.tblLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tblLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tblLayout.Dock = System.Windows.Forms.DockStyle.None;
+            
+            // change below for debug colour
             //this.tblLayout.BackColor = Color.Red;
+            
             this.tblLayout.Padding = new Padding(50);
             this.tblLayout.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
             this.tblLayout.Location = new System.Drawing.Point(100, 100);
@@ -81,7 +84,10 @@ namespace TimeInWordsScreensaver
             this.tblLayout.RowCount = 1;
             this.tblLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tblLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tblLayout.Size = new System.Drawing.Size(750,600);
+            
+            // change below for grid size
+            this.tblLayout.Size = new System.Drawing.Size(950,800);
+            
             this.tblLayout.TabIndex = 0;
             // 
             // WordClockPanel
