@@ -20,31 +20,18 @@ namespace TimeToTextLib.Presets
                 hour -= 12;
 
             int minute = time.Minute;
-            int additionalMinutes;
 
-            //round minute to multiple of five
-            if (minute >= 35)
-            {
-                //round up when at 35 minutes past or closer to the hour
-                minute = (int)(5.0d * (Math.Ceiling(Math.Abs(minute / 5.0d))));
+            //round minute to multiple of five, always down
+            minute = (int)(5.0d * (Math.Floor(Math.Abs(minute / 5.0d))));
+            
+            //if (minute == 0)
+            //{
+            //    minute = 55;
+            //    hour--;
+            //}
 
-                if (minute == 60)
-                {
-                    minute = 0;
-                    hour++;
-                }
-                
-                //now get the additional minutes, on top of the rounded value
-                additionalMinutes = minute - time.Minute;
-            }
-            else
-            {
-                //round down until 34 past the hour, when we start describing the time as "to" rather than "past"
-                minute = (int)(5.0d * (Math.Floor(Math.Abs(minute / 5.0d))));    
-                
-                //now get the additional minutes, on top of the rounded value
-                additionalMinutes = time.Minute - minute;
-            }
+            //now get the additional minutes, on top of the rounded value
+            int additionalMinutes = time.Minute - minute;
 
             switch (minute)
             {

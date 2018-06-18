@@ -118,9 +118,6 @@ namespace TimeInWordsScreensaver
             {
                 // force the minutes to move forward with every tick
                 _debugDateTime = _debugDateTime.AddMinutes(1);
-                
-                //_debugDateTime = new DateTime(2018,6,17,21,36,00);
-
                 now = _debugDateTime;
             }
             
