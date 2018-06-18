@@ -24,12 +24,6 @@ namespace TimeToTextLib.Presets
             //round minute to multiple of five, always down
             minute = (int)(5.0d * (Math.Floor(Math.Abs(minute / 5.0d))));
             
-            //if (minute == 0)
-            //{
-            //    minute = 55;
-            //    hour--;
-            //}
-
             //now get the additional minutes, on top of the rounded value
             int additionalMinutes = time.Minute - minute;
 

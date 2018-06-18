@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using TextToTimeGridLib;
 using TimeToTextLib;
@@ -95,8 +89,8 @@ namespace TimeInWordsScreensaver
             _additionalMinute4 = new LedLight(settings);
             tblLayout.Controls.Add(_additionalMinute1, 0, 0);
             tblLayout.Controls.Add(_additionalMinute2, tblLayout.ColumnCount - 1, 0);
-            tblLayout.Controls.Add(_additionalMinute3, 0, tblLayout.RowCount - 1);
-            tblLayout.Controls.Add(_additionalMinute4, tblLayout.ColumnCount - 1, tblLayout.RowCount - 1);
+            tblLayout.Controls.Add(_additionalMinute3, tblLayout.ColumnCount - 1, tblLayout.RowCount - 1);
+            tblLayout.Controls.Add(_additionalMinute4, 0, tblLayout.RowCount - 1);
             
             LoopMainGrid((rowIndex, columnIndex, gridRowIndex, gridColumnIndex) =>
             {
