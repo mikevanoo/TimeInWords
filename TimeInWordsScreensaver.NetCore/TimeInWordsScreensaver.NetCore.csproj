@@ -12,12 +12,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\TimeInWordsScreensaver\**\*.cs" />
-    <EmbeddedResource Include="..\TimeInWordsScreensaver\**\*.resx" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="..\TimeInWordsScreensaver\obj\Debug\**" />
+    <Compile Include="..\TimeInWordsScreensaver\*.cs" />
+    <EmbeddedResource Include="..\TimeInWordsScreensaver\*.resx" />
   </ItemGroup>
 
   <ItemGroup>
