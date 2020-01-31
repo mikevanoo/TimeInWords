@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <RootNamespace>TimeInWordsScreensaver</RootNamespace>
+    <AssemblyName>TimeInWordsScreensaver</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\TimeInWordsScreensaver\**\*.cs" />
+    <EmbeddedResource Include="..\TimeInWordsScreensaver\**\*.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="..\TimeInWordsScreensaver\obj\Debug\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TextToTimeGridLib\TextToTimeGridLib.csproj" />
+    <ProjectReference Include="..\TimeToTextLib\TimeToTextLib.csproj" />
+  </ItemGroup>
+
+</Project>
