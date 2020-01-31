@@ -9,11 +9,19 @@ Forked the "engine" from [https://github.com/TheBauwssss/TimeInWords](https://gi
 
 Added a new screensaver project, adapting portions from [https://github.com/sedrubal/WordClockScr](https://github.com/sedrubal/WordClockScr)
 
+# How To Use
+1. Clone the repo
+2. Build the source. For example, to build a self-contained .NET Core application:
+
+> dotnet build --configuration Release --runtime win-x64
+
+3. Locate the built .NET Core application, e.g. "TimeInWordsScreensaver.NetCore\bin\Release\netcoreapp3.1\win-x64\TimeInWordsScreensaver.exe"
+4. Rename "TimeInWordsScreensaver.exe" to "TimeInWordsScreensaver.scr"
+5. Right-click "TimeInWordsScreensaver.scr" and click "Install"
+
+&nbsp;  
+&nbsp;  
 Original TimeInWords README below...
-
-
-
-
 
 
 # TimeInWords
