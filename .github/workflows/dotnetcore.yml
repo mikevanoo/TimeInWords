@@ -17,4 +17,4 @@ jobs:
       with:
         dotnet-version: 5.0.100
     - name: Build with dotnet
-      run: dotnet build --configuration Release --runtime win-x64
+      run: dotnet build --configuration Release
