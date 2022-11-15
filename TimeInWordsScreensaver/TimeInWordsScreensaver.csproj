@@ -1,10 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net48</TargetFramework>
+    <TargetFramework>net481</TargetFramework>
     <AssemblyTitle>TimeInWordsScreensaver</AssemblyTitle>
     <UseWindowsForms>true</UseWindowsForms>
     <DebugType>full</DebugType>
+    <LangVersion>latestmajor</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Compile Update="LedLetter.cs">

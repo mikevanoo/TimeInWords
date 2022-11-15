@@ -1,9 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net48</TargetFramework>
+    <TargetFramework>net481</TargetFramework>
     <UseWPF>true</UseWPF>
     <DebugType>full</DebugType>
+    <LangVersion>latestmajor</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\TextToTimeGridLib\TextToTimeGridLib.csproj" />

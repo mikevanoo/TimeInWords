@@ -3,6 +3,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyTitle>TimeToTextLib</AssemblyTitle>
     <DebugType>full</DebugType>
+    <LangVersion>latestmajor</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

@@ -13,11 +13,16 @@ Added a new screensaver project, adapting portions from [https://github.com/sedr
 1. Clone the repo
 2. Build the source. For example, to build a self-contained .NET Core application:
 
-> dotnet build --configuration Release --runtime win-x64
+```
+cd TimeInWordsScreensaver.NetCore
+dotnet build --configuration Release --runtime win-x64 --self-contained
+```
 
-3. Locate the built .NET Core application, e.g. "TimeInWordsScreensaver.NetCore\bin\Release\netcoreapp3.1\win-x64\TimeInWordsScreensaver.exe"
+3. Locate the built .NET Core application, e.g. "TimeInWordsScreensaver.NetCore\bin\Release\net7.0-windows\win-x64\TimeInWordsScreensaver.exe"
 4. Rename "TimeInWordsScreensaver.exe" to "TimeInWordsScreensaver.scr"
 5. Right-click "TimeInWordsScreensaver.scr" and click "Install"
+
+![img.png](img.png)
 
 &nbsp;  
 &nbsp;  
