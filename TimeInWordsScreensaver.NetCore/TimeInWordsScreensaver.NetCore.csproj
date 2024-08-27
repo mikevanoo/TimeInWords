@@ -15,12 +15,18 @@
 
   <ItemGroup>
     <Compile Include="..\TimeInWordsScreensaver\*.cs" />
-    <EmbeddedResource Include="..\TimeInWordsScreensaver\*.resx" />
+    <EmbeddedResource Include="..\TimeInWordsScreensaver\*.resx" />   
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\TextToTimeGridLib\TextToTimeGridLib.csproj" />
     <ProjectReference Include="..\TimeToTextLib\TimeToTextLib.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="transparent-cursor.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

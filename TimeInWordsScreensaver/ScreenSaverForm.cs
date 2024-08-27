@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Drawing;
+using System.IO;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -23,26 +25,32 @@ namespace TimeInWordsScreensaver
                     Capture = true;
 
                     // Set the application to full screen mode and hide the mouse
-                    Cursor.Hide();
+                    ShowCursor(false);
                     ToggleFullscreen(FullscreenMode.ForceFullscreen);
                     Bounds = Screen.PrimaryScreen.Bounds;
 
                     KeyDown += Screensaver_KeyDown;
-                    MouseMove += Screensaver_MouseMove;
+                    if (!_settings.IsRunningOnMono())
+                    {
+                        MouseMove += Screensaver_MouseMove;
+                    }
                     FormClosing += Screensaver_FormClosing;
                     MouseDoubleClick -= ToggleFullscreen;
                     KeyDown -= Window_KeyDown;
-
+                    
                     ShowInTaskbar = false;
                 }
                 else
                 {
                     Capture = false;
-                    Cursor.Show();
+                    ShowCursor(true);
                     ToggleFullscreen(FullscreenMode.PreventFullscreen);
 
                     KeyDown -= Screensaver_KeyDown;
-                    MouseMove -= Screensaver_MouseMove;
+                    if (!_settings.IsRunningOnMono())
+                    {
+                        MouseMove -= Screensaver_MouseMove;
+                    }
                     FormClosing -= Screensaver_FormClosing;
                     MouseDoubleClick += ToggleFullscreen;
                     KeyDown += Window_KeyDown;
@@ -75,7 +83,7 @@ namespace TimeInWordsScreensaver
                     Size = ParentRect.Size;
                     Location = new Point(0, 0);
 
-                    Cursor.Show();
+                    ShowCursor(true);
                 }
                 else
                 {
@@ -92,6 +100,20 @@ namespace TimeInWordsScreensaver
                     //Size = ParentRect.Size;
                     //Location = new Point(0, 0);
                 }
+            }
+        }
+        
+        private void ShowCursor(bool show)
+        {
+            if (show)
+            {
+                Cursor = Cursors.Default;
+                Cursor.Show();
+            }
+            else
+            {
+                Cursor = new Cursor(Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "transparent-cursor.ico"));
+                Cursor.Hide();
             }
         }
 
@@ -142,7 +164,7 @@ namespace TimeInWordsScreensaver
 
         private void Screensaver_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Cursor.Show();
+            ShowCursor(true);
         }
 
         #endregion
@@ -194,6 +216,7 @@ namespace TimeInWordsScreensaver
         }
 
         #endregion
+
 
         #region Native
 

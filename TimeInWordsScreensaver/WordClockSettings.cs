@@ -19,5 +19,10 @@ namespace TimeInWordsScreensaver
         public Color InactiveFontColour { get; set; } = Color.FromArgb(55, 55, 55);
 
         public bool Debug { get; set; } = false;
+        
+        public bool IsRunningOnMono ()
+        {
+            return Type.GetType("Mono.Runtime") != null;
+        }
     }
 }
