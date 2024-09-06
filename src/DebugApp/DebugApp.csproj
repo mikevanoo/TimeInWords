@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TextToTimeGridLib\TextToTimeGridLib.csproj" />
+    <ProjectReference Include="..\TimeToTextLib\TimeToTextLib.csproj" />
+  </ItemGroup>
+
+</Project>

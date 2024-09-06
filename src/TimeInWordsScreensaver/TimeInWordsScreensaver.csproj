@@ -1,0 +1,62 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net481</TargetFramework>
+    <AssemblyTitle>TimeInWordsScreensaver</AssemblyTitle>
+    <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Update="LedLetter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="LedLight.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="ScreenSaverForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="ScreenSaverForm.Designer.cs">
+      <DependentUpon>ScreenSaverForm.cs</DependentUpon>
+    </Compile>
+    <Compile Update="WordClockPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="WordClockPanel.Designer.cs">
+      <DependentUpon>WordClockPanel.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Update="ScreenSaverForm.resx">
+      <DependentUpon>ScreenSaverForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="WordClockPanel.resx">
+      <DependentUpon>WordClockPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Update="transparent-cursor.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TextToTimeGridLib\TextToTimeGridLib.csproj" />
+    <ProjectReference Include="..\TimeToTextLib\TimeToTextLib.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+</Project>

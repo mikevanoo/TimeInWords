@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyTitle>TextToTimeGridLib</AssemblyTitle>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TimeToTextLib\TimeToTextLib.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+</Project>

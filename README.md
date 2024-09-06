@@ -22,7 +22,7 @@ dotnet build --configuration Release --runtime win-x64 --self-contained
 4. Rename "TimeInWordsScreensaver.exe" to "TimeInWordsScreensaver.scr"
 5. Right-click "TimeInWordsScreensaver.scr" and click "Install"
 
-![img.png](img.png)
+![time-in-words-screenshot.png](images/time-in-words-screenshot.png)
 
 &nbsp;  
 &nbsp;  

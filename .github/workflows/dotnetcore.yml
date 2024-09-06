@@ -1,9 +1,13 @@
-name: .NET Core Build
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: .NET
 
 on:
   push:
-    branches:
-    - master
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
 
 jobs:
   build:
@@ -11,10 +15,25 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 7.0.100
-    - name: Build with dotnet
-      run: dotnet build --configuration Release
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --no-restore
+
+      - name: Test
+        run: dotnet test --no-build --verbosity normal --logger trx --settings coverlet.runsettings
+
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action/windows@v2.17.1
+        if: always()
+        with:
+          files: |
+            tests\**\TestResults\**\*.trx
