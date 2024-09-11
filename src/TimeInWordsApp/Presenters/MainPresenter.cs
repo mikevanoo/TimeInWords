@@ -9,10 +9,11 @@ public class MainPresenter : ApplicationContext
 {
     private readonly List<IMainView> _views = new();
 
-    public MainPresenter(IMainView view, bool isDebug)
+    public MainPresenter(TimeInWordsSettings settings)
     {
-        if (isDebug)
+        if (settings.Debug)
         {
+            var view = new MainView(settings, false);
             view.Closed += OnMainViewClosed;
             view.Show();
         }
@@ -20,7 +21,7 @@ public class MainPresenter : ApplicationContext
         {
             foreach (var screen in Screen.AllScreens)
             {
-                var newMainView = view.CreateNewInstance(true);
+                var newMainView = new MainView(settings, true);
                 _views.Add(newMainView);
                 newMainView.Closed += OnMainViewClosed;
 
@@ -30,9 +31,6 @@ public class MainPresenter : ApplicationContext
                 newMainView.SetBounds(bounds.X, bounds.Y, bounds.Width, bounds.Height);
                 newMainView.Show();
             }
-
-            // close the view we were given because we spawned our own from it
-            view.Close();
         }
     }
 

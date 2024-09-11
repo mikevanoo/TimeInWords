@@ -55,8 +55,6 @@ public partial class MainView : Form, IMainView
         }
     }
 
-    public IMainView CreateNewInstance(bool isFullScreen) => new MainView(Settings, isFullScreen);
-
     public MainView(TimeInWordsSettings settings, bool isFullScreen)
     {
         Settings = settings;

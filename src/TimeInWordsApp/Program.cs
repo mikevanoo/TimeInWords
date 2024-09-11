@@ -1,7 +1,6 @@
 ﻿using System.Windows.Forms;
 using TimeInWordsApp;
 using TimeInWordsApp.Presenters;
-using TimeInWordsApp.Views;
 
 var settings = new TimeInWordsSettings();
 
@@ -47,7 +46,6 @@ static void ShowInDebugMode(TimeInWordsSettings settings)
 
 static void ShowTimeInWords(TimeInWordsSettings settings)
 {
-    var view = new MainView(settings, !settings.Debug);
-    var presenter = new MainPresenter(view, settings.Debug);
+    var presenter = new MainPresenter(settings);
     Application.Run(presenter);
 }

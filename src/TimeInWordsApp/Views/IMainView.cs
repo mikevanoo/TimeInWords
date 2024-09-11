@@ -9,7 +9,6 @@ public interface IMainView
     public bool IsFullScreen { get; set; }
     public FormStartPosition StartPosition { get; set; }
 
-    public IMainView CreateNewInstance(bool isFullScreen);
     public void SetBounds(int x, int y, int width, int height);
     public void Show();
     public void Close();
