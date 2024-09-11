@@ -33,7 +33,7 @@ namespace TimeInWordsApp.Views
             this.timeInWordsView = new TimeInWordsView();
             this.dateTimeProvider  = new DateTimeProvider();
             this.timer = new TimeInWordsTimer();
-            this.timeInWordsPresenter = new TimeInWordsPresenter(this.timeInWordsView, this._settings, this.dateTimeProvider, this.timer);
+            this.timeInWordsPresenter = new TimeInWordsPresenter(this.timeInWordsView, this.Settings, this.dateTimeProvider, this.timer);
             this.SuspendLayout();
             //
             // timeInWordsView
