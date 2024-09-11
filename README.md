@@ -16,7 +16,7 @@ Demonstrates:
 
 **(further details are TBC)**
 
-<img src="images/time-in-words-screenshot.png" alt="word clock screenshot" width="50%" height="50%">
+<img src="images/time-in-words-screenshot.png" alt="word clock screenshot" style="border: 1px solid darkgray;" width="50%" height="50%">
 
 # Word Clock Algorithm
 ![alt text](https://raw.githubusercontent.com/TheBauwssss/TimeInWords/master/images/window.png "Debug Window Preview")
