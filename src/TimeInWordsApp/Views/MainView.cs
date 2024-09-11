@@ -1,18 +1,17 @@
 ﻿using System;
-using System.Drawing;
 using System.IO;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace TimeInWordsApp.Views;
 
-public partial class MainView : Form
+public partial class MainView : Form, IMainView
 {
-    private readonly TimeInWordsSettings _settings;
-
     private bool _isFullScreen;
-    private bool IsFullScreen
+
+    public TimeInWordsSettings Settings { get; set; }
+
+    public bool IsFullScreen
     {
         get => _isFullScreen;
         set
@@ -25,12 +24,12 @@ public partial class MainView : Form
                 ToggleFullscreen(FullscreenMode.ForceFullscreen);
                 Bounds = Screen.PrimaryScreen.Bounds;
 
-                KeyDown += Screensaver_KeyDown;
+                KeyDown += MainView_KeyDown;
                 if (!TimeInWordsSettings.IsRunningOnMono())
                 {
-                    MouseMove += Screensaver_MouseMove;
+                    MouseMove += MainView_MouseMove;
                 }
-                FormClosing += Screensaver_FormClosing;
+                FormClosing += MainView_FormClosing;
                 MouseDoubleClick -= ToggleFullscreen;
                 KeyDown -= Window_KeyDown;
 
@@ -42,12 +41,12 @@ public partial class MainView : Form
                 ShowCursor(true);
                 ToggleFullscreen(FullscreenMode.PreventFullscreen);
 
-                KeyDown -= Screensaver_KeyDown;
+                KeyDown -= MainView_KeyDown;
                 if (!TimeInWordsSettings.IsRunningOnMono())
                 {
-                    MouseMove -= Screensaver_MouseMove;
+                    MouseMove -= MainView_MouseMove;
                 }
-                FormClosing -= Screensaver_FormClosing;
+                FormClosing -= MainView_FormClosing;
                 MouseDoubleClick += ToggleFullscreen;
                 KeyDown += Window_KeyDown;
 
@@ -56,14 +55,14 @@ public partial class MainView : Form
         }
     }
 
-    public MainView(TimeInWordsSettings settings, bool isFullScreen = false)
+    public MainView(TimeInWordsSettings settings, bool isFullScreen)
     {
-        _settings = settings;
+        Settings = settings;
         InitializeComponent();
         IsFullScreen = isFullScreen;
     }
 
-    private void Screensaver_KeyDown(object sender, KeyEventArgs e)
+    private void MainView_KeyDown(object sender, KeyEventArgs e)
     {
         if (IsFullScreen)
         {
@@ -74,7 +73,7 @@ public partial class MainView : Form
     private static int _oldX;
     private static int _oldY;
 
-    private void Screensaver_MouseMove(object sender, MouseEventArgs e)
+    private void MainView_MouseMove(object sender, MouseEventArgs e)
     {
         // Determines whether the mouse was moved and whether the movement was large.
         // if so, the screen saver is ended.
@@ -91,7 +90,7 @@ public partial class MainView : Form
         _oldY = e.Y;
     }
 
-    private void Screensaver_FormClosing(object sender, FormClosingEventArgs e) => ShowCursor(true);
+    private void MainView_FormClosing(object sender, FormClosingEventArgs e) => ShowCursor(true);
 
     private void Window_KeyDown(object sender, KeyEventArgs e)
     {
@@ -148,6 +147,8 @@ public partial class MainView : Form
             FormBorderStyle = FormBorderStyle.None;
             WindowState = FormWindowState.Maximized;
             TopMost = true;
+            BringToFront();
+            Focus();
         }
         else
         {

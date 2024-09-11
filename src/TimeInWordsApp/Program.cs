@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 using TimeInWordsApp;
-using TimeInWordsApp.Views;
+using TimeInWordsApp.Presenters;
 
 var settings = new TimeInWordsSettings();
 
@@ -34,13 +34,18 @@ return;
 
 static void ShowFullScreen(TimeInWordsSettings settings)
 {
-    var context = new TimeInWordsApplicationContext(settings, true);
-    Application.Run(context);
+    settings.Debug = false;
+    ShowTimeInWords(settings);
 }
 
 static void ShowInDebugMode(TimeInWordsSettings settings)
 {
     settings.Debug = true;
-    var mainView = new MainView(settings);
-    Application.Run(mainView);
+    ShowTimeInWords(settings);
+}
+
+static void ShowTimeInWords(TimeInWordsSettings settings)
+{
+    var presenter = new MainPresenter(settings);
+    Application.Run(presenter);
 }
