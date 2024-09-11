@@ -7,14 +7,8 @@
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <RootNamespace>TimeInWordsScreensaver</RootNamespace>
-    <AssemblyName>TimeInWordsScreensaver</AssemblyName>
-  </PropertyGroup>
-
   <ItemGroup>
-    <Compile Include="..\TimeInWordsScreensaver\*.cs" />
-    <EmbeddedResource Include="..\TimeInWordsScreensaver\*.resx" />
+    <InternalsVisibleTo Include="TimeInWordsApp.Tests" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,6 +20,21 @@
     <None Update="transparent-cursor.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\TimeInWordsView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Controls\LedLetter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Controls\LedLight.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Views\MainView.cs">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
 
 </Project>
