@@ -1,37 +1,24 @@
-# Purpose
-A word clock screensaver. See note about [code quality](https://mikevanoo.github.io/CodeQuality.html).
+# Overview
 
-Why? Because I like them and I want one. 
+A [QLOCKTWO](https://www.qlocktwo.com/en-de/earth/90/black-pepper)-inspired full-screen/screensaver application,
+adapting portions from [https://github.com/sedrubal/WordClockScr](https://github.com/sedrubal/WordClockScr).
 
-Why not just use an existing implementation? I wanted to adapt the implementation a bit myself and the ones I've found are either not in English (I'm mono-lingual) or the code is not to my liking. 
-
-Forked the "engine" from [https://github.com/TheBauwssss/TimeInWords](https://github.com/TheBauwssss/TimeInWords)
-
-Added a new screensaver project, adapting portions from [https://github.com/sedrubal/WordClockScr](https://github.com/sedrubal/WordClockScr)
-
-# How To Use
-1. Clone the repo
-2. Build the source. For example, to build a self-contained .NET Core application:
-
-```
-cd TimeInWordsScreensaver.NetCore
-dotnet build --configuration Release --runtime win-x64 --self-contained
-```
-
-3. Locate the built .NET Core application, e.g. "TimeInWordsScreensaver.NetCore\bin\Release\net7.0-windows\win-x64\TimeInWordsScreensaver.exe"
-4. Rename "TimeInWordsScreensaver.exe" to "TimeInWordsScreensaver.scr"
-5. Right-click "TimeInWordsScreensaver.scr" and click "Install"
-
-![time-in-words-screenshot.png](images/time-in-words-screenshot.png)
-
-&nbsp;  
-&nbsp;  
-Original TimeInWords README below...
+Uses and includes a multilingual implementation of a word clock algorithm that converts a timestamp to its text 
+representation and then to a bit-mask for an LED grid. Currently supports English and Dutch. Includes a fork the 
+original work from [https://github.com/TheBauwssss/TimeInWords](https://github.com/TheBauwssss/TimeInWords) with enhancements and additions.
 
 
-# TimeInWords
-Multilingual implementation of a word clock algorithm. Converts a timestamp to its text representation and then to a bit-mask for an LED grid. Currently supports English and Dutch. 
+Demonstrates:
+- (TBC)
 
+
+## Full-screen/Screensaver Application
+
+**(further details are TBC)**
+
+<img src="images/time-in-words-screenshot.png" alt="word clock screenshot" style="border: 1px solid darkgray;" width="50%" height="50%">
+
+# Word Clock Algorithm
 ![alt text](https://raw.githubusercontent.com/TheBauwssss/TimeInWords/master/images/window.png "Debug Window Preview")
 
 ## Using the time-to-text functionality
@@ -39,7 +26,6 @@ Multilingual implementation of a word clock algorithm. Converts a timestamp to i
 ###### Code
 ```c#
 LanguagePreset.Language lang = LanguagePreset.Language.English;
-
 string text = TimeToText.GetSimple(lang, DateTime.Now);
 ```
 
@@ -55,9 +41,7 @@ IT IS A QUARTER PAST TEN
 ###### Code
 ```c#
 TimeGrid grid = new TimeGridEnglish();
-
 Bitmask bitmask = grid.GetBitMask("IT IS A QUARTER PAST TEN", true); //true: only accept exact word matches
-
 string result = grid.ToString(bitmask);
 ```
 
@@ -82,9 +66,7 @@ TENSEOCLOCK     11100000000     TEN........
 ###### Code
 ```c#
 TimeGrid grid = new TimeGridEnglish();
-
 Bitmask bitmask = grid.GetBitMask("HELLO", false); //false: accept partial matches
-
 string result = grid.ToString(bitmask);
 ```
 

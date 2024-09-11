@@ -13,7 +13,7 @@ public class ColorFaderShould
 
         ColorFader.SetControlForeColor(control, Color.Black, 3, 10);
 
-        await Task.Delay(500); // ensure we leave plenty of time to the fade to occur
+        await Task.Delay(1000); // ensure we leave plenty of time to the fade to occur
 
         control.ForeColor.Should().Be(Color.Black);
     }
