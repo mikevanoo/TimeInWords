@@ -16,9 +16,9 @@ public class TimeInWordsPresenterShould
         var now = DateTime.Now;
         dateTimeProvider.Now.Returns(now);
         var timer = Substitute.For<ITimer>();
-        var presenter = new TimeInWordsPresenter(view, settings, dateTimeProvider, timer);
+        _ = new TimeInWordsPresenter(view, settings, dateTimeProvider, timer);
 
-        view.Received(1).Initialise(presenter, settings, TimeGrid.Get(settings.Language));
+        view.Received(1).Initialise(settings, TimeGrid.Get(settings.Language));
         view.Time.Should().Be(now);
         view.TimeAsText.Should().NotBeNull();
         view.GridBitMask.Should().NotBeNull();

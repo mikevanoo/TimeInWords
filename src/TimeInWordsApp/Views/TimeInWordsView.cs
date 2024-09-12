@@ -3,15 +3,12 @@ using System.Drawing;
 using System.Windows.Forms;
 using TextToTimeGridLib;
 using TimeInWordsApp.Controls;
-using TimeInWordsApp.Presenters;
 using TimeToTextLib;
 
 namespace TimeInWordsApp.Views;
 
 public partial class TimeInWordsView : Panel, ITimeInWordsView
 {
-    private TimeInWordsPresenter Presenter { get; set; }
-
     private TimeInWordsSettings _settings;
     private TimeInWordsSettings Settings
     {
@@ -38,9 +35,8 @@ public partial class TimeInWordsView : Panel, ITimeInWordsView
     public TimeToTextFormat TimeAsText { get; set; }
     public bool[][] GridBitMask { get; set; }
 
-    public void Initialise(TimeInWordsPresenter presenter, TimeInWordsSettings settings, TimeGrid grid)
+    public void Initialise(TimeInWordsSettings settings, TimeGrid grid)
     {
-        Presenter = presenter;
         Settings = settings;
         Grid = grid;
 
