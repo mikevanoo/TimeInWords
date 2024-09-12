@@ -26,10 +26,8 @@ public class MainPresenter : ApplicationContext
                 newMainView.Closed += OnMainViewClosed;
 
                 // position the view on the relevant screen
-                newMainView.StartPosition = FormStartPosition.Manual;
                 var bounds = screen.Bounds;
-                newMainView.SetBounds(bounds.X, bounds.Y, bounds.Width, bounds.Height);
-                newMainView.Show();
+                newMainView.Show(bounds.X, bounds.Y, bounds.Width, bounds.Height);
             }
         }
     }
