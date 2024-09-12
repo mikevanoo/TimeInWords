@@ -9,11 +9,11 @@ public class MainPresenter : ApplicationContext
 {
     private readonly List<IMainView> _views = new();
 
-    public MainPresenter(TimeInWordsSettings settings)
+    public MainPresenter(TimeInWordsSettings settings, IMainViewFactory viewFactory)
     {
         if (settings.Debug)
         {
-            var view = new MainView(settings, false);
+            var view = viewFactory.Create(settings, false);
             view.Closed += OnMainViewClosed;
             view.Show();
         }
@@ -21,7 +21,7 @@ public class MainPresenter : ApplicationContext
         {
             foreach (var screen in Screen.AllScreens)
             {
-                var newMainView = new MainView(settings, true);
+                var newMainView = viewFactory.Create(settings, true);
                 _views.Add(newMainView);
                 newMainView.Closed += OnMainViewClosed;
 
