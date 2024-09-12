@@ -39,11 +39,13 @@ public class TimeInWordsPresenterShould
         timer.Enabled.Should().BeTrue();
     }
 
-    [Fact]
-    public void UpdateTheViewFromTimerTickEvent()
+    [Theory]
+    [InlineData(false, 0)]
+    [InlineData(true, 2)]
+    public void UpdateTheViewFromTimerTickEvent(bool debug, int expectedAdditionalMinutes)
     {
         var view = Substitute.For<ITimeInWordsView>();
-        var settings = new TimeInWordsSettings();
+        var settings = new TimeInWordsSettings { Debug = debug };
         var dateTimeProvider = Substitute.For<IDateTimeProvider>();
         var timer = Substitute.For<ITimer>();
 
@@ -51,7 +53,7 @@ public class TimeInWordsPresenterShould
 
         timer.Tick += Raise.Event();
 
-        view.Time.Should().Be(dateTimeProvider.Now);
+        view.Time.Should().Be(dateTimeProvider.Now.AddMinutes(expectedAdditionalMinutes));
         view.TimeAsText.Should().NotBeNull();
         view.GridBitMask.Should().NotBeNull();
         view.Received(1).Update(true);
