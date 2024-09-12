@@ -9,11 +9,11 @@ public class MainPresenter : ApplicationContext
 {
     private readonly List<IMainView> _views = new();
 
-    public MainPresenter(TimeInWordsSettings settings)
+    public MainPresenter(TimeInWordsSettings settings, IMainViewFactory viewFactory)
     {
         if (settings.Debug)
         {
-            var view = new MainView(settings, false);
+            var view = viewFactory.Create(settings, false);
             view.Closed += OnMainViewClosed;
             view.Show();
         }
@@ -21,15 +21,13 @@ public class MainPresenter : ApplicationContext
         {
             foreach (var screen in Screen.AllScreens)
             {
-                var newMainView = new MainView(settings, true);
+                var newMainView = viewFactory.Create(settings, true);
                 _views.Add(newMainView);
                 newMainView.Closed += OnMainViewClosed;
 
                 // position the view on the relevant screen
-                newMainView.StartPosition = FormStartPosition.Manual;
                 var bounds = screen.Bounds;
-                newMainView.SetBounds(bounds.X, bounds.Y, bounds.Width, bounds.Height);
-                newMainView.Show();
+                newMainView.Show(bounds.X, bounds.Y, bounds.Width, bounds.Height);
             }
         }
     }

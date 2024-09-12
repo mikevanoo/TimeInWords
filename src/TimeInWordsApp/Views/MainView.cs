@@ -9,9 +9,9 @@ public partial class MainView : Form, IMainView
 {
     private bool _isFullScreen;
 
-    public TimeInWordsSettings Settings { get; set; }
+    private TimeInWordsSettings Settings { get; set; }
 
-    public bool IsFullScreen
+    private bool IsFullScreen
     {
         get => _isFullScreen;
         set
@@ -60,6 +60,13 @@ public partial class MainView : Form, IMainView
         Settings = settings;
         InitializeComponent();
         IsFullScreen = isFullScreen;
+    }
+
+    public void Show(int x, int y, int width, int height)
+    {
+        StartPosition = FormStartPosition.Manual;
+        SetBounds(x, y, width, height);
+        Show();
     }
 
     private void MainView_KeyDown(object sender, KeyEventArgs e)
