@@ -30,7 +30,7 @@ public class TimeInWordsPresenter() : IDisposable
         _debugDateTime = _debugDateTime.AddSeconds(0 - _debugDateTime.Second);
 
         _grid = TimeGrid.Get(_settings.Language);
-        _view.Initialise(this, _settings, _grid);
+        _view.Initialise(_settings, _grid);
         UpdateView(true);
 
         _timer = timer;
