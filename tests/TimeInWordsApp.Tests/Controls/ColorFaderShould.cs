@@ -11,7 +11,7 @@ public class ColorFaderShould
         var control = Substitute.For<IFadeableControl>();
         control.ForeColor = Color.White;
 
-        ColorFader.SetControlForeColor(control, Color.Black, 3, 10);
+        ColorFader.SetControlForeColor(control, Color.Black, 3, 0);
 
         await Task.Delay(1000); // ensure we leave plenty of time to the fade to occur
 
