@@ -11,8 +11,12 @@ namespace TimeInWordsScreensaver
     internal class ScreensaverApplicationContext : ApplicationContext
     {
         private readonly List<Form> _forms = new List<Form>();
-        
-        public ScreensaverApplicationContext(WordClockSettings settings, bool isScreensaver = false, IntPtr previewHandle = default(IntPtr))
+
+        public ScreensaverApplicationContext(
+            WordClockSettings settings,
+            bool isScreensaver = false,
+            IntPtr previewHandle = default(IntPtr)
+        )
             : base()
         {
             foreach (Screen screen in Screen.AllScreens)
@@ -20,7 +24,7 @@ namespace TimeInWordsScreensaver
                 ScreenSaverForm form = new ScreenSaverForm(settings, isScreensaver, previewHandle);
                 _forms.Add(form);
                 form.Closed += OnFormClosed;
-                
+
                 // position the form on the relevant screen
                 form.StartPosition = FormStartPosition.Manual;
                 Rectangle bounds = screen.Bounds;
@@ -28,8 +32,8 @@ namespace TimeInWordsScreensaver
                 form.Show();
             }
         }
-        
-        private void OnFormClosed(object sender, EventArgs e) 
+
+        private void OnFormClosed(object sender, EventArgs e)
         {
             // if one form closes, close all of them and then exit
             foreach (Form form in _forms)

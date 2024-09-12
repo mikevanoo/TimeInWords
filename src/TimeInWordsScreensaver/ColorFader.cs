@@ -34,7 +34,7 @@ namespace TimeInWordsScreensaver
                 }
             });
         }
-        
+
         private ColorFader(Control control, Color from, Color to, uint intervals)
         {
             _control = control ?? throw new ArgumentNullException(nameof(control));
@@ -43,7 +43,7 @@ namespace TimeInWordsScreensaver
             {
                 throw new ArgumentException($"{nameof(intervals)} must be a positive number");
             }
-                
+
             _from = from;
             _to = to;
             _intervals = intervals;
@@ -57,7 +57,11 @@ namespace TimeInWordsScreensaver
         {
             for (uint i = 0; i < _intervals; ++i)
             {
-                yield return Color.FromArgb((int)(_from.R + i * _stepR), (int)(_from.G + i * _stepG), (int)(_from.B + i * _stepB));
+                yield return Color.FromArgb(
+                    (int)(_from.R + i * _stepR),
+                    (int)(_from.G + i * _stepG),
+                    (int)(_from.B + i * _stepB)
+                );
             }
             yield return _to; // make sure we always return the exact target color last
         }
@@ -66,7 +70,13 @@ namespace TimeInWordsScreensaver
         {
             if (_control.InvokeRequired)
             {
-                _control.Invoke((MethodInvoker) delegate { _control.ForeColor = color; });
+                _control.Invoke(
+                    (MethodInvoker)
+                        delegate
+                        {
+                            _control.ForeColor = color;
+                        }
+                );
             }
             else
             {

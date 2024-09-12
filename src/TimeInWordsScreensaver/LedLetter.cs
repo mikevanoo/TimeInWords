@@ -16,19 +16,18 @@ namespace TimeInWordsScreensaver
             {
                 if (_active != value)
                 {
-                    Color endColor = value.HasValue && value.Value ? _settings.ActiveFontColour : _settings.InactiveFontColour;
+                    Color endColor =
+                        value.HasValue && value.Value ? _settings.ActiveFontColour : _settings.InactiveFontColour;
 
                     _active = value;
-                    
+
                     ColorFader.SetControlForeColor(this, endColor);
                 }
             }
         }
 
         public LedLetter()
-            : base()
-        {
-        }
+            : base() { }
 
         public LedLetter(WordClockSettings settings, string text)
             : this()
