@@ -6,6 +6,7 @@ using TimeInWordsApp.Views;
 var settings = new TimeInWordsSettings();
 
 Application.EnableVisualStyles();
+Application.SetCompatibleTextRenderingDefault(false);
 
 if (args.Length > 0)
 {
