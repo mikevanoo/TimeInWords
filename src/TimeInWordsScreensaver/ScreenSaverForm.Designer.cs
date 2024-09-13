@@ -30,20 +30,20 @@
         {
             this.wordClockPanel = new TimeInWordsScreensaver.WordClockPanel(_settings);
             this.SuspendLayout();
-            // 
+            //
             // wordClockPanel
-            // 
+            //
             this.wordClockPanel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.wordClockPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.wordClockPanel.Location = new System.Drawing.Point(0, 0);
             this.wordClockPanel.Name = "wordClockPanel";
             this.wordClockPanel.TabIndex = 1;
-            // 
+            //
             // ScreenSaverForm
-            // 
+            //
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1024, 768);
+            this.ClientSize = new System.Drawing.Size(1280, 1024);
             this.Controls.Add(this.wordClockPanel);
             this.Name = "ScreenSaverForm";
             this.Text = "Time in Words";

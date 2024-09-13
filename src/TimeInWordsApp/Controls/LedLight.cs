@@ -9,6 +9,6 @@ internal class LedLight : LedLetter
     {
         Height = 100;
         Width = 100;
-        Font = new Font("Arial Unicode MS", 10);
+        Font = new Font("Arial Unicode MS", 14);
     }
 }

@@ -69,16 +69,16 @@ namespace TimeInWordsApp.Views
             // change below for debug colour
             //this.tblLayout.BackColor = Color.Red;
 
-            this.tblLayout.Padding = new Padding(50);
+            this.tblLayout.Padding = new Padding(50,20,50,20);
             this.tblLayout.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
-            this.tblLayout.Location = new System.Drawing.Point(100, 100);
+            this.tblLayout.Location = new System.Drawing.Point(25, 25);
             this.tblLayout.Name = "tblLayout";
             this.tblLayout.RowCount = 1;
             this.tblLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tblLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tblLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
 
             // change below for grid size
-            this.tblLayout.Size = new System.Drawing.Size(950,800);
+            this.tblLayout.Size = new System.Drawing.Size(1200,1000);
 
             this.tblLayout.TabIndex = 0;
             //
