@@ -33,9 +33,9 @@ internal class LedLetter : Label, IFadeableControl
     {
         _settings = settings ?? throw new ArgumentNullException(nameof(settings));
 
-        Height = 50;
-        Width = 50;
-        Font = new Font(FontFamily.GenericSansSerif, 25);
+        Height = 75;
+        Width = 75;
+        Font = new Font(FontFamily.GenericSansSerif, 37.5f);
         TextAlign = ContentAlignment.MiddleCenter;
         Text = text;
         ForeColor = _settings.InactiveFontColour;

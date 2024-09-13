@@ -48,7 +48,7 @@ namespace TimeInWordsApp.Views
             //
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1024, 768);
+            this.ClientSize = new System.Drawing.Size(1280, 1024);
             this.Controls.Add(this.timeInWordsView);
             this.Name = "MainView";
             this.Text = "Time in Words";
