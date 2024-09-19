@@ -2,6 +2,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:views="using:TimeInWords.Views"
         mc:Ignorable="d" d:DesignWidth="640" d:DesignHeight="480"
         x:Class="TimeInWords.Views.MainView"
         Title="Time In Words"

@@ -2,7 +2,7 @@
 
 namespace TimeInWords;
 
-public interface ITimer : IDisposable
+public interface ITimer
 {
     public int Interval { get; set; }
     public event EventHandler Tick;
