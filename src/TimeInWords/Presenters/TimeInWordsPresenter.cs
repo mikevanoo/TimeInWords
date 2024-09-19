@@ -7,11 +7,11 @@ namespace TimeInWords.Presenters;
 
 public class TimeInWordsPresenter()
 {
-    private readonly ITimeInWordsView _view;
-    private readonly TimeInWordsSettings _settings;
-    private readonly IDateTimeProvider _dateTimeProvider;
-    private readonly ITimer _timer;
-    private readonly TimeGrid _grid;
+    private readonly ITimeInWordsView _view = null!;
+    private readonly TimeInWordsSettings _settings = null!;
+    private readonly IDateTimeProvider _dateTimeProvider = null!;
+    private readonly ITimer _timer = null!;
+    private readonly TimeGrid _grid = null!;
 
     private DateTime _debugDateTime;
 

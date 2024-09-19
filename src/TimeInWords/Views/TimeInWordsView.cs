@@ -9,9 +9,9 @@ namespace TimeInWords.Views;
 
 public class TimeInWordsView : Panel, ITimeInWordsView
 {
-    public DateTime Time { get; set; }
-    public TimeToTextFormat TimeAsText { get; set; }
-    public bool[][] GridBitMask { get; set; }
+    public DateTime Time { get; set; } = DateTime.Now;
+    public TimeToTextFormat TimeAsText { get; set; } = new();
+    public bool[][] GridBitMask { get; set; } = [];
 
     private readonly TextBlock _lblTime;
     private readonly TextBlock _lblTimeAsText;

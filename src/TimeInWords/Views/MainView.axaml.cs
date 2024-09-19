@@ -12,7 +12,7 @@ namespace TimeInWords.Views;
 
 public partial class MainView : Window, IMainView
 {
-    private TimeInWordsSettings Settings { get; set; }
+    private TimeInWordsSettings Settings { get; set; } = null!;
 
     private bool _isFullScreen;
     private bool IsFullScreen
@@ -47,6 +47,8 @@ public partial class MainView : Window, IMainView
             }
         }
     }
+
+    public MainView() { }
 
     public MainView(TimeInWordsSettings settings, bool isFullScreen)
     {
@@ -118,9 +120,6 @@ public partial class MainView : Window, IMainView
             case Key.Escape:
                 ToggleFullscreen(FullscreenMode.PreventFullscreen);
                 break;
-            default:
-                // do nothing
-                break;
         }
     }
 
@@ -167,9 +166,8 @@ public partial class MainView : Window, IMainView
         }
         else
         {
-            var bitMap = new Bitmap(
-                Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "transparent-cursor.ico")
-            );
+            var directoryPath = Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location) ?? string.Empty;
+            var bitMap = new Bitmap(Path.Combine(directoryPath, "transparent-cursor.ico"));
             var transparentCursor = new Cursor(bitMap, new PixelPoint(0, 0));
             Cursor = transparentCursor;
         }
