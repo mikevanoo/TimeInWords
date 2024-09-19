@@ -30,6 +30,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeInWordsApp", "src\TimeI
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeInWordsApp.Tests", "tests\TimeInWordsApp.Tests\TimeInWordsApp.Tests.csproj", "{F9C8FE4C-90D9-4CAF-9891-FC59295121D9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeInWords", "src\TimeInWords\TimeInWords.csproj", "{B96CF0B0-6DFD-4C05-BA94-A37336068FAE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -72,6 +74,10 @@ Global
 		{F9C8FE4C-90D9-4CAF-9891-FC59295121D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F9C8FE4C-90D9-4CAF-9891-FC59295121D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F9C8FE4C-90D9-4CAF-9891-FC59295121D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B96CF0B0-6DFD-4C05-BA94-A37336068FAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B96CF0B0-6DFD-4C05-BA94-A37336068FAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B96CF0B0-6DFD-4C05-BA94-A37336068FAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B96CF0B0-6DFD-4C05-BA94-A37336068FAE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -89,5 +95,6 @@ Global
 		{ED9C8794-86C0-44F6-ABA7-E2CF37462FDA} = {2F718C80-4964-4C5A-850A-D462543F0044}
 		{64CD9740-9A4B-477B-8C29-4DD86AD1E7CA} = {3BC83C9A-F6F0-4AA9-A378-8EAFCF1590AC}
 		{F9C8FE4C-90D9-4CAF-9891-FC59295121D9} = {2F718C80-4964-4C5A-850A-D462543F0044}
+		{B96CF0B0-6DFD-4C05-BA94-A37336068FAE} = {3BC83C9A-F6F0-4AA9-A378-8EAFCF1590AC}
 	EndGlobalSection
 EndGlobal
