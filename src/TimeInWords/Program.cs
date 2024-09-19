@@ -22,7 +22,33 @@ internal static class Program
         var cts = new CancellationTokenSource();
 
         // Do your startup code here
-        _ = new MainPresenter(new TimeInWordsSettings(), new MainViewFactory(), cts);
+        var settings = new TimeInWordsSettings();
+
+        if (args.Length > 0)
+        {
+            var firstArgument = args[0].ToLowerInvariant().Trim().Substring(0, 2);
+
+            switch (firstArgument)
+            {
+                case "/c":
+                case "/p":
+                    // Windows "Change Screensaver" dialog Settings and Preview modes respectively
+                    // Ignore
+                    break;
+                case "/s":
+                    settings.Debug = false;
+                    break;
+                default:
+                    settings.Debug = true;
+                    break;
+            }
+        }
+        else
+        {
+            settings.Debug = true;
+        }
+
+        _ = new MainPresenter(settings, new MainViewFactory(), cts);
 
         // Start the main loop
         app.Run(cts.Token);
