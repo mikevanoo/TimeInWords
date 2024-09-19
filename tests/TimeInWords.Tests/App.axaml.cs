@@ -1,7 +1,7 @@
 using Avalonia;
 using Avalonia.Markup.Xaml;
 
-namespace TimeInWords;
+namespace TimeInWords.Tests;
 
 public class App : Application
 {

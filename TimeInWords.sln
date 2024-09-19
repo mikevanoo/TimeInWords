@@ -28,7 +28,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextToTimeGridLib.Tests", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeInWordsApp", "src\TimeInWordsApp\TimeInWordsApp.csproj", "{64CD9740-9A4B-477B-8C29-4DD86AD1E7CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeInWordsApp.Tests", "tests\TimeInWordsApp.Tests\TimeInWordsApp.Tests.csproj", "{F9C8FE4C-90D9-4CAF-9891-FC59295121D9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeInWords.Tests", "tests\TimeInWords.Tests\TimeInWords.Tests.csproj", "{F9C8FE4C-90D9-4CAF-9891-FC59295121D9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeInWords", "src\TimeInWords\TimeInWords.csproj", "{B96CF0B0-6DFD-4C05-BA94-A37336068FAE}"
 EndProject
