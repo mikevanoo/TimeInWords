@@ -1,26 +1,67 @@
+using System;
+using System.Diagnostics;
+using System.IO;
+using System.Reflection;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Input;
+using Avalonia.Media.Imaging;
 using TimeInWords.Presenters;
 
 namespace TimeInWords.Views;
 
 public partial class MainView : Window, IMainView
 {
-    private ITimeInWordsView timeInWordsView;
-    private DateTimeProvider dateTimeProvider;
-    private ITimer timer;
-    private TimeInWordsPresenter timeInWordsPresenter;
+    private TimeInWordsSettings Settings { get; set; }
+
+    private bool _isFullScreen;
+    private bool IsFullScreen
+    {
+        get => _isFullScreen;
+        set
+        {
+            _isFullScreen = value;
+            if (value)
+            {
+                ShowCursor(false);
+                ToggleFullscreen(FullscreenMode.ForceFullscreen);
+                ShowInTaskbar = false;
+
+                PointerMoved += OnPointerMoved;
+                KeyDown += OnKeyDownFullScreen;
+
+                PointerPressed -= OnPointerPressed;
+                KeyDown -= OnKeyDownNotFullScreen;
+            }
+            else
+            {
+                ShowCursor(true);
+                ToggleFullscreen(FullscreenMode.PreventFullscreen);
+                ShowInTaskbar = true;
+
+                PointerPressed += OnPointerPressed;
+                KeyDown += OnKeyDownNotFullScreen;
+
+                PointerMoved -= OnPointerMoved;
+                KeyDown -= OnKeyDownFullScreen;
+            }
+        }
+    }
 
     public MainView(TimeInWordsSettings settings, bool isFullScreen)
     {
+        Settings = settings;
+
         InitializeComponent();
 
-        timeInWordsView = new TimeInWordsView();
+        ITimeInWordsView timeInWordsView = new TimeInWordsView();
         Content = timeInWordsView;
 
-        dateTimeProvider = new DateTimeProvider();
-        timer = new TimeInWordsTimer();
-        timeInWordsPresenter = new TimeInWordsPresenter(timeInWordsView, settings, dateTimeProvider, timer);
+        var dateTimeProvider = new DateTimeProvider();
+        ITimer timer = new TimeInWordsTimer();
+        _ = new TimeInWordsPresenter(timeInWordsView, Settings, dateTimeProvider, timer);
+
+        IsFullScreen = isFullScreen;
     }
 
     public void Show(int x, int y, int width, int height)
@@ -30,5 +71,107 @@ public partial class MainView : Window, IMainView
         Width = width;
         Height = height;
         Show();
+    }
+
+    private enum FullscreenMode
+    {
+        Nothing,
+        ForceFullscreen,
+        PreventFullscreen,
+    }
+
+    private void ToggleFullscreen(FullscreenMode mode = FullscreenMode.Nothing)
+    {
+        if (
+            (mode != FullscreenMode.PreventFullscreen && WindowState == WindowState.Normal)
+            || mode == FullscreenMode.ForceFullscreen
+        )
+        {
+            SystemDecorations = SystemDecorations.None;
+            WindowState = WindowState.Maximized;
+            Topmost = true;
+            Focus();
+        }
+        else
+        {
+            SystemDecorations = SystemDecorations.Full;
+            WindowState = WindowState.Normal;
+            Topmost = false;
+        }
+    }
+
+    private void OnKeyDownFullScreen(object? sender, KeyEventArgs e)
+    {
+        if (IsFullScreen)
+        {
+            Close();
+        }
+    }
+
+    private void OnKeyDownNotFullScreen(object? sender, KeyEventArgs e)
+    {
+        switch (e.Key)
+        {
+            case Key.F11:
+                ToggleFullscreen();
+                break;
+            case Key.Escape:
+                ToggleFullscreen(FullscreenMode.PreventFullscreen);
+                break;
+            default:
+                // do nothing
+                break;
+        }
+    }
+
+    private static double _oldX;
+    private static double _oldY;
+
+    private void OnPointerMoved(object? sender, PointerEventArgs e)
+    {
+        const int MovementThreshold = 25;
+
+        var position = e.GetPosition(this);
+
+        // Determines whether the mouse was moved and whether the movement was large.
+        // if so, the screen saver is ended.
+        if (
+            (_oldX > 0 & _oldY > 0)
+            & (Math.Abs(position.X - _oldX) > MovementThreshold | Math.Abs(position.Y - _oldY) > MovementThreshold)
+        )
+        {
+            if (IsFullScreen)
+            {
+                Close();
+            }
+        }
+
+        _oldX = position.X;
+        _oldY = position.Y;
+    }
+
+    private void OnPointerPressed(object? sender, PointerPressedEventArgs e)
+    {
+        // double-click?
+        if (e.ClickCount == 2)
+        {
+            ToggleFullscreen();
+        }
+    }
+
+    private void ShowCursor(bool show)
+    {
+        if (show)
+        {
+            Cursor = Cursor.Default;
+        }
+        else
+        {
+            var bitMap = new Bitmap(
+                Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "transparent-cursor.ico")
+            );
+            var transparentCursor = new Cursor(bitMap, new PixelPoint(0, 0));
+            Cursor = transparentCursor;
+        }
     }
 }
