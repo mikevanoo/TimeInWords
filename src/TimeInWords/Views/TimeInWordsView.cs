@@ -15,6 +15,7 @@ public class TimeInWordsView : Panel, ITimeInWordsView
 
     private readonly TextBlock _lblTime;
     private readonly TextBlock _lblTimeAsText;
+    private readonly Grid _grid;
 
     public TimeInWordsView()
     {
@@ -25,6 +26,16 @@ public class TimeInWordsView : Panel, ITimeInWordsView
 
         _lblTimeAsText = new TextBlock { Text = "(the time as text)" };
         stack.Children.Add(_lblTimeAsText);
+
+        _grid = new Grid
+        {
+            Width = 1200,
+            Height = 1000,
+            Background = Brushes.Green,
+        };
+        var test = new TextBlock { Text = "Hello" };
+        _grid.Children.Add(test);
+        stack.Children.Add(_grid);
 
         Children.Add(stack);
 
