@@ -1,6 +1,5 @@
 ﻿using System;
 using TextToTimeGridLib;
-using TimeInWordsApp.Presenters;
 using TimeToTextLib;
 
 namespace TimeInWordsApp.Views;

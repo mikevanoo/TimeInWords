@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Linq;
 using Avalonia.Controls;
 using Avalonia.Layout;
 using Avalonia.Media;
 using TextToTimeGridLib;
+using TimeInWords.Controls;
 using TimeToTextLib;
 
 namespace TimeInWords.Views;
@@ -29,14 +31,18 @@ public class TimeInWordsView : Panel, ITimeInWordsView
     }
     private TimeGrid TimeGrid { get; set; } = null!;
 
-    private TextBlock _additionalMinute1 = null!;
-    private TextBlock _additionalMinute2 = null!;
-    private TextBlock _additionalMinute3 = null!;
-    private TextBlock _additionalMinute4 = null!;
+    private LedLight _additionalMinute1 = null!;
+    private LedLight _additionalMinute2 = null!;
+    private LedLight _additionalMinute3 = null!;
+    private LedLight _additionalMinute4 = null!;
 
     public TimeInWordsView()
     {
-        var stack = new StackPanel();
+        var stack = new StackPanel
+        {
+            VerticalAlignment = VerticalAlignment.Center,
+            HorizontalAlignment = HorizontalAlignment.Center,
+        };
 
         TimeLabel = new TextBlock { Text = "(the time)" };
         stack.Children.Add(TimeLabel);
@@ -46,17 +52,14 @@ public class TimeInWordsView : Panel, ITimeInWordsView
 
         DisplayGrid = new Grid
         {
-            Width = 1200,
-            Height = 1000,
+            Width = 1000,
+            Height = 800,
             // DEBUG
-            Background = Brushes.Green,
+            // Background = Brushes.Green,
         };
         stack.Children.Add(DisplayGrid);
 
         Children.Add(stack);
-
-        // DEBUG
-        // Background = Brushes.Red;
     }
 
     public void Initialise(TimeInWordsSettings settings, TimeGrid grid)
@@ -78,23 +81,26 @@ public class TimeInWordsView : Panel, ITimeInWordsView
             TimeAsTextLabel.Text = TimeAsText.ToString();
 
             // activate the letter grid
-            // LoopMainGrid(
-            //     (rowIndex, columnIndex, gridRowIndex, gridColumnIndex) =>
-            //     {
-            //         if (tblLayout.GetControlFromPosition(columnIndex, rowIndex) is LedLetter led)
-            //         {
-            //             led.Active = GridBitMask[gridRowIndex][gridColumnIndex];
-            //         }
-            //     }
-            // );
+            LoopMainGrid(
+                (rowIndex, columnIndex, gridRowIndex, gridColumnIndex) =>
+                {
+                    if (GetControlAt(DisplayGrid, columnIndex, rowIndex) is LedLetter led)
+                    {
+                        led.Active = GridBitMask[gridRowIndex][gridColumnIndex];
+                    }
+                }
+            );
 
             // activate the additional minutes
-            // _additionalMinute1.Active = TimeAsText.AdditionalMinutes >= 1;
-            // _additionalMinute2.Active = TimeAsText.AdditionalMinutes >= 2;
-            // _additionalMinute3.Active = TimeAsText.AdditionalMinutes >= 3;
-            // _additionalMinute4.Active = TimeAsText.AdditionalMinutes >= 4;
+            _additionalMinute1.Active = TimeAsText.AdditionalMinutes >= 1;
+            _additionalMinute2.Active = TimeAsText.AdditionalMinutes >= 2;
+            _additionalMinute3.Active = TimeAsText.AdditionalMinutes >= 3;
+            _additionalMinute4.Active = TimeAsText.AdditionalMinutes >= 4;
         }
     }
+
+    private static Control? GetControlAt(Grid grid, int column, int row) =>
+        grid.Children.FirstOrDefault(control => Grid.GetColumn(control) == column && Grid.GetRow(control) == row);
 
     private void UpdateSettings(TimeInWordsSettings settings)
     {
@@ -119,11 +125,10 @@ public class TimeInWordsView : Panel, ITimeInWordsView
         }
 
         // add the additional minute LEDs
-        // TODO
-        _additionalMinute1 = new TextBlock { Text = "X" }; //new LedLight(Settings);
-        _additionalMinute2 = new TextBlock { Text = "X" }; //new LedLight(Settings);
-        _additionalMinute3 = new TextBlock { Text = "X" }; //new LedLight(Settings);
-        _additionalMinute4 = new TextBlock { Text = "X" }; //new LedLight(Settings);
+        _additionalMinute1 = new LedLight(Settings);
+        _additionalMinute2 = new LedLight(Settings);
+        _additionalMinute3 = new LedLight(Settings);
+        _additionalMinute4 = new LedLight(Settings);
 
         DisplayGrid.Children.Add(_additionalMinute1);
         Grid.SetRow(_additionalMinute1, 0);
@@ -145,9 +150,7 @@ public class TimeInWordsView : Panel, ITimeInWordsView
         LoopMainGrid(
             (rowIndex, columnIndex, gridRowIndex, gridColumnIndex) =>
             {
-                // TODO
-                // var led = new LedLetter(Settings, charGrid[gridRowIndex][gridColumnIndex].ToString());
-                var led = new TextBlock { Text = charGrid[gridRowIndex][gridColumnIndex].ToString() };
+                var led = new LedLetter(Settings, charGrid[gridRowIndex][gridColumnIndex].ToString());
                 DisplayGrid.Children.Add(led);
                 Grid.SetRow(led, rowIndex);
                 Grid.SetColumn(led, columnIndex);

@@ -69,9 +69,11 @@ public class TimeInWordsViewShould
     {
         var view = new TimeInWordsView();
         var settings = new TimeInWordsSettings { Debug = true };
-        view.Initialise(settings, new TimeGridEnglish());
+        var timeGridEnglish = new TimeGridEnglish();
+        view.Initialise(settings, timeGridEnglish);
         view.Time = DateTime.Now;
         view.TimeAsText = new TimeToTextFormat { TimeAsText = "the time as text", AdditionalMinutes = 1 };
+        view.GridBitMask = timeGridEnglish.GetBitMask(view.TimeAsText.ToString(), true).Mask;
 
         view.Update(true);
 
