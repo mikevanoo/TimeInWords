@@ -1,10 +1,9 @@
 ﻿using System;
 
-namespace TimeToTextLib
+namespace TimeToTextLib;
+
+public static class TimeToText
 {
-    public static class TimeToText
-    {
-        public static TimeToTextFormat GetSimple(LanguagePreset.Language lang, DateTime time) =>
-            LanguagePreset.Get(lang).Format(time);
-    }
+    public static TimeToTextFormat GetSimple(LanguagePreset.Language lang, DateTime time) =>
+        LanguagePreset.Get(lang).Format(time);
 }

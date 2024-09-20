@@ -7,16 +7,14 @@ Uses and includes a multilingual implementation of a word clock algorithm that c
 representation and then to a bit-mask for an LED grid. Currently supports English and Dutch. Includes a fork the 
 original work from [https://github.com/TheBauwssss/TimeInWords](https://github.com/TheBauwssss/TimeInWords) with enhancements and additions.
 
-
-Demonstrates:
-- (TBC)
-
+See [blog series](https://mikevanoo.co.uk/blog/modernise-crossplatform-windows-desktop-app-part1/) that discusses the solution in detail.
 
 ## Full-screen/Screensaver Application
 
-**(further details are TBC)**
-
 <img src="images/time-in-words-screenshot.png" alt="word clock screenshot" style="border: 1px solid darkgray;" width="50%" height="50%">
+
+- Targets .NET 8.0
+- Uses Avalonia to allow cross-platform use (tested on Windows and Raspberry Pi)
 
 # Word Clock Algorithm
 ![alt text](https://raw.githubusercontent.com/TheBauwssss/TimeInWords/master/images/window.png "Debug Window Preview")
