@@ -1,6 +1,4 @@
-﻿using System.Data;
-using Avalonia.Controls;
-using Avalonia.Headless.XUnit;
+﻿using Avalonia.Headless.XUnit;
 using Avalonia.Media;
 using TextToTimeGridLib;
 using TextToTimeGridLib.Grids;
