@@ -33,8 +33,8 @@ internal static class Program
                 case "/c":
                 case "/p":
                     // Windows "Change Screensaver" dialog Settings and Preview modes respectively
-                    // Ignore
-                    break;
+                    // Ignore and exit
+                    return;
                 case "/s":
                     settings.Debug = false;
                     break;
