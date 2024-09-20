@@ -89,7 +89,7 @@ public partial class MainView : Window, IMainView
         )
         {
             SystemDecorations = SystemDecorations.None;
-            WindowState = WindowState.Maximized;
+            WindowState = WindowState.FullScreen;
             Topmost = true;
             Focus();
         }
