@@ -1,30 +1,24 @@
 ﻿using System.Text;
 
-namespace TextToTimeGridLib
+namespace TextToTimeGridLib;
+
+public class Bitmask(bool[][] mask)
 {
-    public class Bitmask
+    public bool[][] Mask { get; } = mask;
+
+    public override string ToString()
     {
-        public bool[][] Mask { get; }
+        var sb = new StringBuilder();
 
-        public Bitmask(bool[][] mask)
+        foreach (var line in Mask)
         {
-            Mask = mask;
-        }
-
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-
-            foreach (var line in Mask)
+            foreach (var cell in line)
             {
-                foreach (var cell in line)
-                {
-                    sb.Append(cell ? "1" : "0");
-                }
-                sb.AppendLine();
+                sb.Append(cell ? "1" : "0");
             }
-
-            return sb.ToString();
+            sb.AppendLine();
         }
+
+        return sb.ToString();
     }
 }

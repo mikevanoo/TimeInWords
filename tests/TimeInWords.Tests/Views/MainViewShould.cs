@@ -30,7 +30,7 @@ public class MainViewShould
         view.IsVisible.Should().BeTrue();
         view.ShowInTaskbar.Should().BeFalse();
         view.SystemDecorations.Should().Be(SystemDecorations.None);
-        view.WindowState.Should().Be(WindowState.Maximized);
+        view.WindowState.Should().Be(WindowState.FullScreen);
         view.Topmost.Should().BeTrue();
     }
 
