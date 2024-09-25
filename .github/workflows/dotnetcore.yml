@@ -12,7 +12,7 @@ on:
 jobs:
   build:
 
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     permissions:
       checks: write
@@ -36,8 +36,8 @@ jobs:
         run: dotnet test --no-build --verbosity normal --logger trx --settings coverlet.runsettings
 
       - name: Publish Test Results
-        uses: EnricoMi/publish-unit-test-result-action/windows@v2.17.1
+        uses: EnricoMi/publish-unit-test-result-action@v2.17.1
         if: always()
         with:
           files: |
-            tests\**\TestResults\**\*.trx
+            tests/**/TestResults/**/*.trx
