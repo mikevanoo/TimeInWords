@@ -8,18 +8,18 @@
     <StackPanel Orientation="Vertical">
         <StackPanel Orientation="Horizontal" Margin="20">
             <StackPanel Spacing="10" Margin="20 0 20 20">
-                <Label x:Name="settingsLabel" Content="Settings &amp; Tools:" FontWeight="Bold" FontSize="16" />
-                <Button x:Name="button" Content="Export all possible values to clipboard" Click="button_Click"/>
+                <Label x:Name="SettingsLabel" Content="Settings &amp; Tools:" FontWeight="Bold" FontSize="16" />
+                <Button x:Name="ExportButton" Content="Export all possible values to clipboard" Click="ExportButton_Click"/>
                 <StackPanel Orientation="Horizontal">
-                    <Label x:Name="label" Content="Language" />
-                    <ComboBox x:Name="comboLanguage" VerticalAlignment="Top" Loaded="comboLanguage_Loaded" SelectionChanged="comboLanguage_SelectionChanged"/>
+                    <Label x:Name="LanguageLabel" Content="Language" />
+                    <ComboBox x:Name="LanguageCombo" VerticalAlignment="Top" Loaded="LanguageCombo_Loaded" SelectionChanged="LanguageCombo_SelectionChanged"/>
                 </StackPanel>
-                <CheckBox x:Name="checkBox" Content="Automagically advance the time every second" Checked="CheckBox_OnChecked"/>
-                <CheckBox x:Name="chkForce" Content="Force matches to whole words only" IsChecked="True"/>
+                <CheckBox x:Name="AdvanceEverySecond" Content="Automagically advance the time every second" IsChecked="True" IsCheckedChanged="CheckBox_IsCheckedChanged"/>
+                <CheckBox x:Name="ForceMatches" Content="Force matches to whole words only" IsChecked="True"/>
             </StackPanel>
-            <Label x:Name="lblGrid" Content="Label" FontFamily="Consolas"/>
+            <Label x:Name="Grid" Content="" FontFamily="Consolas"/>
         </StackPanel>
-        <Label x:Name="time" Content="" Height="95" Width="764" FontSize="36"/>
+        <Label x:Name="TimeAsText" Content="" Height="95" Width="764" FontSize="36"/>
     </StackPanel>
 </Window>
 

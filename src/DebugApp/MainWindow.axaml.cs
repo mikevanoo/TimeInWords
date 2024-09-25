@@ -27,47 +27,49 @@ public partial class MainWindow : Window
         timer.Interval = 1000;
         timer.Elapsed += Timer_Elapsed;
         timer.Start();
+        UpdateDisplay();
     }
 
-    private void Timer_Elapsed(object? sender, ElapsedEventArgs e) =>
-        Dispatcher.UIThread.InvokeAsync(() =>
+    private void Timer_Elapsed(object? sender, ElapsedEventArgs e) => Dispatcher.UIThread.InvokeAsync(UpdateDisplay);
+
+    private void UpdateDisplay()
+    {
+        if (AdvanceEverySecond.IsChecked == true)
         {
-            if (checkBox.IsChecked == true)
-            {
-                _time = _time.AddMinutes(1);
-                time.Content = TimeToText.GetSimple(_lang, _time).ToString();
-            }
-            else
-            {
-                time.Content = TimeToText.GetSimple(_lang, DateTime.Now).ToString();
-            }
+            _time = _time.AddMinutes(1);
+            TimeAsText.Content = TimeToText.GetSimple(_lang, _time).ToString();
+        }
+        else
+        {
+            TimeAsText.Content = TimeToText.GetSimple(_lang, DateTime.Now).ToString();
+        }
 
-            var mask = _grid.GetBitMask((string)time.Content, chkForce.IsChecked == true);
-            var gridString = _grid.ToString().Split('\n');
-            var maskString = mask.ToString().Split('\n');
-            var result = _grid.ToString(mask).Split('\n');
+        var mask = _grid.GetBitMask((string)TimeAsText.Content, ForceMatches.IsChecked == true);
+        var gridString = _grid.ToString().Split('\n');
+        var maskString = mask.ToString().Split('\n');
+        var result = _grid.ToString(mask).Split('\n');
 
-            var sb = new StringBuilder();
+        var sb = new StringBuilder();
 
-            sb.AppendLine("Clock grid\tBitmask\t\tResult");
-            sb.AppendLine();
+        sb.AppendLine("Clock grid\t Bitmask\t\tResult");
+        sb.AppendLine();
 
-            for (var i = 0; i < gridString.Length; i++)
-            {
-                var line = $"{gridString[i].Trim()}\t{maskString[i].Trim()}\t{result[i].Trim()}";
-                sb.AppendLine(line);
-            }
+        for (var i = 0; i < gridString.Length; i++)
+        {
+            var line = $"{gridString[i].Trim()}\t{maskString[i].Trim()}\t{result[i].Trim()}";
+            sb.AppendLine(line);
+        }
 
-            lblGrid.Content = sb.ToString();
-        });
+        Grid.Content = sb.ToString();
+    }
 
-    private void button_Click(object sender, RoutedEventArgs e)
+    private void ExportButton_Click(object sender, RoutedEventArgs e)
     {
         var b = new StringBuilder();
 
         for (var h = 0; h < 24; h++)
         {
-            for (var m = 0; m < 60; m += 5)
+            for (var m = 0; m < 60; m++)
             {
                 b.AppendLine(TimeToText.GetSimple(_lang, new DateTime(2000, 1, 1, h, m, 0)).ToString());
             }
@@ -82,16 +84,16 @@ public partial class MainWindow : Window
         });
     }
 
-    private void comboLanguage_Loaded(object sender, RoutedEventArgs e)
+    private void LanguageCombo_Loaded(object sender, RoutedEventArgs e)
     {
-        comboLanguage.Items.Add("English");
-        comboLanguage.Items.Add("Nederlands");
-        comboLanguage.SelectedIndex = 0;
+        LanguageCombo.Items.Add("English");
+        LanguageCombo.Items.Add("Nederlands");
+        LanguageCombo.SelectedIndex = 0;
     }
 
-    private void comboLanguage_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    private void LanguageCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if ((string)comboLanguage.SelectedValue == "English")
+        if (LanguageCombo.SelectedValue != null && (string)LanguageCombo.SelectedValue == "English")
         {
             _lang = LanguagePreset.Language.English;
             _grid = new TimeGridEnglish();
@@ -103,5 +105,5 @@ public partial class MainWindow : Window
         }
     }
 
-    private void CheckBox_OnChecked(object sender, RoutedEventArgs e) => _time = DateTime.Now;
+    private void CheckBox_IsCheckedChanged(object sender, RoutedEventArgs e) => _time = DateTime.Now;
 }
