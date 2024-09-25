@@ -1,5 +1,9 @@
-﻿using Avalonia.Controls;
+﻿using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Headless;
 using Avalonia.Headless.XUnit;
+using Avalonia.Input;
+using Avalonia.Threading;
 using TimeInWords.Views;
 
 namespace TimeInWords.Tests.Views;
@@ -7,7 +11,7 @@ namespace TimeInWords.Tests.Views;
 public class MainViewShould
 {
     [AvaloniaFact]
-    public void ShowTheViewNotFullScreen()
+    public void ShowTheViewWhenNotFullScreen()
     {
         var view = new MainView(new TimeInWordsSettings(), false);
 
@@ -21,7 +25,7 @@ public class MainViewShould
     }
 
     [AvaloniaFact]
-    public void ShowTheViewFullScreen()
+    public void ShowTheViewWhenFullScreen()
     {
         var view = new MainView(new TimeInWordsSettings(), true);
 
@@ -46,5 +50,82 @@ public class MainViewShould
         // view.Position.Should().BeEquivalentTo(new PixelPoint(50, 100));
         view.Width.Should().Be(500);
         view.Height.Should().Be(600);
+    }
+
+    [AvaloniaFact]
+    public void CloseTheViewOnKeyDownWhenFullScreen()
+    {
+        var view = new MainView(new TimeInWordsSettings(), true);
+        using var monitoredView = view.Monitor<IMainView>();
+        view.Show();
+
+        view.KeyPressQwerty(PhysicalKey.Escape, RawInputModifiers.None);
+
+        monitoredView.Should().Raise("Closed");
+    }
+
+    [AvaloniaFact]
+    public void CloseTheViewOnPointerMovedWhenFullScreen()
+    {
+        var view = new MainView(new TimeInWordsSettings(), true);
+        using var monitoredView = view.Monitor<IMainView>();
+        view.Show();
+
+        view.MouseMove(new Point(100, 100));
+        view.MouseMove(new Point(100, 126));
+
+        monitoredView.Should().Raise("Closed");
+    }
+
+    [AvaloniaFact]
+    public void ToggleFullScreenOnKeyDownF11WhenNotFullScreen()
+    {
+        var view = new MainView(new TimeInWordsSettings(), false);
+        view.Show();
+
+        view.KeyPressQwerty(PhysicalKey.F11, RawInputModifiers.None);
+        view.WindowState.Should().Be(WindowState.FullScreen);
+
+        view.KeyPressQwerty(PhysicalKey.F11, RawInputModifiers.None);
+        view.WindowState.Should().Be(WindowState.Normal);
+    }
+
+    [AvaloniaFact]
+    public void CloseFullScreenOnKeyDownEscapeWhenNotFullScreen()
+    {
+        var view = new MainView(new TimeInWordsSettings(), false);
+        view.Show();
+
+        view.KeyPressQwerty(PhysicalKey.F11, RawInputModifiers.None);
+        view.WindowState.Should().Be(WindowState.FullScreen);
+
+        view.KeyPressQwerty(PhysicalKey.Escape, RawInputModifiers.None);
+        view.WindowState.Should().Be(WindowState.Normal);
+    }
+
+    [AvaloniaFact]
+    public async Task ToggleFullScreenOnMouseDoubleClickWhenNotFullScreen()
+    {
+        var view = new MainView(new TimeInWordsSettings(), false);
+        using var monitoredView = view.Monitor<IMainView>();
+        view.Show();
+
+        DoubleClick();
+        view.WindowState.Should().Be(WindowState.FullScreen);
+
+        // simulate user delay
+        await Task.Delay(500);
+        Dispatcher.UIThread.RunJobs();
+
+        DoubleClick();
+        view.WindowState.Should().Be(WindowState.Normal);
+
+        return;
+
+        void DoubleClick()
+        {
+            view.MouseDown(new Point(100, 100), MouseButton.Left);
+            view.MouseDown(new Point(100, 100), MouseButton.Left);
+        }
     }
 }
