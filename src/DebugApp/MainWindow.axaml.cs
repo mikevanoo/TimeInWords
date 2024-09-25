@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Text;
 using System.Timers;
-using System.Windows;
+using Avalonia.Controls;
+using Avalonia.Interactivity;
+using Avalonia.Threading;
 using TextToTimeGridLib;
 using TextToTimeGridLib.Grids;
 using TimeToTextLib;
@@ -23,12 +25,12 @@ public partial class MainWindow : Window
     {
         var timer = new Timer();
         timer.Interval = 1000;
-        timer.Elapsed += T_Elapsed;
+        timer.Elapsed += Timer_Elapsed;
         timer.Start();
     }
 
-    private void T_Elapsed(object sender, ElapsedEventArgs e) =>
-        Dispatcher.Invoke(() =>
+    private void Timer_Elapsed(object? sender, ElapsedEventArgs e) =>
+        Dispatcher.UIThread.InvokeAsync(() =>
         {
             if (checkBox.IsChecked == true)
             {
@@ -71,7 +73,13 @@ public partial class MainWindow : Window
             }
         }
 
-        Clipboard.SetText(b.ToString());
+        Dispatcher.UIThread.InvokeAsync(async () =>
+        {
+            if (Clipboard != null)
+            {
+                await Clipboard.SetTextAsync(b.ToString());
+            }
+        });
     }
 
     private void comboLanguage_Loaded(object sender, RoutedEventArgs e)
@@ -81,7 +89,7 @@ public partial class MainWindow : Window
         comboLanguage.SelectedIndex = 0;
     }
 
-    private void comboLanguage_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+    private void comboLanguage_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         if ((string)comboLanguage.SelectedValue == "English")
         {

@@ -1,0 +1,26 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="DebugApp.MainWindow"
+        Title="MainWindow" Height="364.531" Width="790.343" Loaded="Window_Loaded">
+    <StackPanel Orientation="Vertical">
+        <StackPanel Orientation="Horizontal" Margin="20">
+            <StackPanel Spacing="10" Margin="20 0 20 20">
+                <Label x:Name="settingsLabel" Content="Settings &amp; Tools:" FontWeight="Bold" FontSize="16" />
+                <Button x:Name="button" Content="Export all possible values to clipboard" Click="button_Click"/>
+                <StackPanel Orientation="Horizontal">
+                    <Label x:Name="label" Content="Language" />
+                    <ComboBox x:Name="comboLanguage" VerticalAlignment="Top" Loaded="comboLanguage_Loaded" SelectionChanged="comboLanguage_SelectionChanged"/>
+                </StackPanel>
+                <CheckBox x:Name="checkBox" Content="Automagically advance the time every second" Checked="CheckBox_OnChecked"/>
+                <CheckBox x:Name="chkForce" Content="Force matches to whole words only" IsChecked="True"/>
+            </StackPanel>
+            <Label x:Name="lblGrid" Content="Label" FontFamily="Consolas"/>
+        </StackPanel>
+        <Label x:Name="time" Content="" Height="95" Width="764" FontSize="36"/>
+    </StackPanel>
+</Window>
+
+
