@@ -1,40 +1,35 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-        <OutputType>WinExe</OutputType>
-        <TargetFramework>net8.0</TargetFramework>
-        <Nullable>enable</Nullable>
-        <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
-        <ApplicationManifest>app.manifest</ApplicationManifest>
-        <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
-    </PropertyGroup>
-
-    <ItemGroup>
-        <PackageReference Include="Avalonia" Version="11.1.3" />
-        <PackageReference Include="Avalonia.Desktop" Version="11.1.3" />
-        <PackageReference Include="Avalonia.Themes.Fluent" Version="11.1.3" />
-        <PackageReference Include="Avalonia.Fonts.Inter" Version="11.1.3" />
-        <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-        <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.1.3" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\TextToTimeGridLib\TextToTimeGridLib.csproj" />
-      <ProjectReference Include="..\TimeToTextLib\TimeToTextLib.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <InternalsVisibleTo Include="TimeInWords.Tests" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <None Update="transparent-cursor.ico">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Compile Update="Controls\LedLight.cs">
-        <SubType>Component</SubType>
-      </Compile>
-    </ItemGroup>
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Avalonia" />
+    <PackageReference Include="Avalonia.Desktop" />
+    <PackageReference Include="Avalonia.Themes.Fluent" />
+    <PackageReference Include="Avalonia.Fonts.Inter" />
+    <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+    <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TextToTimeGridLib\TextToTimeGridLib.csproj" />
+    <ProjectReference Include="..\TimeToTextLib\TimeToTextLib.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="TimeInWords.Tests" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="transparent-cursor.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Controls\LedLight.cs">
+      <SubType>Component</SubType>
+    </Compile>
+  </ItemGroup>
 </Project>
