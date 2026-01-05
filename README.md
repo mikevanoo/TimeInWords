@@ -13,7 +13,7 @@ See [blog series](https://mikevanoo.co.uk/blog/modernise-crossplatform-windows-d
 
 <img src="images/time-in-words-screenshot.png" alt="word clock screenshot" style="border: 1px solid darkgray;" width="50%" height="50%">
 
-- Targets .NET 8.0
+- Targets .NET 10.0
 - Uses Avalonia to allow cross-platform use (tested on Windows and Raspberry Pi)
 
 # Word Clock Algorithm
