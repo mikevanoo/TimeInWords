@@ -201,7 +201,7 @@ public abstract class TimeGrid
             }
             y++;
             x = 0;
-            b.AppendLine();
+            b.Append('\n');
         }
 
         return b.ToString();

@@ -16,7 +16,7 @@ public class Bitmask(bool[][] mask)
             {
                 sb.Append(cell ? "1" : "0");
             }
-            sb.AppendLine();
+            sb.Append('\n');
         }
 
         return sb.ToString();
