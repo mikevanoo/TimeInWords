@@ -37,7 +37,11 @@ public class ColorFader
 
     private ColorFader(IFadeableControl control, Color? fromColor, Color toColor, int intervals)
     {
-        ArgumentNullException.ThrowIfNull(fromColor, nameof(fromColor));
+        if (!fromColor.HasValue)
+        {
+            throw new ArgumentNullException(nameof(fromColor));
+        }
+
         _control = control ?? throw new ArgumentNullException(nameof(control));
 
         if (intervals == 0)
