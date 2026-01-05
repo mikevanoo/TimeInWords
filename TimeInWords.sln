@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29728.190
@@ -28,7 +28,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextToTimeGridLib.Tests", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeInWords.Tests", "tests\TimeInWords.Tests\TimeInWords.Tests.csproj", "{F9C8FE4C-90D9-4CAF-9891-FC59295121D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeInWords", "src\TimeInWords\TimeInWords.csproj", "{B96CF0B0-6DFD-4C05-BA94-A37336068FAE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeInWords", "src\TimeInWords\TimeInWords.csproj", "{B96CF0B0-6DFD-4C05-BA94-A37336068FAE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
