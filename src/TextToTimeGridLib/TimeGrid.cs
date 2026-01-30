@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Globalization;
 using System.Text;
 using TextToTimeGridLib.Grids;
 using TimeToTextLib;
@@ -17,14 +16,12 @@ public abstract class TimeGrid
 
     protected abstract string RawGrid { get; }
 
-    private static readonly Dictionary<LanguagePreset.Language, TimeGrid> Instances = new Dictionary<
-        LanguagePreset.Language,
-        TimeGrid
-    >
-    {
-        { LanguagePreset.Language.English, new TimeGridEnglish() },
-        { LanguagePreset.Language.Dutch, new TimeGridDutch() },
-    };
+    private static readonly Dictionary<LanguagePreset.Language, TimeGrid> Instances =
+        new()
+        {
+            { LanguagePreset.Language.English, new TimeGridEnglish() },
+            { LanguagePreset.Language.Dutch, new TimeGridDutch() },
+        };
 
     public static TimeGrid Get(LanguagePreset.Language lang)
     {
@@ -86,97 +83,6 @@ public abstract class TimeGrid
         return strict ? GetBitmaskStrict(input, output) : GetBitmaskNonStrict(input, output);
     }
 
-    private Bitmask GetBitmaskNonStrict(string input, bool[][] output)
-    {
-        // remove spaces
-        input = input.Replace(" ", "");
-
-        var index = 0;
-        var x = 0;
-        var y = 0;
-
-        foreach (var line in CharGrid)
-        {
-            foreach (var cell in line)
-            {
-                if (index >= input.Length)
-                {
-                    break; // we're done :)
-                }
-
-                if (input[index] == cell)
-                {
-                    output[y][x] = true;
-                    index++;
-                }
-                x++;
-            }
-            y++;
-            x = 0;
-        }
-
-        return new Bitmask(output);
-    }
-
-    private Bitmask GetBitmaskStrict(string input, bool[][] output)
-    {
-        var index = 0;
-        var x = 0;
-        var y = 0;
-        var words = input.Split(' ');
-        var current = "";
-
-        foreach (var line in CharGrid)
-        {
-            foreach (var cell in line)
-            {
-                if (index >= words.Length)
-                {
-                    break; // we're done :)
-                }
-
-                current += cell;
-                x++;
-
-                if (words[index] == current)
-                {
-                    // this word is complete
-                    var from = x - words[index].Length;
-                    var to = x;
-
-                    for (var xx = from; xx < to; xx++)
-                    {
-                        output[y][xx] = true; // turn the required pixels 'on'
-                    }
-
-                    current = "";
-                    index++;
-                }
-                else if (words[index].StartsWith(current, StringComparison.InvariantCulture))
-                {
-                    // this letter matches the current word, go to next
-                    continue;
-                }
-                else
-                {
-                    // this word is wrong, if we had a duplicate start again with the new character so we don't skip anything, else start fresh
-                    if (current.Length == 2 && current[0] == current[1])
-                    {
-                        current = current[0].ToString();
-                    }
-                    else
-                    {
-                        current = "";
-                    }
-                }
-            }
-            y++;
-            x = 0;
-        }
-
-        return new Bitmask(output);
-    }
-
     public string ToString(Bitmask bitmask)
     {
         var b = new StringBuilder();
@@ -208,4 +114,119 @@ public abstract class TimeGrid
     }
 
     public override string ToString() => RawGrid;
+
+    private Bitmask GetBitmaskNonStrict(string input, bool[][] output)
+    {
+        // remove spaces
+        input = input.Replace(" ", "");
+
+        var wordIndex = 0;
+        var gridX = 0;
+        var gridY = 0;
+
+        foreach (var line in CharGrid)
+        {
+            foreach (var cell in line)
+            {
+                if (wordIndex >= input.Length)
+                {
+                    break; // we're done :)
+                }
+
+                if (input[wordIndex] == cell)
+                {
+                    output[gridY][gridX] = true;
+                    wordIndex++;
+                }
+                gridX++;
+            }
+            gridY++;
+            gridX = 0;
+        }
+
+        return new Bitmask(output);
+    }
+
+    private Bitmask GetBitmaskStrict(string input, bool[][] output)
+    {
+        /*
+         * Strict mode finds whole words in the grid, respecting word boundaries.
+         * Example: "IT IS FIVE" will match letters that form complete words.
+         *
+         * The duplicate character handling (lines 160-163) handles cases where
+         * a word like "ELEVEN" appears in the grid but we're looking for "SEVEN".
+         * When we see "EL" but need "SE", we keep the 'L' as it might be the
+         * start of the next word.
+         */
+
+        var wordIndex = 0;
+        var gridX = 0;
+        var gridY = 0;
+        var words = input.Split(' ');
+        var currentMatch = "";
+
+        foreach (var line in CharGrid)
+        {
+            foreach (var cell in line)
+            {
+                if (wordIndex >= words.Length)
+                {
+                    break; // All words found
+                }
+
+                currentMatch += cell;
+                gridX++;
+
+                if (IsExactWordMatch(words[wordIndex], currentMatch))
+                {
+                    MarkWordAsActive(output, gridY, gridX, words[wordIndex].Length);
+                    currentMatch = "";
+                    wordIndex++;
+                }
+                else if (IsPartialWordMatch(words[wordIndex], currentMatch))
+                {
+                    // Continue building the current word
+                    continue;
+                }
+                else
+                {
+                    // Mismatch - reset but handle duplicate characters
+                    currentMatch = HandleDuplicateCharacters(currentMatch);
+                }
+            }
+            gridY++;
+            gridX = 0;
+        }
+
+        return new Bitmask(output);
+    }
+
+    private static bool IsExactWordMatch(string targetWord, string currentMatch) => targetWord == currentMatch;
+
+    private static bool IsPartialWordMatch(string targetWord, string currentMatch) =>
+        targetWord.StartsWith(currentMatch, StringComparison.InvariantCulture);
+
+    private static void MarkWordAsActive(bool[][] output, int y, int x, int wordLength)
+    {
+        var startX = x - wordLength;
+        var endX = x;
+
+        for (var xx = startX; xx < endX; xx++)
+        {
+            output[y][xx] = true;
+        }
+    }
+
+    private static string HandleDuplicateCharacters(string currentMatch)
+    {
+        // If we have 2 identical chars (like "EE"), keep the last one
+        // as it might be the start of the next word
+        // Example: Looking for "SEVEN" but found "EL" - keep the "L"
+        if (currentMatch.Length == 2 && currentMatch[0] == currentMatch[1])
+        {
+            return currentMatch[1].ToString();
+        }
+
+        return "";
+    }
 }

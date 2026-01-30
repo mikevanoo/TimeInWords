@@ -35,7 +35,7 @@ public class MainPresenterShould
     }
 
     [AvaloniaFact]
-    public void CloseAllViewsWhenOneViewClosesWhenInDebugMode()
+    public void CloseAllViewsWhenOneViewClosesWhenNotInDebugMode()
     {
         var view = Substitute.For<IMainView>();
         var viewFactory = Substitute.For<IMainViewFactory>();

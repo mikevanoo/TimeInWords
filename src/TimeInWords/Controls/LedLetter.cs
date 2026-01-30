@@ -6,30 +6,25 @@ namespace TimeInWords.Controls;
 
 internal class LedLetter : TextBlock, IFadeableControl
 {
-    private readonly TimeInWordsSettings _settings = null!;
-    private bool? _active;
+    private readonly TimeInWordsSettings _settings;
 
-    public bool? Active
+    public bool Active
     {
-        get => _active;
+        get;
         set
         {
-            if (_active != value)
+            if (field != value)
             {
-                var endColor =
-                    value.HasValue && value.Value ? _settings.ActiveFontColour : _settings.InactiveFontColour;
+                var endColor = value ? _settings.ActiveFontColour : _settings.InactiveFontColour;
 
-                _active = value;
+                field = value;
 
                 ColorFader.SetControlForeColor(this, endColor);
             }
         }
     }
 
-    public LedLetter() { }
-
     public LedLetter(TimeInWordsSettings settings, string text)
-        : this()
     {
         _settings = settings ?? throw new ArgumentNullException(nameof(settings));
 

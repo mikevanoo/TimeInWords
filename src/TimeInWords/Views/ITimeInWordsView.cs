@@ -10,6 +10,6 @@ public interface ITimeInWordsView
     public TimeToTextFormat TimeAsText { get; set; }
     public bool[][] GridBitMask { get; set; }
 
-    void Initialise(TimeInWordsSettings settings, TimeGrid grid);
-    void Update(bool force = false);
+    public void Initialise(TimeInWordsSettings settings, TimeGrid grid);
+    public void Update(bool force = false);
 }

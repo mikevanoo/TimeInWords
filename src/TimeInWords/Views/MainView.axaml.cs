@@ -13,13 +13,12 @@ public partial class MainView : Window, IMainView
 {
     private TimeInWordsSettings Settings { get; set; } = null!;
 
-    private bool _isFullScreen;
     private bool IsFullScreen
     {
-        get => _isFullScreen;
+        get;
         set
         {
-            _isFullScreen = value;
+            field = value;
             if (value)
             {
                 ShowCursor(false);
@@ -47,11 +46,10 @@ public partial class MainView : Window, IMainView
         }
     }
 
-    public MainView() { }
-
     public MainView(TimeInWordsSettings settings, bool isFullScreen)
+        : this()
     {
-        Settings = settings;
+        Settings = settings ?? throw new ArgumentNullException(nameof(settings));
 
         InitializeComponent();
 
@@ -63,6 +61,13 @@ public partial class MainView : Window, IMainView
         _ = new TimeInWordsPresenter(timeInWordsView, Settings, dateTimeProvider, timer);
 
         IsFullScreen = isFullScreen;
+    }
+
+    // ReSharper disable once MemberCanBePrivate.Global
+    public MainView()
+    {
+        // needed to suppress Avalonia warning
+        // AVLN3001: XAML resource "avares://TimeInWords/Views/MainView.axaml" won't be reachable via runtime loader, as no public constructor was found
     }
 
     public void Show(int x, int y, int width, int height)
@@ -122,8 +127,8 @@ public partial class MainView : Window, IMainView
         }
     }
 
-    private static double _oldX;
-    private static double _oldY;
+    private double _oldX;
+    private double _oldY;
 
     private void OnPointerMoved(object? sender, PointerEventArgs e)
     {

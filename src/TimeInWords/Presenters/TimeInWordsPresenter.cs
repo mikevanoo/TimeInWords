@@ -5,13 +5,13 @@ using TimeToTextLib;
 
 namespace TimeInWords.Presenters;
 
-public class TimeInWordsPresenter()
+public class TimeInWordsPresenter
 {
-    private readonly ITimeInWordsView _view = null!;
-    private readonly TimeInWordsSettings _settings = null!;
-    private readonly IDateTimeProvider _dateTimeProvider = null!;
-    private readonly ITimer _timer = null!;
-    private readonly TimeGrid _grid = null!;
+    private readonly ITimeInWordsView _view;
+    private readonly TimeInWordsSettings _settings;
+    private readonly IDateTimeProvider _dateTimeProvider;
+    private readonly ITimer _timer;
+    private readonly TimeGrid _grid;
 
     private DateTime _debugDateTime;
 
@@ -21,13 +21,12 @@ public class TimeInWordsPresenter()
         IDateTimeProvider dateTimeProvider,
         ITimer timer
     )
-        : this()
     {
         _view = view;
         _settings = settings;
         _dateTimeProvider = dateTimeProvider;
         _debugDateTime = _dateTimeProvider.Now;
-        _debugDateTime = _debugDateTime.AddSeconds(0 - _debugDateTime.Second);
+        _debugDateTime = _debugDateTime.AddSeconds(-_debugDateTime.Second);
 
         _grid = TimeGrid.Get(_settings.Language);
         _view.Initialise(_settings, _grid);

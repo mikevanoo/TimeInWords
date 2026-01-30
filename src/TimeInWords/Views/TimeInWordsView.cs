@@ -19,16 +19,16 @@ public class TimeInWordsView : Panel, ITimeInWordsView
     public TextBlock TimeAsTextLabel { get; private set; }
     public Grid DisplayGrid { get; private set; }
 
-    private TimeInWordsSettings _settings = null!;
     private TimeInWordsSettings Settings
     {
-        get => _settings;
+        get;
         set
         {
-            _settings = value;
-            UpdateSettings(_settings);
+            field = value;
+            UpdateSettings(field);
         }
-    }
+    } = null!;
+
     private TimeGrid TimeGrid { get; set; } = null!;
 
     private LedLight _additionalMinute1 = null!;
@@ -64,8 +64,8 @@ public class TimeInWordsView : Panel, ITimeInWordsView
 
     public void Initialise(TimeInWordsSettings settings, TimeGrid grid)
     {
-        Settings = settings;
-        TimeGrid = grid;
+        Settings = settings ?? throw new ArgumentNullException(nameof(settings));
+        TimeGrid = grid ?? throw new ArgumentNullException(nameof(grid));
 
         TimeLabel.IsVisible = settings.Debug;
         TimeAsTextLabel.IsVisible = settings.Debug;
