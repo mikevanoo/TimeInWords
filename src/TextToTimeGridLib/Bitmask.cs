@@ -2,10 +2,8 @@
 
 namespace TextToTimeGridLib;
 
-public class Bitmask(bool[][] mask)
+public record Bitmask(bool[][] Mask)
 {
-    public bool[][] Mask { get; } = mask;
-
     public override string ToString()
     {
         var sb = new StringBuilder();

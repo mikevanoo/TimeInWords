@@ -24,7 +24,7 @@ public class ColorFader
         var currentColor = (control.Foreground as SolidColorBrush)?.Color;
         var colorFader = new ColorFader(control, currentColor, toColor, intervals);
 
-        Task.Factory.StartNew(async () =>
+        Task.Run(async () =>
         {
             await Task.Delay(sleep);
             foreach (var color in colorFader.Fade())
