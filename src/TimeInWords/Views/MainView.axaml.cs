@@ -13,13 +13,12 @@ public partial class MainView : Window, IMainView
 {
     private TimeInWordsSettings Settings { get; set; } = null!;
 
-    private bool _isFullScreen;
     private bool IsFullScreen
     {
-        get => _isFullScreen;
+        get;
         set
         {
-            _isFullScreen = value;
+            field = value;
             if (value)
             {
                 ShowCursor(false);
@@ -46,8 +45,6 @@ public partial class MainView : Window, IMainView
             }
         }
     }
-
-    public MainView() { }
 
     public MainView(TimeInWordsSettings settings, bool isFullScreen)
     {
@@ -122,8 +119,8 @@ public partial class MainView : Window, IMainView
         }
     }
 
-    private static double _oldX;
-    private static double _oldY;
+    private double _oldX;
+    private double _oldY;
 
     private void OnPointerMoved(object? sender, PointerEventArgs e)
     {

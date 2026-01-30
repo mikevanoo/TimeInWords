@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Globalization;
 using System.Text;
 using TextToTimeGridLib.Grids;
 using TimeToTextLib;
@@ -17,14 +16,12 @@ public abstract class TimeGrid
 
     protected abstract string RawGrid { get; }
 
-    private static readonly Dictionary<LanguagePreset.Language, TimeGrid> Instances = new Dictionary<
-        LanguagePreset.Language,
-        TimeGrid
-    >
-    {
-        { LanguagePreset.Language.English, new TimeGridEnglish() },
-        { LanguagePreset.Language.Dutch, new TimeGridDutch() },
-    };
+    private static readonly Dictionary<LanguagePreset.Language, TimeGrid> Instances =
+        new()
+        {
+            { LanguagePreset.Language.English, new TimeGridEnglish() },
+            { LanguagePreset.Language.Dutch, new TimeGridDutch() },
+        };
 
     public static TimeGrid Get(LanguagePreset.Language lang)
     {
