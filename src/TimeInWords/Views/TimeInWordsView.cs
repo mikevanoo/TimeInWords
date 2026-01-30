@@ -64,8 +64,8 @@ public class TimeInWordsView : Panel, ITimeInWordsView
 
     public void Initialise(TimeInWordsSettings settings, TimeGrid grid)
     {
-        Settings = settings;
-        TimeGrid = grid;
+        Settings = settings ?? throw new ArgumentNullException(nameof(settings));
+        TimeGrid = grid ?? throw new ArgumentNullException(nameof(grid));
 
         TimeLabel.IsVisible = settings.Debug;
         TimeAsTextLabel.IsVisible = settings.Debug;

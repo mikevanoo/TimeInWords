@@ -26,7 +26,7 @@ public class TimeInWordsPresenter
         _settings = settings;
         _dateTimeProvider = dateTimeProvider;
         _debugDateTime = _dateTimeProvider.Now;
-        _debugDateTime = _debugDateTime.AddSeconds(0 - _debugDateTime.Second);
+        _debugDateTime = _debugDateTime.AddSeconds(-_debugDateTime.Second);
 
         _grid = TimeGrid.Get(_settings.Language);
         _view.Initialise(_settings, _grid);
