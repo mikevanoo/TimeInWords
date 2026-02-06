@@ -31,13 +31,13 @@ public class FrenchPreset : LanguagePreset
                 s.Append(CultureInfo.InvariantCulture, $"{Hour(hour)} {Heure(hour)} VINGT");
                 break;
             case 25:
-                s.Append(CultureInfo.InvariantCulture, $"{Hour(hour)} {Heure(hour)} VINGTCINQ");
+                s.Append(CultureInfo.InvariantCulture, $"{Hour(hour)} {Heure(hour)} VINGT-CINQ");
                 break;
             case 30:
                 s.Append(CultureInfo.InvariantCulture, $"{Hour(hour)} {Heure(hour)} ET DEMIE");
                 break;
             case 35:
-                s.Append(CultureInfo.InvariantCulture, $"{Hour(hour + 1)} {Heure(hour + 1)} MOINS VINGTCINQ");
+                s.Append(CultureInfo.InvariantCulture, $"{Hour(hour + 1)} {Heure(hour + 1)} MOINS VINGT-CINQ");
                 break;
             case 40:
                 s.Append(CultureInfo.InvariantCulture, $"{Hour(hour + 1)} {Heure(hour + 1)} MOINS VINGT");
