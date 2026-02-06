@@ -19,37 +19,37 @@ public class DutchPreset : LanguagePreset
                 s.Append(CultureInfo.InvariantCulture, $"{Hour(hour)} UUR");
                 break;
             case 5:
-                s.Append(CultureInfo.InvariantCulture, $"{Numbers[4]} OVER {Hour(hour)}");
+                s.Append(CultureInfo.InvariantCulture, $"{GetNumberText(minute)} OVER {Hour(hour)}");
                 break;
             case 10:
-                s.Append(CultureInfo.InvariantCulture, $"{Numbers[9]} OVER {Hour(hour)}");
+                s.Append(CultureInfo.InvariantCulture, $"{GetNumberText(minute)} OVER {Hour(hour)}");
                 break;
             case 15:
                 s.Append(CultureInfo.InvariantCulture, $"KWART OVER {Hour(hour)}");
                 break;
             case 20:
-                s.Append(CultureInfo.InvariantCulture, $"{Numbers[9]} VOOR HALF {Hour(hour + 1)}");
+                s.Append(CultureInfo.InvariantCulture, $"{GetNumberText(10)} VOOR HALF {Hour(hour + 1)}");
                 break;
             case 25:
-                s.Append(CultureInfo.InvariantCulture, $"{Numbers[4]} VOOR HALF {Hour(hour + 1)}");
+                s.Append(CultureInfo.InvariantCulture, $"{GetNumberText(5)} VOOR HALF {Hour(hour + 1)}");
                 break;
             case 30:
                 s.Append(CultureInfo.InvariantCulture, $"HALF {Hour(hour)}");
                 break;
             case 35:
-                s.Append(CultureInfo.InvariantCulture, $"{Numbers[4]} OVER HALF {Hour(hour + 1)}");
+                s.Append(CultureInfo.InvariantCulture, $"{GetNumberText(5)} OVER HALF {Hour(hour + 1)}");
                 break;
             case 40:
-                s.Append(CultureInfo.InvariantCulture, $"{Numbers[9]} OVER HALF {Hour(hour + 1)}");
+                s.Append(CultureInfo.InvariantCulture, $"{GetNumberText(10)} OVER HALF {Hour(hour + 1)}");
                 break;
             case 45:
                 s.Append(CultureInfo.InvariantCulture, $"KWART VOOR {Hour(hour + 1)}");
                 break;
             case 50:
-                s.Append(CultureInfo.InvariantCulture, $"{Numbers[9]} VOOR {Hour(hour + 1)}");
+                s.Append(CultureInfo.InvariantCulture, $"{GetNumberText(10)} VOOR {Hour(hour + 1)}");
                 break;
             case 55:
-                s.Append(CultureInfo.InvariantCulture, $"{Numbers[4]} VOOR {Hour(hour + 1)}");
+                s.Append(CultureInfo.InvariantCulture, $"{GetNumberText(5)} VOOR {Hour(hour + 1)}");
                 break;
         }
 
@@ -57,7 +57,7 @@ public class DutchPreset : LanguagePreset
     }
 
     protected override string[] Numbers =>
-        new[] { "EEN", "TWEE", "DRIE", "VIER", "VIJF", "ZES", "ZEVEN", "ACHT", "NEGEN", "TIEN", "ELF", "TWAALF" };
+        ["EEN", "TWEE", "DRIE", "VIER", "VIJF", "ZES", "ZEVEN", "ACHT", "NEGEN", "TIEN", "ELF", "TWAALF"];
 
     protected override string Prefix => "HET IS";
 }

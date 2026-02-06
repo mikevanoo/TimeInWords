@@ -4,7 +4,7 @@ A [QLOCKTWO](https://www.qlocktwo.com/en-de/earth/90/black-pepper)-inspired full
 adapting portions from [https://github.com/sedrubal/WordClockScr](https://github.com/sedrubal/WordClockScr).
 
 Uses and includes a multilingual implementation of a word clock algorithm that converts a timestamp to its text 
-representation and then to a bit-mask for an LED grid. Currently supports English and Dutch. Includes a fork the 
+representation and then to a bit-mask for an LED grid. Currently supports English, Dutch and French. Includes a fork the 
 original work from [https://github.com/TheBauwssss/TimeInWords](https://github.com/TheBauwssss/TimeInWords) with enhancements and additions.
 
 See [blog series](https://mikevanoo.co.uk/blog/modernise-crossplatform-windows-desktop-app-part1/) that discusses the solution in detail.

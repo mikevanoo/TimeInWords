@@ -19,10 +19,10 @@ public class EnglishPreset : LanguagePreset
                 s.Append(CultureInfo.InvariantCulture, $"{Hour(hour)} OCLOCK");
                 break;
             case 5:
-                s.Append(CultureInfo.InvariantCulture, $"{Numbers[4]} PAST {Hour(hour)}");
+                s.Append(CultureInfo.InvariantCulture, $"{GetNumberText(minute)} PAST {Hour(hour)}");
                 break;
             case 10:
-                s.Append(CultureInfo.InvariantCulture, $"{Numbers[9]} PAST {Hour(hour)}");
+                s.Append(CultureInfo.InvariantCulture, $"{GetNumberText(minute)} PAST {Hour(hour)}");
                 break;
             case 15:
                 s.Append(CultureInfo.InvariantCulture, $"A QUARTER PAST {Hour(hour)}");
@@ -57,7 +57,7 @@ public class EnglishPreset : LanguagePreset
     }
 
     protected override string[] Numbers =>
-        new[] { "ONE", "TWO", "THREE", "FOUR", "FIVE", "SIX", "SEVEN", "EIGHT", "NINE", "TEN", "ELEVEN", "TWELVE" };
+        ["ONE", "TWO", "THREE", "FOUR", "FIVE", "SIX", "SEVEN", "EIGHT", "NINE", "TEN", "ELEVEN", "TWELVE"];
 
     protected override string Prefix => "IT IS";
 }

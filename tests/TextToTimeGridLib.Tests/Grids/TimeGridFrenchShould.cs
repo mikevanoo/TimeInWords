@@ -2,4 +2,4 @@
 
 namespace TextToTimeGridLib.Tests.Grids;
 
-public class TimeGridDutchShould : BaseTimeGridShould<TimeGridDutch> { }
+public class TimeGridFrenchShould : BaseTimeGridShould<TimeGridFrench> { }

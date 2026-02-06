@@ -10,12 +10,14 @@ public abstract class LanguagePreset
     {
         Dutch = 0,
         English = 1,
+        French = 2,
     }
 
     private static readonly Dictionary<Language, LanguagePreset> Instances = new Dictionary<Language, LanguagePreset>
     {
         { Language.English, new EnglishPreset() },
         { Language.Dutch, new DutchPreset() },
+        { Language.French, new FrenchPreset() },
     };
 
     public static LanguagePreset Get(Language lang)
@@ -45,7 +47,7 @@ public abstract class LanguagePreset
         (int)(5.0d * (Math.Floor(Math.Abs(minute / 5.0d))));
 
     protected static int AdditionalMinutes(int minute) =>
-        // additional minutes are extra to the rounded down minutes
+        // additional minutes are extra to the rounded-down minutes
         minute - MinuteRoundedDown(minute);
 
     protected string Hour(int hour)
@@ -55,8 +57,10 @@ public abstract class LanguagePreset
             hour = 12;
         }
 
-        return Numbers[hour - 1];
+        return GetNumberText(hour);
     }
+
+    protected string GetNumberText(int number) => Numbers[number - 1];
 
     protected abstract string[] Numbers { get; }
 
