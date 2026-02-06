@@ -1,7 +1,9 @@
 ﻿using System;
+using System.IO;
 using System.Threading;
 using Avalonia;
 using Avalonia.Controls;
+using Microsoft.Extensions.Configuration;
 using TimeInWords.Presenters;
 using TimeInWords.Views;
 
@@ -23,6 +25,11 @@ internal static class Program
 
         // Do your startup code here
         var settings = new TimeInWordsSettings();
+        var configuration = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+            .Build();
+        configuration.Bind(settings);
 
         if (args.Length > 0)
         {
