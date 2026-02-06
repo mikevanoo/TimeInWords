@@ -14,7 +14,7 @@
                     <Label x:Name="LanguageLabel" Content="Language" />
                     <ComboBox x:Name="LanguageCombo" VerticalAlignment="Top" Loaded="LanguageCombo_Loaded" SelectionChanged="LanguageCombo_SelectionChanged"/>
                 </StackPanel>
-                <CheckBox x:Name="AdvanceEverySecond" Content="Automagically advance the time every second" IsChecked="True" IsCheckedChanged="CheckBox_IsCheckedChanged"/>
+                <CheckBox x:Name="AdvanceEverySecond" Content="Automagically advance the time every second" IsChecked="True"/>
                 <CheckBox x:Name="ForceMatches" Content="Force matches to whole words only" IsChecked="True"/>
             </StackPanel>
             <Label x:Name="Grid" Content="" FontFamily="Consolas"/>

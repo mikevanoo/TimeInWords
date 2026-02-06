@@ -37,14 +37,12 @@ public partial class MainWindow : Window
         if (AdvanceEverySecond.IsChecked == true)
         {
             _time = _time.AddMinutes(1);
-            TimeAsText.Content = TimeToText.GetSimple(_lang, _time).ToString();
         }
-        else
-        {
-            TimeAsText.Content = TimeToText.GetSimple(_lang, DateTime.Now).ToString();
-        }
+        var timeAsText = TimeToText.GetSimple(_lang, _time).ToString();
 
-        var mask = _grid.GetBitMask((string)TimeAsText.Content, ForceMatches.IsChecked == true);
+        TimeAsText.Content = $"{_time.ToShortTimeString()}{Environment.NewLine}{timeAsText}";
+
+        var mask = _grid.GetBitMask(timeAsText, ForceMatches.IsChecked == true);
         var gridString = _grid.ToString().Split('\n');
         var maskString = mask.ToString().Split('\n');
         var result = _grid.ToString(mask).Split('\n');
@@ -87,23 +85,27 @@ public partial class MainWindow : Window
     private void LanguageCombo_Loaded(object sender, RoutedEventArgs e)
     {
         LanguageCombo.Items.Add("English");
-        LanguageCombo.Items.Add("Nederlands");
+        LanguageCombo.Items.Add("Dutch");
+        LanguageCombo.Items.Add("French");
         LanguageCombo.SelectedIndex = 0;
     }
 
     private void LanguageCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (LanguageCombo.SelectedValue != null && (string)LanguageCombo.SelectedValue == "English")
+        switch (LanguageCombo.SelectedValue)
         {
-            _lang = LanguagePreset.Language.English;
-            _grid = new TimeGridEnglish();
-        }
-        else
-        {
-            _lang = LanguagePreset.Language.Dutch;
-            _grid = new TimeGridDutch();
+            case "Dutch":
+                _lang = LanguagePreset.Language.Dutch;
+                _grid = new TimeGridDutch();
+                break;
+            case "French":
+                _lang = LanguagePreset.Language.French;
+                _grid = new TimeGridFrench();
+                break;
+            default:
+                _lang = LanguagePreset.Language.English;
+                _grid = new TimeGridEnglish();
+                break;
         }
     }
-
-    private void CheckBox_IsCheckedChanged(object sender, RoutedEventArgs e) => _time = DateTime.Now;
 }
