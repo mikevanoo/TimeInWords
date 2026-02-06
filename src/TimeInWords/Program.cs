@@ -18,18 +18,14 @@ internal static class Program
     public static void Main(string[] args) => BuildAvaloniaApp().Start(AppMain, args);
 
     // Application entry point. Avalonia is completely initialized.
+
     private static void AppMain(Application app, string[] args)
     {
         // A cancellation token source that will be used to stop the main loop
         var cts = new CancellationTokenSource();
 
         // Do your startup code here
-        var settings = new TimeInWordsSettings();
-        var configuration = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-            .Build();
-        configuration.Bind(settings);
+        var settings = ReadSettings();
 
         if (args.Length > 0)
         {
@@ -38,8 +34,13 @@ internal static class Program
             switch (firstArgument)
             {
                 case "/c":
+                    // Windows "Change Screensaver" dialog Settings mode
+                    // TODO launch editor
+                    // Re-read settings
+                    settings = ReadSettings();
+                    break;
                 case "/p":
-                    // Windows "Change Screensaver" dialog Settings and Preview modes respectively
+                    // Windows "Change Screensaver" dialog Preview mode
                     // Ignore and exit
                     return;
                 case "/s":
@@ -64,4 +65,17 @@ internal static class Program
     // Avalonia configuration, don't remove; also used by visual designer.
     public static AppBuilder BuildAvaloniaApp() =>
         AppBuilder.Configure<App>().UsePlatformDetect().WithInterFont().LogToTrace();
+
+    private static TimeInWordsSettings ReadSettings()
+    {
+        var configuration = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json", optional: true)
+            .Build();
+
+        TimeInWordsSettings settings = new();
+        configuration.Bind(settings);
+
+        return settings;
+    }
 }
