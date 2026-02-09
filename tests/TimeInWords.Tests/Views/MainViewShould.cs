@@ -46,8 +46,7 @@ public class MainViewShould
         view.Show(50, 100, 500, 600);
 
         view.WindowStartupLocation.Should().Be(WindowStartupLocation.Manual);
-        // Avalonia bug, see https://github.com/AvaloniaUI/Avalonia/issues/17071
-        // view.Position.Should().BeEquivalentTo(new PixelPoint(50, 100));
+        view.Position.Should().BeEquivalentTo(new PixelPoint(50, 100));
         view.Width.Should().Be(500);
         view.Height.Should().Be(600);
     }
