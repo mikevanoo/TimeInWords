@@ -33,4 +33,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Views\SettingsEditor.axaml.cs" />
+  </ItemGroup>
 </Project>

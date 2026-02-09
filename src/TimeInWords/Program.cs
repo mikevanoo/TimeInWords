@@ -35,10 +35,10 @@ internal static class Program
             {
                 case "/c":
                     // Windows "Change Screensaver" dialog Settings mode
-                    // TODO launch editor
-                    // Re-read settings
-                    settings = ReadSettings();
-                    break;
+                    var settingsView = new SettingsEditorView();
+                    _ = new SettingsEditorPresenter(settingsView, cts);
+                    app.Run(cts.Token);
+                    return;
                 case "/p":
                     // Windows "Change Screensaver" dialog Preview mode
                     // Ignore and exit
@@ -56,9 +56,8 @@ internal static class Program
             settings.Debug = true;
         }
 
+        // Start the main app
         _ = new MainPresenter(settings, new MainViewFactory(), cts);
-
-        // Start the main loop
         app.Run(cts.Token);
     }
 
@@ -69,7 +68,7 @@ internal static class Program
     private static TimeInWordsSettings ReadSettings()
     {
         var configuration = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
+            .SetBasePath(AppContext.BaseDirectory)
             .AddJsonFile("appsettings.json", optional: true)
             .Build();
 

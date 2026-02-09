@@ -1,0 +1,45 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="200"
+        x:Class="TimeInWords.Views.SettingsEditorView"
+        Title="Time In Words Settings"
+        Width="400" Height="200"
+        CanResize="False"
+        WindowStartupLocation="CenterScreen">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0"
+                    Orientation="Horizontal"
+                    Spacing="10">
+            <Label Content="Language:"/>
+            <ComboBox x:Name="LanguageCombo"
+                      MinWidth="150"
+                      HorizontalAlignment="Left"
+                      SelectionChanged="LanguageCombo_SelectionChanged"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Spacing="10">
+            <Button x:Name="SaveButton"
+                    Content="Save"
+                    Width="80"
+                    Click="OnSaveButtonClick"/>
+            <Button x:Name="ExitButton"
+                    Content="Exit"
+                    Width="80"
+                    Click="OnExitButtonClick"/>
+        </StackPanel>
+    </Grid>
+
+</Window>
+
