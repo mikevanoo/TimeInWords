@@ -10,22 +10,34 @@ public class SettingsEditorPresenter
 {
     private readonly JsonSerializerOptions _jsonSerializerOptions = new() { WriteIndented = true };
 
+    private readonly string _filePath;
+
     public SettingsEditorPresenter(ISettingsEditorView settingsView, CancellationTokenSource mainLoopCts)
+        : this(settingsView, mainLoopCts, Path.Combine(AppContext.BaseDirectory, "appsettings.json")) { }
+
+    public SettingsEditorPresenter(
+        ISettingsEditorView settingsView,
+        CancellationTokenSource mainLoopCts,
+        string filePath
+    )
     {
+        _filePath = filePath;
         settingsView.Closed += (sender, args) => mainLoopCts.Cancel();
         settingsView.Saved += (sender, settings) => SaveSettings(settings);
 
-        using var fileStream = File.OpenRead(GetFilePath());
-        var settings = JsonSerializer.Deserialize<TimeInWordsSettings>(fileStream, _jsonSerializerOptions);
+        TimeInWordsSettings? settings = null;
+        if (File.Exists(_filePath))
+        {
+            using var fileStream = File.OpenRead(_filePath);
+            settings = JsonSerializer.Deserialize<TimeInWordsSettings>(fileStream, _jsonSerializerOptions);
+        }
 
         settingsView.Show(settings ?? new TimeInWordsSettings());
     }
 
     private void SaveSettings(TimeInWordsSettings settings)
     {
-        using var fileStream = File.Create(GetFilePath());
+        using var fileStream = File.Create(_filePath);
         JsonSerializer.Serialize(fileStream, settings, _jsonSerializerOptions);
     }
-
-    private static string GetFilePath() => Path.Combine(AppContext.BaseDirectory, "appsettings.json");
 }
