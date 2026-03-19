@@ -9,8 +9,8 @@ namespace TextToTimeGridLib;
 
 public abstract class TimeGrid
 {
-    public const int GridHeight = 10;
-    public const int GridWidth = 11;
+    public virtual int GridHeight => 10;
+    public virtual int GridWidth => 11;
 
     private char[][] _charGrid;
 
@@ -22,6 +22,7 @@ public abstract class TimeGrid
             { LanguagePreset.Language.English, new TimeGridEnglish() },
             { LanguagePreset.Language.Dutch, new TimeGridDutch() },
             { LanguagePreset.Language.French, new TimeGridFrench() },
+            { LanguagePreset.Language.EnglishPrecise, new TimeGridEnglishPrecise() },
         };
 
     public static TimeGrid Get(LanguagePreset.Language lang)

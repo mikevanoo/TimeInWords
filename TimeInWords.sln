@@ -17,6 +17,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 		Directory.Packages.props = Directory.Packages.props
 		.github\workflows\dotnetcore.yml = .github\workflows\dotnetcore.yml
+		AGENTS.md = AGENTS.md
+		.gitignore = .gitignore
+		coverage-report.ps1 = coverage-report.ps1
+		coverlet.runsettings = coverlet.runsettings
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{3BC83C9A-F6F0-4AA9-A378-8EAFCF1590AC}"
