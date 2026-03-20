@@ -44,8 +44,8 @@ public class EnglishPrecisePreset : LanguagePreset
     [
         "ONE", "TWO", "THREE", "FOUR", "FIVE", "SIX", "SEVEN", "EIGHT", "NINE", "TEN",
         "ELEVEN", "TWELVE", "THIRTEEN", "FOURTEEN", "", "SIXTEEN", "SEVENTEEN", "EIGHTEEN", "NINETEEN",
-        "TWENTY", "TWENTYONE", "TWENTYTWO", "TWENTYTHREE", "TWENTYFOUR", "TWENTYFIVE", "TWENTYSIX",
-        "TWENTYSEVEN", "TWENTYEIGHT", "TWENTYNINE",
+        "TWENTY", "TWENTY ONE", "TWENTY TWO", "TWENTY THREE", "TWENTY FOUR", "TWENTY FIVE", "TWENTY SIX",
+        "TWENTY SEVEN", "TWENTY EIGHT", "TWENTY NINE",
     ];
 
     protected override string Prefix => "IT IS";

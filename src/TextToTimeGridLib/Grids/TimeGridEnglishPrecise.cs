@@ -2,43 +2,27 @@ namespace TextToTimeGridLib.Grids;
 
 public class TimeGridEnglishPrecise : TimeGrid
 {
-    public override int GridHeight => 22;
+    public override int GridHeight => 14;
     public override int GridWidth => 18;
 
     protected override string RawGrid =>
         "ITLISLAMSTIMEBCDEF"
         + '\n'
-        + "QUARTERDHALFGHJKLM"
+        + "QUARTERDHALFTWENTY"
         + '\n'
         + "ONETWOTHREEFOURBCD"
         + '\n'
         + "FIVESIXSEVENEIGHTB"
         + '\n'
-        + "NINEBTENBCDEFGHJKL"
+        + "NINETENELEVENBCDEF"
         + '\n'
-        + "ELEVENBTWELVEBCDEF"
+        + "TWELVETHIRTEENBCDE"
         + '\n'
-        + "THIRTEENBFOURTEENB"
+        + "FOURTEENSIXTEENBCD"
         + '\n'
-        + "SIXTEENBSEVENTEENB"
+        + "SEVENTEENEIGHTEENB"
         + '\n'
-        + "EIGHTEENB" + "NINETEENB"
-        + '\n'
-        + "TWENTYONETWENTYTWO"
-        + '\n'
-        + "TWENTYTHREEBCDEFGH"
-        + '\n'
-        + "TWENTYFOURBCDEFGHJ"
-        + '\n'
-        + "TWENTYFIVEBCDEFGHJ"
-        + '\n'
-        + "TWENTYSIXBCDEFGHJK"
-        + '\n'
-        + "TWENTYSEVENBCDEFGH"
-        + '\n'
-        + "TWENTYEIGHTBCDEFGH"
-        + '\n'
-        + "TWENTYNINEBCDEFGHJ"
+        + "NINETEENBCDEFGHJKL"
         + '\n'
         + "PASTBTOBCDEFGHJKLM"
         + '\n'
@@ -46,7 +30,7 @@ public class TimeGridEnglishPrecise : TimeGrid
         + '\n'
         + "FIVETWOSEVENEIGHTB"
         + '\n'
-        + "NINETENBCDEFGHJKLM"
+        + "NINETENELEVENBCDEF"
         + '\n'
-        + "ELEVENTWELVEOCLOCK";
+        + "TWELVEOCLOCKBCDEFG";
 }

@@ -52,8 +52,8 @@ public class TimeInWordsView : Panel, ITimeInWordsView
 
         DisplayGrid = new Grid
         {
-            Width = 1200,
-            Height = 1000,
+            Width = 1000,
+            Height = 800,
             // DEBUG
             // Background = Brushes.Green,
         };

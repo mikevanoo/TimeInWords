@@ -27,7 +27,7 @@ public class TimeToTextShould
     {
         var actual = TimeToText.GetSimple(LanguagePreset.Language.French, new DateTime(2024, 1, 1, 12, 7, 0));
 
-        var expected = new TimeToTextFormat { TimeAsText = "IL EST DOUZE HEURES CINQ", AdditionalMinutes = 2 };
+        var expected = new TimeToTextFormat { TimeAsText = "IL EST MIDI CINQ", AdditionalMinutes = 2 };
 
         actual.Should().BeEquivalentTo(expected);
     }

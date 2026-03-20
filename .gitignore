@@ -253,3 +253,6 @@ paket-files/
 
 # Code Coverage Report
 coveragereport/
+
+# AI
+/.claude/settings.local.json
