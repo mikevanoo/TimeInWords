@@ -11,10 +11,28 @@ See [blog series](https://mikevanoo.co.uk/blog/modernise-crossplatform-windows-d
 
 ## Full-screen/Screensaver Application
 
-<img src="images/time-in-words-screenshot.png" alt="word clock screenshot" style="border: 1px solid darkgray;" width="50%" height="50%">
+<img src="images/time-in-words-screenshot-5-minute-english.png" alt="word clock 5-minute resolution in english" style="border: 1px solid darkgray;">
 
 - Targets .NET 10.0
 - Uses Avalonia to allow cross-platform use (tested on Windows and Raspberry Pi)
+
+
+# 5-Minute and 1-Minute Resolutions
+
+In the 5-minute resolution display, the time is rounded down to 5-minute intervals with the four “dots” around the outside 
+(clockwise, starting from top-left) denoting the four minutes in between each interval, as shown above.
+
+In the 1-minute resolution display, the time is is written out in full:
+
+<img src="images/time-in-words-screenshot-1-minute-english.png" alt="word clock 1-minute resolution in english" style="border: 1px solid darkgray;">
+
+# Multilingual Support
+
+At present the clock supports English, Dutch and French. Other languages can be added with ease.
+
+<img src="images/time-in-words-screenshot-5-minute-dutch.png" alt="word clock 5-minute resolution in dutch" style="border: 1px solid darkgray;">
+<img src="images/time-in-words-screenshot-5-minute-french.png" alt="word clock 5-minute resolution in fench" style="border: 1px solid darkgray;">
+
 
 # Word Clock Algorithm
 ![alt text](https://raw.githubusercontent.com/TheBauwssss/TimeInWords/master/images/window.png "Debug Window Preview")

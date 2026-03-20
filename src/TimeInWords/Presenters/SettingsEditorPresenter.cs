@@ -8,7 +8,12 @@ namespace TimeInWords.Presenters;
 
 public class SettingsEditorPresenter
 {
-    private readonly JsonSerializerOptions _jsonSerializerOptions = new() { WriteIndented = true };
+    private readonly JsonSerializerOptions _jsonSerializerOptions = new()
+    {
+        WriteIndented = true,
+        NewLine = "\n",
+        ReadCommentHandling = JsonCommentHandling.Skip,
+    };
 
     private readonly string _filePath;
 

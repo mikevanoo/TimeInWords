@@ -24,6 +24,7 @@ public class TimeGridShould(ITestOutputHelper testOutputHelper)
     [Theory]
     [InlineData(LanguagePreset.Language.English, typeof(TimeGridEnglish))]
     [InlineData(LanguagePreset.Language.Dutch, typeof(TimeGridDutch))]
+    [InlineData(LanguagePreset.Language.EnglishPrecise, typeof(TimeGridEnglishPrecise))]
     public void GetCorrectTimeGridForGivenLanguage(LanguagePreset.Language language, Type expectedPreset)
     {
         var actual = TimeGrid.Get(language);

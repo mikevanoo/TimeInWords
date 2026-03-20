@@ -56,12 +56,13 @@ public class TimeInWordsViewShould
     {
         var view = new TimeInWordsView();
         var settings = new TimeInWordsSettings();
+        var grid = new TimeGridEnglish();
 
-        view.Initialise(settings, new TimeGridEnglish());
+        view.Initialise(settings, grid);
 
         // +2 on the row and column counts to accommodate the additional minute LEDs
-        view.DisplayGrid.ColumnDefinitions.Should().HaveCount(TimeGrid.GridWidth + 2);
-        view.DisplayGrid.RowDefinitions.Should().HaveCount(TimeGrid.GridHeight + 2);
+        view.DisplayGrid.ColumnDefinitions.Should().HaveCount(grid.GridWidth + 2);
+        view.DisplayGrid.RowDefinitions.Should().HaveCount(grid.GridHeight + 2);
     }
 
     [AvaloniaFact]

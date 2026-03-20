@@ -160,7 +160,7 @@ public class TimeInWordsView : Panel, ITimeInWordsView
 
     private delegate void LoopMainGridAction(int rowIndex, int columnIndex, int gridRowIndex, int gridColumnIndex);
 
-    private static void LoopMainGrid(LoopMainGridAction action)
+    private void LoopMainGrid(LoopMainGridAction action)
     {
         // the additional minute LEDs are in the first/last rows and columns
         // the main grid starts in the 2nd row and column so start at index 1

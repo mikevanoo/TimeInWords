@@ -16,7 +16,7 @@ public class TimeInWordsSettings
     public Color ActiveFontColour { get; set; } = Color.FromRgb(255, 255, 255);
 
     [JsonIgnore]
-    public Color InactiveFontColour { get; set; } = Color.FromRgb(55, 55, 55);
+    public Color InactiveFontColour { get; set; } = Color.FromRgb(77, 77, 77);
 
     [JsonIgnore]
     public bool Debug { get; set; }
