@@ -10,27 +10,27 @@ public class TimeGridEnglishPrecise : TimeGrid
         + '\n'
         + "QUARTERDHALFTWENTY"
         + '\n'
-        + "ONETWOTHREEFOURBCD"
+        + "DBONETWOTHREEFOURC"
         + '\n'
         + "FIVESIXSEVENEIGHTB"
         + '\n'
-        + "NINETENELEVENBCDEF"
+        + "FBNINETENELEVENJDE"
         + '\n'
-        + "TWELVETHIRTEENBCDE"
+        + "ETWELVECTHIRTEENBD"
         + '\n'
-        + "FOURTEENSIXTEENBCD"
+        + "LFOURTEENCSIXTEENB"
         + '\n'
         + "SEVENTEENEIGHTEENB"
         + '\n'
-        + "NINETEENBCDEFGHJKL"
+        + "DBLNINETEENCFEKGJC"
         + '\n'
-        + "PASTBTOBCDEFGHJKLM"
+        + "KBMINUTESJPASTBTOM"
         + '\n'
         + "ONESIXTHREEFOURBCD"
         + '\n'
         + "FIVETWOSEVENEIGHTB"
         + '\n'
-        + "NINETENELEVENBCDEF"
+        + "BNINEFTENDELEVENCE"
         + '\n'
-        + "TWELVEOCLOCKBCDEFG";
+        + "TWELVEGBOCLOCKFDEC";
 }
