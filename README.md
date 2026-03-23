@@ -1,13 +1,16 @@
 # Overview
 
-A [QLOCKTWO](https://www.qlocktwo.com/en-de/earth/90/black-pepper)-inspired full-screen/screensaver application,
-adapting portions from [https://github.com/sedrubal/WordClockScr](https://github.com/sedrubal/WordClockScr).
+A [QLOCKTWO](https://www.qlocktwo.com/en-de/earth/90/black-pepper)-inspired full-screen/screensaver application. 
+Currently supports English, Dutch and French in 5-minute and 1-minute resolutions.
+Uses and includes a multilingual implementation of a word clock algorithm that converts a timestamp to its text
+representation and then to a bit-mask for an LED grid.
 
-Uses and includes a multilingual implementation of a word clock algorithm that converts a timestamp to its text 
-representation and then to a bit-mask for an LED grid. Currently supports English, Dutch and French. Includes a fork the 
-original work from [https://github.com/TheBauwssss/TimeInWords](https://github.com/TheBauwssss/TimeInWords) with enhancements and additions.
+This repo builds on previous work from the repos below but with significant enhancements and additions:
+ - [https://github.com/TheBauwssss/TimeInWords](https://github.com/TheBauwssss/TimeInWords)
+ - [https://github.com/sedrubal/WordClockScr](https://github.com/sedrubal/WordClockScr)
 
-See [blog series](https://mikevanoo.co.uk/blog/modernise-crossplatform-windows-desktop-app-part1/) that discusses the solution in detail.
+See [blog series](https://mikevanoo.co.uk/blog/modernise-crossplatform-windows-desktop-app-part1/) that discusses the 
+solution in more detail when it was modernised and cross-platformed.
 
 ## Full-screen/Screensaver Application
 
