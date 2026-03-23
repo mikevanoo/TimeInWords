@@ -73,7 +73,7 @@ public class FrenchPrecisePresetShould(ITestOutputHelper testOutputHelper)
             Add(new DateTime(2024, 1, 1, 0, 27, 0), "IL EST MINUIT VINGT SEPT +0");
             Add(new DateTime(2024, 1, 1, 0, 28, 0), "IL EST MINUIT VINGT HUIT +0");
             Add(new DateTime(2024, 1, 1, 0, 29, 0), "IL EST MINUIT VINGT NEUF +0");
-            Add(new DateTime(2024, 1, 1, 0, 30, 0), "IL EST MINUIT ET DEMIE +0");
+            Add(new DateTime(2024, 1, 1, 0, 30, 0), "IL EST MINUIT ET DEMI +0");
             Add(new DateTime(2024, 1, 1, 0, 31, 0), "IL EST UNE HEURE MOINS VINGT NEUF +0");
             Add(new DateTime(2024, 1, 1, 0, 32, 0), "IL EST UNE HEURE MOINS VINGT HUIT +0");
             Add(new DateTime(2024, 1, 1, 0, 33, 0), "IL EST UNE HEURE MOINS VINGT SEPT +0");
@@ -793,7 +793,7 @@ public class FrenchPrecisePresetShould(ITestOutputHelper testOutputHelper)
             Add(new DateTime(2024, 1, 1, 12, 27, 0), "IL EST MIDI VINGT SEPT +0");
             Add(new DateTime(2024, 1, 1, 12, 28, 0), "IL EST MIDI VINGT HUIT +0");
             Add(new DateTime(2024, 1, 1, 12, 29, 0), "IL EST MIDI VINGT NEUF +0");
-            Add(new DateTime(2024, 1, 1, 12, 30, 0), "IL EST MIDI ET DEMIE +0");
+            Add(new DateTime(2024, 1, 1, 12, 30, 0), "IL EST MIDI ET DEMI +0");
             Add(new DateTime(2024, 1, 1, 12, 31, 0), "IL EST UNE HEURE MOINS VINGT NEUF +0");
             Add(new DateTime(2024, 1, 1, 12, 32, 0), "IL EST UNE HEURE MOINS VINGT HUIT +0");
             Add(new DateTime(2024, 1, 1, 12, 33, 0), "IL EST UNE HEURE MOINS VINGT SEPT +0");

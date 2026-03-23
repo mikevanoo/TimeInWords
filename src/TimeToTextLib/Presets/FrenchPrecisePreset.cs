@@ -21,7 +21,7 @@ public class FrenchPrecisePreset : LanguagePreset
         }
         else if (minute == 30)
         {
-            s.Append(CultureInfo.InvariantCulture, $"{HourWithHeures(time.Hour)} ET DEMIE");
+            s.Append(CultureInfo.InvariantCulture, $"{HourWithHeures(time.Hour)} ET {Demie(time.Hour)}");
         }
         else if (minute == 45)
         {
@@ -33,7 +33,10 @@ public class FrenchPrecisePreset : LanguagePreset
         }
         else
         {
-            s.Append(CultureInfo.InvariantCulture, $"{HourWithHeures(time.Hour + 1)} MOINS {GetNumberText(60 - minute)}");
+            s.Append(
+                CultureInfo.InvariantCulture,
+                $"{HourWithHeures(time.Hour + 1)} MOINS {GetNumberText(60 - minute)}"
+            );
         }
 
         return new TimeToTextFormat { TimeAsText = s.ToString(), AdditionalMinutes = 0 };
@@ -91,4 +94,6 @@ public class FrenchPrecisePreset : LanguagePreset
     }
 
     private static string Heure(int hour) => hour == 1 ? "HEURE" : "HEURES";
+
+    private static string Demie(int hour) => hour is 0 or 12 ? "DEMI" : "DEMIE";
 }
