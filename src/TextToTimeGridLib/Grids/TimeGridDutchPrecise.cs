@@ -6,7 +6,7 @@ public class TimeGridDutchPrecise : TimeGrid
     public override int GridWidth => 18;
 
     protected override string RawGrid =>
-        "HETBISEENTWEEDRIEB"
+        "HETBISBÉÉNTWEEDRIE"
         + '\n'
         + "VIERVIJFACHTZESBFG"
         + '\n'
@@ -18,7 +18,7 @@ public class TimeGridDutchPrecise : TimeGrid
         + '\n'
         + "HALFOVERVOORBHALFB"
         + '\n'
-        + "EENTWEEDRIEVIERZES"
+        + "ÉÉNTWEEDRIEVIERZES"
         + '\n'
         + "VIJFZEVENACHTELFBF"
         + '\n'

@@ -50,7 +50,7 @@ public class DutchPrecisePreset : LanguagePreset
 
     protected override string[] Numbers =>
         [
-            "EEN",
+            "ÉÉN",
             "TWEE",
             "DRIE",
             "VIER",
