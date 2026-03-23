@@ -57,7 +57,7 @@ public class DutchPreset : LanguagePreset
     }
 
     protected override string[] Numbers =>
-        ["EEN", "TWEE", "DRIE", "VIER", "VIJF", "ZES", "ZEVEN", "ACHT", "NEGEN", "TIEN", "ELF", "TWAALF"];
+        ["ÉÉN", "TWEE", "DRIE", "VIER", "VIJF", "ZES", "ZEVEN", "ACHT", "NEGEN", "TIEN", "ELF", "TWAALF"];
 
     protected override string Prefix => "HET IS";
 }

@@ -11,7 +11,7 @@ public class TimeGridDutch : TimeGrid
         + '\n'
         + "HALFSPWOVER"
         + '\n'
-        + "VOORTHGEENS"
+        + "VOORTHGÉÉNS"
         + '\n'
         + "TWEEPVCDRIE"
         + '\n'
