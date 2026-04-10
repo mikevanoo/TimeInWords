@@ -1,9 +1,13 @@
 # Overview
 
 A [QLOCKTWO](https://www.qlocktwo.com/en-de/earth/90/black-pepper)-inspired full-screen/screensaver application. 
-Currently supports English, Dutch and French in 5-minute and 1-minute resolutions.
+Multilingual with support for 5-minute and 1-minute resolutions.
+
 Uses and includes a multilingual implementation of a word clock algorithm that converts a timestamp to its text
 representation and then to a bit-mask for an LED grid.
+
+Targets .NET 10.
+Uses Avalonia to allow cross-platform use (tested on Windows and Raspberry Pi).
 
 This repo builds on previous work from the repos below but with significant enhancements and additions:
  - [https://github.com/TheBauwssss/TimeInWords](https://github.com/TheBauwssss/TimeInWords)
@@ -12,13 +16,9 @@ This repo builds on previous work from the repos below but with significant enha
 See [blog series](https://mikevanoo.co.uk/blog/modernise-crossplatform-windows-desktop-app-part1/) that discusses the 
 solution in more detail when it was modernised and cross-platformed.
 
-## Full-screen/Screensaver Application
+# Full-screen/Screensaver Application
 
 <img src="images/time-in-words-screenshot-5-minute-english.png" alt="word clock 5-minute resolution in english" style="border: 1px solid darkgray;">
-
-- Targets .NET 10.0
-- Uses Avalonia to allow cross-platform use (tested on Windows and Raspberry Pi)
-
 
 # 5-Minute and 1-Minute Resolutions
 
@@ -31,10 +31,12 @@ In the 1-minute resolution display, the time is is written out in full:
 
 # Multilingual Support
 
-At present the clock supports English, Dutch and French. Other languages can be added with ease.
+At present the clock supports English, Dutch, French and Spanish. Other languages can be added with ease.
+
+For example:
 
 <img src="images/time-in-words-screenshot-5-minute-dutch.png" alt="word clock 5-minute resolution in dutch" style="border: 1px solid darkgray;">
-<img src="images/time-in-words-screenshot-5-minute-french.png" alt="word clock 5-minute resolution in fench" style="border: 1px solid darkgray;">
+<img src="images/time-in-words-screenshot-5-minute-french.png" alt="word clock 5-minute resolution in french" style="border: 1px solid darkgray;">
 
 
 # Word Clock Algorithm
