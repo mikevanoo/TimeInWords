@@ -20,13 +20,14 @@ public abstract class TimeGrid
         new()
         {
             { LanguagePreset.Language.English, new TimeGridEnglish() },
-            { LanguagePreset.Language.Dutch, new TimeGridDutch() },
-            { LanguagePreset.Language.French, new TimeGridFrench() },
-            { LanguagePreset.Language.Spanish, new TimeGridSpanish() },
             { LanguagePreset.Language.EnglishPrecise, new TimeGridEnglishPrecise() },
-            { LanguagePreset.Language.FrenchPrecise, new TimeGridFrenchPrecise() },
+            { LanguagePreset.Language.Dutch, new TimeGridDutch() },
             { LanguagePreset.Language.DutchPrecise, new TimeGridDutchPrecise() },
+            { LanguagePreset.Language.French, new TimeGridFrench() },
+            { LanguagePreset.Language.FrenchPrecise, new TimeGridFrenchPrecise() },
+            { LanguagePreset.Language.Spanish, new TimeGridSpanish() },
             { LanguagePreset.Language.SpanishPrecise, new TimeGridSpanishPrecise() },
+            { LanguagePreset.Language.German, new TimeGridGerman() },
         };
 
     public static TimeGrid Get(LanguagePreset.Language lang)
