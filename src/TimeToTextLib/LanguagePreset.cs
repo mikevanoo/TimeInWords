@@ -17,6 +17,7 @@ public abstract class LanguagePreset
         Spanish = 6,
         SpanishPrecise = 7,
         German = 8,
+        GermanPrecise = 9,
     }
 
     private static readonly Dictionary<Language, LanguagePreset> Instances = new Dictionary<Language, LanguagePreset>
@@ -30,6 +31,7 @@ public abstract class LanguagePreset
         { Language.Spanish, new SpanishPreset() },
         { Language.SpanishPrecise, new SpanishPrecisePreset() },
         { Language.German, new GermanPreset() },
+        { Language.GermanPrecise, new GermanPrecisePreset() },
     };
 
     public static LanguagePreset Get(Language lang)
