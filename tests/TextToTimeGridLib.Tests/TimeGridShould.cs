@@ -3,7 +3,6 @@ using System.Text;
 using TextToTimeGridLib.Grids;
 using TimeToTextLib;
 using TimeToTextLib.Presets;
-using Xunit.Abstractions;
 
 namespace TextToTimeGridLib.Tests;
 
