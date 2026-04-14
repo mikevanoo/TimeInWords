@@ -85,3 +85,7 @@ All new code must have corresponding tests. Presenter tests mock view interfaces
 3. Create a grid class in `src/TextToTimeGridLib/Grids/` inheriting from `TimeGrid`.
 4. Register both in the static factory methods (`LanguagePreset.Get()`, `TimeGrid.Get()`).
 5. Add tests in both `tests/TimeToTextLib.Tests/Presets/` and `tests/TextToTimeGridLib.Tests/Grids/`.
+
+NOTE: when building the grids, ensure that:
+- words on the same row that are displayed at the same time are separated by at least one filler character;
+- filler characters are distributed across the row, not just on the right-hand side;

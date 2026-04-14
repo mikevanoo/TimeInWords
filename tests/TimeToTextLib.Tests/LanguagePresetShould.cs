@@ -21,6 +21,7 @@ public class LanguagePresetShould
     [InlineData(LanguagePreset.Language.Dutch, typeof(DutchPreset))]
     [InlineData(LanguagePreset.Language.French, typeof(FrenchPreset))]
     [InlineData(LanguagePreset.Language.EnglishPrecise, typeof(EnglishPrecisePreset))]
+    [InlineData(LanguagePreset.Language.GermanPrecise, typeof(GermanPrecisePreset))]
     public void GetCorrectPresetForGivenLanguage(LanguagePreset.Language language, Type expectedPreset)
     {
         var actual = LanguagePreset.Get(language);

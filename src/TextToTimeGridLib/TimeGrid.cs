@@ -28,6 +28,7 @@ public abstract class TimeGrid
             { LanguagePreset.Language.Spanish, new TimeGridSpanish() },
             { LanguagePreset.Language.SpanishPrecise, new TimeGridSpanishPrecise() },
             { LanguagePreset.Language.German, new TimeGridGerman() },
+            { LanguagePreset.Language.GermanPrecise, new TimeGridGermanPrecise() },
         };
 
     public static TimeGrid Get(LanguagePreset.Language lang)
