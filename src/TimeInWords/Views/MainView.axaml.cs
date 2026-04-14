@@ -93,14 +93,14 @@ public partial class MainView : Window, IMainView
             || mode == FullscreenMode.ForceFullscreen
         )
         {
-            WindowDecorations = WindowDecorations.None;
+            SystemDecorations = SystemDecorations.None;
             WindowState = WindowState.FullScreen;
             Topmost = true;
             Focus();
         }
         else
         {
-            WindowDecorations = WindowDecorations.Full;
+            SystemDecorations = SystemDecorations.Full;
             WindowState = WindowState.Normal;
             Topmost = false;
         }

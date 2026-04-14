@@ -2,7 +2,6 @@
 using System.Text;
 using System.Timers;
 using Avalonia.Controls;
-using Avalonia.Input.Platform;
 using Avalonia.Interactivity;
 using Avalonia.Threading;
 using TextToTimeGridLib;

@@ -19,7 +19,7 @@ public class MainViewShould
 
         view.IsVisible.Should().BeTrue();
         view.ShowInTaskbar.Should().BeTrue();
-        view.WindowDecorations.Should().Be(WindowDecorations.Full);
+        view.SystemDecorations.Should().Be(SystemDecorations.Full);
         view.WindowState.Should().Be(WindowState.Normal);
         view.Topmost.Should().BeFalse();
     }
@@ -33,7 +33,7 @@ public class MainViewShould
 
         view.IsVisible.Should().BeTrue();
         view.ShowInTaskbar.Should().BeFalse();
-        view.WindowDecorations.Should().Be(WindowDecorations.None);
+        view.SystemDecorations.Should().Be(SystemDecorations.None);
         view.WindowState.Should().Be(WindowState.FullScreen);
         view.Topmost.Should().BeTrue();
     }
