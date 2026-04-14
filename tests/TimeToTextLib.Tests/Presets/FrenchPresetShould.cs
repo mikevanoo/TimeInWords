@@ -1,7 +1,6 @@
 ﻿using System.Globalization;
 using System.Text;
 using TimeToTextLib.Presets;
-using Xunit.Abstractions;
 
 namespace TimeToTextLib.Tests.Presets;
 
