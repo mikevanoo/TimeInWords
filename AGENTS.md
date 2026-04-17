@@ -2,14 +2,19 @@
 
 ## Project Overview
 
-TimeInWords is a QLOCKTWO-inspired word clock application that displays the current time as illuminated words on a letter grid. It runs as a Windows screensaver or cross-platform desktop app (including Raspberry Pi). Supports English, Dutch, and French.
+TimeInWords is a QLOCKTWO-inspired word clock application that displays the current time as illuminated words on a letter grid. It runs as a Windows screensaver or cross-platform desktop app (including Raspberry Pi).
+
+Support resolutions:
+- 5-minute resolution
+- 1-minute resolution (precise)
+
+Languages and resolution modes are listed in `src/TimeInWords/Resources/LanguagePreset.cs`. 
 
 ## Tech Stack
 
 - **Language:** C# on .NET 10.0
 - **UI Framework:** Avalonia 11.3.x (cross-platform desktop GUI)
 - **Testing:** xUnit, NSubstitute (mocking), AwesomeAssertions (fluent assertions), Avalonia.Headless.XUnit
-- **Package Management:** Central package versioning via `Directory.Packages.props`
 - **CI:** GitHub Actions (`.github/workflows/dotnetcore.yml`)
 
 ## Build & Test
@@ -53,17 +58,13 @@ Key design decisions:
 
 ## Code Conventions
 
-Follow the `.editorconfig` — it is comprehensive and enforced as warnings/errors. Key rules:
+Follow `.editorconfig` as the source of truth; it is comprehensive and enforced as warnings/errors.
 
-- **Namespaces:** File-scoped (`namespace Foo;`), required as error severity.
-- **Naming:** PascalCase for public members, `_camelCase` for private fields, `I` prefix for interfaces, `T` prefix for type parameters.
-- **`var`:** Use `var` everywhere (built-in types, apparent types, and elsewhere).
-- **Expression-bodied members:** Preferred for methods, properties, accessors, lambdas. Not for constructors.
-- **Braces:** Always required (`csharp_prefer_braces = true`).
-- **Pattern matching:** Preferred over `is`/`as` with cast/null checks.
-- **Null handling:** Use `?.`, `??`, and `is null` (not `ReferenceEquals`).
-- **Formatting:** 4-space indentation, newline before all open braces, max 120 character line length.
-- **Usings:** `System` usings sorted first, placed outside namespace.
+High-signal defaults to keep in mind:
+- File-scoped namespaces are required.
+- Use `var` consistently.
+- Private fields use `_camelCase`; interfaces use `I` prefix; type parameters use `T` prefix.
+- Keep braces on all control blocks.
 
 ## Testing Conventions
 
@@ -80,11 +81,14 @@ All new code must have corresponding tests. Presenter tests mock view interfaces
 
 ## Adding a New Language
 
-1. Add a new `LanguagePreset.Language` enum value.
-2. Create a preset class in `src/TimeToTextLib/Presets/` inheriting from `LanguagePreset`.
-3. Create a grid class in `src/TextToTimeGridLib/Grids/` inheriting from `TimeGrid`.
-4. Register both in the static factory methods (`LanguagePreset.Get()`, `TimeGrid.Get()`).
-5. Add tests in both `tests/TimeToTextLib.Tests/Presets/` and `tests/TextToTimeGridLib.Tests/Grids/`.
+Follow the existing pattern where a language usually has both 5-minute and precise variants.
+
+1. Add enum values to `LanguagePreset.Language` (typically `<Language>` and `<Language>Precise`).
+2. Create preset classes in `src/TimeToTextLib/Presets/` inheriting from `LanguagePreset` (typically both variants).
+3. Create grid classes in `src/TextToTimeGridLib/Grids/` inheriting from `TimeGrid` (typically both variants).
+4. Register all new variants in both static factories (`LanguagePreset.Get()`, `TimeGrid.Get()`).
+5. Add tests for all variants in both `tests/TimeToTextLib.Tests/Presets/` and `tests/TextToTimeGridLib.Tests/Grids/`.
+6. Keep names aligned (`<Language>` / `<Language>Precise`) so settings and app configuration stay consistent.
 
 NOTE: when building the grids, ensure that:
 - words on the same row that are displayed at the same time are separated by at least one filler character;
