@@ -4,18 +4,8 @@
 
 TimeInWords is a QLOCKTWO-inspired word clock application that displays the current time as illuminated words on a letter grid. It runs as a Windows screensaver or cross-platform desktop app (including Raspberry Pi).
 
-Support resolutions:
-- 5-minute resolution
-- 1-minute resolution (precise)
-
-Languages and resolution modes are listed in `src/TimeInWords/Resources/LanguagePreset.cs`. 
-
-## Tech Stack
-
-- **Language:** C# on .NET 10.0
-- **UI Framework:** Avalonia 11.3.x (cross-platform desktop GUI)
-- **Testing:** xUnit, NSubstitute (mocking), AwesomeAssertions (fluent assertions), Avalonia.Headless.XUnit
-- **CI:** GitHub Actions (`.github/workflows/dotnetcore.yml`)
+Supported time resolutions are 5-minute resolution and 1-minute resolution (precise).
+Languages and resolution modes are listed in `src/TimeInWords/Resources/LanguagePreset.cs`.
 
 ## Build & Test
 
@@ -27,57 +17,25 @@ dotnet test --no-build --verbosity normal --logger trx --settings coverlet.runse
 
 All three commands must pass cleanly before submitting changes. CI runs on Ubuntu with .NET 10.0.
 
-## Project Structure
-
-```
-src/
-  TimeInWords/          # Main screensaver/desktop app (Avalonia, WinExe)
-  TimeToTextLib/        # Core library: converts DateTime to word representation
-  TextToTimeGridLib/    # Core library: maps word text to LED bitmask grid
-  DebugApp/             # Avalonia debug harness
-  ConsoleDebugApp/      # Console debug utility
-tests/
-  TimeInWords.Tests/    # Presenter, view, and control tests
-  TimeToTextLib.Tests/  # Time-to-text algorithm tests
-  TextToTimeGridLib.Tests/  # Grid and bitmask tests
-```
-
 ## Architecture
 
-**MVP (Model-View-Presenter)** pattern throughout the UI layer:
-
-- **Views** implement interfaces (`ITimeInWordsView`, `IMainView`, `ISettingsEditorView`) and handle rendering only.
-- **Presenters** (`TimeInWordsPresenter`, `MainPresenter`, `SettingsEditorPresenter`) contain all logic and coordinate between views and models.
-- **Models/Libraries** (`TimeToTextLib`, `TextToTimeGridLib`) are standalone, reusable libraries with no UI dependencies.
+**MVP (Model-View-Presenter)** pattern throughout the UI layer. Views handle rendering only; presenters contain logic; `TimeToTextLib` and `TextToTimeGridLib` are standalone libraries with no UI dependencies.
 
 Key design decisions:
 - Constructor injection for all dependencies. No DI container — manual wiring in `Program.cs`.
-- Factory pattern for view creation (`IMainViewFactory`).
+- Factory pattern for view creation.
 - Strategy pattern for language support (`LanguagePreset`, `TimeGrid` with per-language subclasses in `Presets/` and `Grids/` folders).
-- Interfaces for testability: `IDateTimeProvider`, `ITimer`.
+- Interfaces for testability (e.g. `IDateTimeProvider`, `ITimer`).
 
 ## Code Conventions
 
 Follow `.editorconfig` as the source of truth; it is comprehensive and enforced as warnings/errors.
 
-High-signal defaults to keep in mind:
-- File-scoped namespaces are required.
-- Use `var` consistently.
-- Private fields use `_camelCase`; interfaces use `I` prefix; type parameters use `T` prefix.
-- Keep braces on all control blocks.
+## Testing
 
-## Testing Conventions
-
-- **Test class naming:** `{ClassName}Should.cs` (e.g., `TimeInWordsPresenterShould.cs`).
-- **Test method naming:** Descriptive PascalCase phrases (e.g., `InitialiseTheView`, `ConfigureTimerCorrectly`).
-- **Test structure mirrors source:** `tests/TimeInWords.Tests/Presenters/` mirrors `src/TimeInWords/Presenters/`.
-- **Assertions:** Use AwesomeAssertions fluent syntax (`.Should().Be()`, `.Should().NotBeNull()`).
-- **Mocking:** Use NSubstitute (`Substitute.For<T>()`, `.Returns()`, `.Received()`).
-- **Parameterized tests:** Use `[Theory]` with `[InlineData]` or `[ClassData]` for data-driven tests.
-- **Avalonia UI tests:** Use `Avalonia.Headless.XUnit` for headless view testing.
-- **Global usings:** Test projects use `GlobalUsings.cs` for common imports.
-
-All new code must have corresponding tests. Presenter tests mock view interfaces; library tests cover algorithm correctness with comprehensive input scenarios.
+All new code must have corresponding tests. 
+Presenter tests mock view interfaces; library tests cover algorithm correctness with comprehensive input scenarios. 
+Match the style and structure of existing tests.
 
 ## Adding a New Language
 
