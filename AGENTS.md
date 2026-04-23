@@ -51,3 +51,5 @@ Follow the existing pattern where a language usually has both 5-minute and preci
 NOTE: when building the grids, ensure that:
 - words on the same row that are displayed at the same time are separated by at least one filler character;
 - filler characters are distributed across the row, not just on the right-hand side;
+- only use "safe" filler characters, i.e. those that are not used to spell out the required words on the grid;
+- aim for roughly even distribution of filler characters and avoid placing the same character in adjacent cells;
