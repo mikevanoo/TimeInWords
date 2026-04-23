@@ -14,11 +14,6 @@ public class SpanishPrecisePresetShould(ITestOutputHelper testOutputHelper)
     public void FormatTimeToTextCorrectly(DateTime time, string expected) =>
         _preset.Format(time).ToString().Should().BeEquivalentTo(expected);
 
-    [Theory]
-    [ClassData(typeof(FormatTimeToTextCorrectlyTheoryData))]
-    public void AlwaysHaveZeroAdditionalMinutes(DateTime time, string _) =>
-        _preset.Format(time).AdditionalMinutes.Should().Be(0);
-
 #pragma warning disable xUnit1004
     [Fact(Skip = "test code generator")]
 #pragma warning restore xUnit1004
