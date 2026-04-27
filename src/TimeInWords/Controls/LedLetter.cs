@@ -28,7 +28,7 @@ internal class LedLetter : TextBlock, IFadeableControl
     {
         _settings = settings ?? throw new ArgumentNullException(nameof(settings));
 
-        FontFamily = new FontFamily("Sans-Serif");
+        FontFamily = new FontFamily("Inter");
         FontSize = 37.5f;
         TextAlignment = TextAlignment.Center;
         Text = text;

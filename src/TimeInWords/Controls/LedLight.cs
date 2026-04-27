@@ -9,7 +9,7 @@ internal class LedLight : LedLetter
     {
         Height = 25;
         Width = 25;
-        FontFamily = new FontFamily("Arial Unicode MS");
+        FontFamily = new FontFamily("Inter");
         FontSize = 18;
     }
 }
