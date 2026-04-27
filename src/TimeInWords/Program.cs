@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using Avalonia;
@@ -15,7 +16,13 @@ internal static class Program
     // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
     // yet and stuff might break.
     [STAThread]
-    public static void Main(string[] args) => BuildAvaloniaApp().Start(AppMain, args);
+    public static void Main(string[] args)
+    {
+        // Trace.Listeners.Add(new ConsoleTraceListener());
+        // Trace.AutoFlush = true;
+
+        BuildAvaloniaApp().Start(AppMain, args);
+    }
 
     // Application entry point. Avalonia is completely initialized.
 
@@ -62,8 +69,7 @@ internal static class Program
     }
 
     // Avalonia configuration, don't remove; also used by visual designer.
-    public static AppBuilder BuildAvaloniaApp() =>
-        AppBuilder.Configure<App>().UsePlatformDetect().WithInterFont().LogToTrace();
+    public static AppBuilder BuildAvaloniaApp() => AppBuilder.Configure<App>().UsePlatformDetect().WithInterFont(); //.LogToTrace(Avalonia.Logging.LogEventLevel.Information);
 
     private static TimeInWordsSettings ReadSettings()
     {
