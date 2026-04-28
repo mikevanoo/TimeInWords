@@ -1,12 +1,19 @@
-﻿using System;
+﻿using System.Diagnostics.CodeAnalysis;
 using Avalonia.Controls;
+using Avalonia.LogicalTree;
 using Avalonia.Media;
 
 namespace TimeInWords.Controls;
 
+[SuppressMessage(
+    "Microsoft.Design",
+    "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable",
+    Justification = "Avalonia controls are not disposed by the framework; cleanup is performed in OnDetachedFromLogicalTree."
+)]
 internal class LedLetter : TextBlock, IFadeableControl
 {
     private readonly TimeInWordsSettings _settings;
+    private CancellationTokenSource? _fadeCts;
 
     public bool Active
     {
@@ -19,7 +26,11 @@ internal class LedLetter : TextBlock, IFadeableControl
 
                 field = value;
 
-                ColorFader.SetControlForeColor(this, endColor);
+                // Handle fading overlaps by cancelling the current one
+                _fadeCts?.Cancel();
+                _fadeCts?.Dispose();
+                _fadeCts = new CancellationTokenSource();
+                _ = ColorFader.FadeForegroundAsync(this, endColor, cancellationToken: _fadeCts.Token);
             }
         }
     }
@@ -34,5 +45,14 @@ internal class LedLetter : TextBlock, IFadeableControl
         Text = text;
         Foreground = new SolidColorBrush(_settings.InactiveFontColour);
         Background = new SolidColorBrush(_settings.BackgroundColour);
+    }
+
+    protected override void OnDetachedFromLogicalTree(LogicalTreeAttachmentEventArgs e)
+    {
+        // Handle active fading by cancelling
+        _fadeCts?.Cancel();
+        _fadeCts?.Dispose();
+        _fadeCts = null;
+        base.OnDetachedFromLogicalTree(e);
     }
 }

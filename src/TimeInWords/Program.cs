@@ -1,8 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using System.IO;
-using System.Threading;
-using Avalonia;
+﻿using Avalonia;
 using Avalonia.Controls;
 using Microsoft.Extensions.Configuration;
 using TimeInWords.Presenters;
@@ -24,52 +20,53 @@ internal static class Program
         BuildAvaloniaApp().Start(AppMain, args);
     }
 
-    // Application entry point. Avalonia is completely initialized.
+    // Avalonia configuration, don't remove; also used by visual designer.
+    public static AppBuilder BuildAvaloniaApp() => AppBuilder.Configure<App>().UsePlatformDetect().WithInterFont(); //.LogToTrace(Avalonia.Logging.LogEventLevel.Information);
 
+    // Application entry point. Avalonia is completely initialized.
     private static void AppMain(Application app, string[] args)
     {
-        // A cancellation token source that will be used to stop the main loop
-        var cts = new CancellationTokenSource();
-
-        // Do your startup code here
-        var settings = ReadSettings();
-
-        if (args.Length > 0)
+        var mode = ParseStartupMode(args);
+        if (mode == StartupMode.Preview)
         {
-            var firstArgument = args[0].ToLowerInvariant().Trim().Substring(0, 2);
+            return;
+        }
 
-            switch (firstArgument)
-            {
-                case "/c":
-                    // Windows "Change Screensaver" dialog Settings mode
-                    var settingsView = new SettingsEditorView();
-                    _ = new SettingsEditorPresenter(settingsView, cts);
-                    app.Run(cts.Token);
-                    return;
-                case "/p":
-                    // Windows "Change Screensaver" dialog Preview mode
-                    // Ignore and exit
-                    return;
-                case "/s":
-                    settings.Debug = false;
-                    break;
-                default:
-                    settings.Debug = true;
-                    break;
-            }
+        var cts = new CancellationTokenSource();
+        var settings = ReadSettings();
+        settings.Debug = mode != StartupMode.Screensaver;
+
+        if (mode == StartupMode.Config)
+        {
+            var settingsView = new SettingsEditorView();
+            _ = new SettingsEditorPresenter(settingsView, cts);
         }
         else
         {
-            settings.Debug = true;
+            _ = new MainPresenter(settings, new MainViewFactory(), cts);
         }
 
-        // Start the main app
-        _ = new MainPresenter(settings, new MainViewFactory(), cts);
         app.Run(cts.Token);
     }
 
-    // Avalonia configuration, don't remove; also used by visual designer.
-    public static AppBuilder BuildAvaloniaApp() => AppBuilder.Configure<App>().UsePlatformDetect().WithInterFont(); //.LogToTrace(Avalonia.Logging.LogEventLevel.Information);
+    private enum StartupMode
+    {
+        Debug,
+        Screensaver,
+        Config,
+        Preview,
+    }
+
+    private static StartupMode ParseStartupMode(string[] args) =>
+        args.Length == 0
+            ? StartupMode.Debug
+            : args[0].ToLowerInvariant() switch
+            {
+                ['/', 'c', ..] => StartupMode.Config, // Windows "Change Screensaver" dialog Settings mode
+                ['/', 'p', ..] => StartupMode.Preview, // Windows "Change Screensaver" dialog Preview mode. Ignore and exit
+                ['/', 's', ..] => StartupMode.Screensaver, // Full-screen mode
+                _ => StartupMode.Debug,
+            };
 
     private static TimeInWordsSettings ReadSettings()
     {

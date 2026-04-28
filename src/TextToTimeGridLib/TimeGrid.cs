@@ -146,84 +146,48 @@ public abstract class TimeGrid
 
     private Bitmask GetBitmaskStrict(string input, bool[][] output)
     {
-        /*
-         * Strict mode finds whole words in the grid, respecting word boundaries.
-         * Example: "IT IS FIVE" will match letters that form complete words.
-         *
-         * The duplicate character handling (lines 160-163) handles cases where
-         * a word like "ELEVEN" appears in the grid but we're looking for "SEVEN".
-         * When we see "EL" but need "SE", we keep the 'L' as it might be the
-         * start of the next word.
-         */
+        var words = input.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        var rows = CharGrid.Select(row => new string(row)).ToArray();
 
-        var wordIndex = 0;
-        var gridX = 0;
-        var gridY = 0;
-        var words = input.Split(' ');
-        var currentMatch = "";
+        var cursorRow = 0;
+        var cursorCol = 0;
 
-        foreach (var line in CharGrid)
+        foreach (var word in words)
         {
-            foreach (var cell in line)
+            var (row, col) = FindWordFrom(rows, word, cursorRow, cursorCol);
+            if (row < 0)
             {
-                if (wordIndex >= words.Length)
-                {
-                    break; // All words found
-                }
-
-                currentMatch += cell;
-                gridX++;
-
-                if (IsExactWordMatch(words[wordIndex], currentMatch))
-                {
-                    MarkWordAsActive(output, gridY, gridX, words[wordIndex].Length);
-                    currentMatch = "";
-                    wordIndex++;
-                }
-                else if (IsPartialWordMatch(words[wordIndex], currentMatch))
-                {
-                    // Continue building the current word
-                    continue;
-                }
-                else
-                {
-                    // Mismatch - reset but handle duplicate characters
-                    currentMatch = HandleDuplicateCharacters(currentMatch);
-                }
+                break;
             }
-            gridY++;
-            gridX = 0;
+
+            for (var c = col; c < col + word.Length; c++)
+            {
+                output[row][c] = true;
+            }
+
+            cursorRow = row;
+            cursorCol = col + word.Length;
         }
 
         return new Bitmask(output);
     }
 
-    private static bool IsExactWordMatch(string targetWord, string currentMatch) => targetWord == currentMatch;
-
-    private static bool IsPartialWordMatch(string targetWord, string currentMatch) =>
-        targetWord.StartsWith(currentMatch, StringComparison.InvariantCulture);
-
-    private static void MarkWordAsActive(bool[][] output, int y, int x, int wordLength)
+    private static (int row, int col) FindWordFrom(string[] rows, string word, int startRow, int startCol)
     {
-        var startX = x - wordLength;
-        var endX = x;
-
-        for (var xx = startX; xx < endX; xx++)
+        for (var row = startRow; row < rows.Length; row++)
         {
-            output[y][xx] = true;
-        }
-    }
+            var from = row == startRow ? startCol : 0;
+            if (from >= rows[row].Length)
+            {
+                continue;
+            }
 
-    private static string HandleDuplicateCharacters(string currentMatch)
-    {
-        // If we have 2 identical chars (like "EE"), keep the last one
-        // as it might be the start of the next word
-        // Example: Looking for "SEVEN" but found "EL" - keep the "L"
-        if (currentMatch.Length == 2 && currentMatch[0] == currentMatch[1])
-        {
-            return currentMatch[1].ToString();
+            var found = rows[row].IndexOf(word, from, StringComparison.Ordinal);
+            if (found >= 0)
+            {
+                return (row, found);
+            }
         }
-
-        return "";
+        return (-1, -1);
     }
 }

@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Avalonia.Media;
 using Avalonia.Threading;
@@ -19,29 +20,40 @@ public class ColorFader
 
     private readonly IFadeableControl _control;
 
-    public static void SetControlForeColor(IFadeableControl control, Color toColor, int intervals = 20, int sleep = 20)
+    public static Task FadeForegroundAsync(
+        IFadeableControl control,
+        Color toColor,
+        int intervals = 20,
+        int stepDelayMs = 20,
+        CancellationToken cancellationToken = default
+    )
     {
-        var currentColor = (control.Foreground as SolidColorBrush)?.Color;
-        var colorFader = new ColorFader(control, currentColor, toColor, intervals);
-
-        Task.Run(async () =>
+        if (control.Foreground is not SolidColorBrush brush)
         {
-            await Task.Delay(sleep);
-            foreach (var color in colorFader.Fade())
+            return Task.CompletedTask;
+        }
+
+        var fader = new ColorFader(control, brush.Color, toColor, intervals);
+
+        return Dispatcher.UIThread.InvokeAsync(async () =>
+        {
+            try
             {
-                colorFader.SetControlForeColor(color);
-                await Task.Delay(sleep);
+                await Task.Delay(stepDelayMs, cancellationToken);
+                foreach (var color in fader.Fade())
+                {
+                    cancellationToken.ThrowIfCancellationRequested();
+
+                    fader._control.Foreground = new SolidColorBrush(color);
+                    await Task.Delay(stepDelayMs, cancellationToken);
+                }
             }
+            catch (OperationCanceledException) { }
         });
     }
 
-    private ColorFader(IFadeableControl control, Color? fromColor, Color toColor, int intervals)
+    private ColorFader(IFadeableControl control, Color fromColor, Color toColor, int intervals)
     {
-        if (!fromColor.HasValue)
-        {
-            throw new ArgumentNullException(nameof(fromColor));
-        }
-
         _control = control ?? throw new ArgumentNullException(nameof(control));
 
         if (intervals == 0)
@@ -49,7 +61,7 @@ public class ColorFader
             throw new ArgumentException($"{nameof(intervals)} must be a positive number");
         }
 
-        _fromColor = fromColor.Value;
+        _fromColor = fromColor;
         _toColor = toColor;
         _intervals = intervals;
 
@@ -70,7 +82,4 @@ public class ColorFader
         }
         yield return _toColor; // make sure we always return the exact target color last
     }
-
-    private void SetControlForeColor(Color color) =>
-        Dispatcher.UIThread.Post(() => _control.Foreground = new SolidColorBrush(color));
 }

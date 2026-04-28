@@ -1,43 +1,23 @@
-using System;
-using System.Globalization;
-using System.Text;
-
 namespace TimeToTextLib.Presets;
 
 public class EnglishPrecisePreset : LanguagePreset
 {
     public override TimeToTextFormat Format(DateTime time)
     {
-        var s = new StringBuilder($"{Prefix} ");
         var hour = HourIn12HourClock(time.Hour);
         var minute = time.Minute;
 
-        if (minute == 0)
+        var phrase = minute switch
         {
-            s.Append(CultureInfo.InvariantCulture, $"{Hour(hour)} OCLOCK");
-        }
-        else if (minute == 15)
-        {
-            s.Append(CultureInfo.InvariantCulture, $"A QUARTER PAST {Hour(hour)}");
-        }
-        else if (minute == 30)
-        {
-            s.Append(CultureInfo.InvariantCulture, $"HALF PAST {Hour(hour)}");
-        }
-        else if (minute == 45)
-        {
-            s.Append(CultureInfo.InvariantCulture, $"A QUARTER TO {Hour(hour + 1)}");
-        }
-        else if (minute <= 29)
-        {
-            s.Append(CultureInfo.InvariantCulture, $"{GetNumberTextWithSuffix(minute)} PAST {Hour(hour)}");
-        }
-        else
-        {
-            s.Append(CultureInfo.InvariantCulture, $"{GetNumberTextWithSuffix(60 - minute)} TO {Hour(hour + 1)}");
-        }
+            0 => $"{Hour(hour)} OCLOCK",
+            15 => $"A QUARTER PAST {Hour(hour)}",
+            30 => $"HALF PAST {Hour(hour)}",
+            45 => $"A QUARTER TO {Hour(hour + 1)}",
+            <= 29 => $"{GetNumberTextWithSuffix(minute)} PAST {Hour(hour)}",
+            _ => $"{GetNumberTextWithSuffix(60 - minute)} TO {Hour(hour + 1)}",
+        };
 
-        return new TimeToTextFormat { TimeAsText = s.ToString(), AdditionalMinutes = 0 };
+        return new TimeToTextFormat { TimeAsText = $"{Prefix} {phrase}", AdditionalMinutes = 0 };
     }
 
     private string GetNumberTextWithSuffix(int number)

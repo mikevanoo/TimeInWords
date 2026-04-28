@@ -1,59 +1,30 @@
-﻿using System;
-using System.Globalization;
-using System.Text;
-
-namespace TimeToTextLib.Presets;
+﻿namespace TimeToTextLib.Presets;
 
 public class DutchPreset : LanguagePreset
 {
     public override TimeToTextFormat Format(DateTime time)
     {
-        var s = new StringBuilder($"{Prefix} ");
         var hour = HourIn12HourClock(time.Hour);
         var minute = MinuteRoundedDown(time.Minute);
         var additionalMinutes = AdditionalMinutes(time.Minute);
 
-        switch (minute)
+        var phrase = minute switch
         {
-            case 0:
-                s.Append(CultureInfo.InvariantCulture, $"{Hour(hour)} UUR");
-                break;
-            case 5:
-                s.Append(CultureInfo.InvariantCulture, $"{GetNumberText(minute)} OVER {Hour(hour)}");
-                break;
-            case 10:
-                s.Append(CultureInfo.InvariantCulture, $"{GetNumberText(minute)} OVER {Hour(hour)}");
-                break;
-            case 15:
-                s.Append(CultureInfo.InvariantCulture, $"KWART OVER {Hour(hour)}");
-                break;
-            case 20:
-                s.Append(CultureInfo.InvariantCulture, $"{GetNumberText(10)} VOOR HALF {Hour(hour + 1)}");
-                break;
-            case 25:
-                s.Append(CultureInfo.InvariantCulture, $"{GetNumberText(5)} VOOR HALF {Hour(hour + 1)}");
-                break;
-            case 30:
-                s.Append(CultureInfo.InvariantCulture, $"HALF {Hour(hour)}");
-                break;
-            case 35:
-                s.Append(CultureInfo.InvariantCulture, $"{GetNumberText(5)} OVER HALF {Hour(hour + 1)}");
-                break;
-            case 40:
-                s.Append(CultureInfo.InvariantCulture, $"{GetNumberText(10)} OVER HALF {Hour(hour + 1)}");
-                break;
-            case 45:
-                s.Append(CultureInfo.InvariantCulture, $"KWART VOOR {Hour(hour + 1)}");
-                break;
-            case 50:
-                s.Append(CultureInfo.InvariantCulture, $"{GetNumberText(10)} VOOR {Hour(hour + 1)}");
-                break;
-            case 55:
-                s.Append(CultureInfo.InvariantCulture, $"{GetNumberText(5)} VOOR {Hour(hour + 1)}");
-                break;
-        }
+            0 => $"{Hour(hour)} UUR",
+            5 or 10 => $"{GetNumberText(minute)} OVER {Hour(hour)}",
+            15 => $"KWART OVER {Hour(hour)}",
+            20 => $"{GetNumberText(10)} VOOR HALF {Hour(hour + 1)}",
+            25 => $"{GetNumberText(5)} VOOR HALF {Hour(hour + 1)}",
+            30 => $"HALF {Hour(hour)}",
+            35 => $"{GetNumberText(5)} OVER HALF {Hour(hour + 1)}",
+            40 => $"{GetNumberText(10)} OVER HALF {Hour(hour + 1)}",
+            45 => $"KWART VOOR {Hour(hour + 1)}",
+            50 => $"{GetNumberText(10)} VOOR {Hour(hour + 1)}",
+            55 => $"{GetNumberText(5)} VOOR {Hour(hour + 1)}",
+            _ => throw new ArgumentOutOfRangeException(nameof(time)),
+        };
 
-        return new TimeToTextFormat() { TimeAsText = s.ToString(), AdditionalMinutes = additionalMinutes };
+        return new TimeToTextFormat { TimeAsText = $"{Prefix} {phrase}", AdditionalMinutes = additionalMinutes };
     }
 
     protected override string[] Numbers =>

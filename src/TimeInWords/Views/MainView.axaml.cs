@@ -139,8 +139,8 @@ public partial class MainView : Window, IMainView
         // Determines whether the mouse was moved and whether the movement was large.
         // if so, the screen saver is ended.
         if (
-            (_oldX > 0 & _oldY > 0)
-            & (Math.Abs(position.X - _oldX) > MovementThreshold | Math.Abs(position.Y - _oldY) > MovementThreshold)
+            (_oldX > 0 && _oldY > 0)
+            && (Math.Abs(position.X - _oldX) > MovementThreshold || Math.Abs(position.Y - _oldY) > MovementThreshold)
         )
         {
             if (IsFullScreen)

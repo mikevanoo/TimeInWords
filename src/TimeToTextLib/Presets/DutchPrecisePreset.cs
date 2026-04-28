@@ -1,51 +1,25 @@
-using System;
-using System.Globalization;
-using System.Text;
-
 namespace TimeToTextLib.Presets;
 
 public class DutchPrecisePreset : LanguagePreset
 {
     public override TimeToTextFormat Format(DateTime time)
     {
-        var s = new StringBuilder($"{Prefix} ");
         var hour = HourIn12HourClock(time.Hour);
         var minute = time.Minute;
 
-        if (minute == 0)
+        var phrase = minute switch
         {
-            s.Append(CultureInfo.InvariantCulture, $"{Hour(hour)} UUR");
-        }
-        else if (minute <= 14)
-        {
-            s.Append(CultureInfo.InvariantCulture, $"{GetNumberText(minute)} OVER {Hour(hour)}");
-        }
-        else if (minute == 15)
-        {
-            s.Append(CultureInfo.InvariantCulture, $"KWART OVER {Hour(hour)}");
-        }
-        else if (minute <= 29)
-        {
-            s.Append(CultureInfo.InvariantCulture, $"{GetNumberText(30 - minute)} VOOR HALF {Hour(hour + 1)}");
-        }
-        else if (minute == 30)
-        {
-            s.Append(CultureInfo.InvariantCulture, $"HALF {Hour(hour + 1)}");
-        }
-        else if (minute <= 44)
-        {
-            s.Append(CultureInfo.InvariantCulture, $"{GetNumberText(minute - 30)} OVER HALF {Hour(hour + 1)}");
-        }
-        else if (minute == 45)
-        {
-            s.Append(CultureInfo.InvariantCulture, $"KWART VOOR {Hour(hour + 1)}");
-        }
-        else
-        {
-            s.Append(CultureInfo.InvariantCulture, $"{GetNumberText(60 - minute)} VOOR {Hour(hour + 1)}");
-        }
+            0 => $"{Hour(hour)} UUR",
+            15 => $"KWART OVER {Hour(hour)}",
+            30 => $"HALF {Hour(hour + 1)}",
+            45 => $"KWART VOOR {Hour(hour + 1)}",
+            <= 14 => $"{GetNumberText(minute)} OVER {Hour(hour)}",
+            <= 29 => $"{GetNumberText(30 - minute)} VOOR HALF {Hour(hour + 1)}",
+            <= 44 => $"{GetNumberText(minute - 30)} OVER HALF {Hour(hour + 1)}",
+            _ => $"{GetNumberText(60 - minute)} VOOR {Hour(hour + 1)}",
+        };
 
-        return new TimeToTextFormat { TimeAsText = s.ToString(), AdditionalMinutes = 0 };
+        return new TimeToTextFormat { TimeAsText = $"{Prefix} {phrase}", AdditionalMinutes = 0 };
     }
 
     protected override string[] Numbers =>

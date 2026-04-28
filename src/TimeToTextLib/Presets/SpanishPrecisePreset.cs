@@ -1,7 +1,3 @@
-using System;
-using System.Globalization;
-using System.Text;
-
 namespace TimeToTextLib.Presets;
 
 public class SpanishPrecisePreset : LanguagePreset
@@ -12,22 +8,14 @@ public class SpanishPrecisePreset : LanguagePreset
         var minute = time.Minute;
         var hourForPrefix = minute >= 31 ? hour + 1 : hour;
 
-        var s = new StringBuilder($"{PrefixForHour(hourForPrefix)} ");
+        var phrase = minute switch
+        {
+            0 => $"{Hour(hour)} EN PUNTO",
+            <= 30 => $"{Hour(hour)} Y {GetMinuteText(minute)}",
+            _ => $"{Hour(hour + 1)} MENOS {GetMinuteText(60 - minute)}",
+        };
 
-        if (minute == 0)
-        {
-            s.Append(CultureInfo.InvariantCulture, $"{Hour(hour)} EN PUNTO");
-        }
-        else if (minute <= 30)
-        {
-            s.Append(CultureInfo.InvariantCulture, $"{Hour(hour)} Y {GetMinuteText(minute)}");
-        }
-        else
-        {
-            s.Append(CultureInfo.InvariantCulture, $"{Hour(hour + 1)} MENOS {GetMinuteText(60 - minute)}");
-        }
-
-        return new TimeToTextFormat { TimeAsText = s.ToString(), AdditionalMinutes = 0 };
+        return new TimeToTextFormat { TimeAsText = $"{PrefixForHour(hourForPrefix)} {phrase}", AdditionalMinutes = 0 };
     }
 
     private string GetMinuteText(int minutes)
