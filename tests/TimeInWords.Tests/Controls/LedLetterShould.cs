@@ -23,7 +23,7 @@ public class LedLetterShould
         var settings = new TimeInWordsSettings();
         var ledLetter = new LedLetter(settings, "X");
 
-        (ledLetter.Foreground as SolidColorBrush)?.Color.Should().Be(settings.InactiveFontColour);
+        (ledLetter.Foreground as SolidColorBrush)!.Color.Should().Be(settings.InactiveFontColour);
     }
 
     [AvaloniaFact]
@@ -34,7 +34,7 @@ public class LedLetterShould
 
         await WaitForColorFade();
 
-        (ledLetter.Foreground as SolidColorBrush)?.Color.Should().Be(settings.ActiveFontColour);
+        (ledLetter.Foreground as SolidColorBrush)!.Color.Should().Be(settings.ActiveFontColour);
     }
 
     [AvaloniaFact]
@@ -48,7 +48,7 @@ public class LedLetterShould
         ledLetter.Active = false;
         await WaitForColorFade();
 
-        (ledLetter.Foreground as SolidColorBrush)?.Color.Should().Be(settings.InactiveFontColour);
+        (ledLetter.Foreground as SolidColorBrush)!.Color.Should().Be(settings.InactiveFontColour);
     }
 
     private static async Task WaitForColorFade() => await Task.Delay(750);
