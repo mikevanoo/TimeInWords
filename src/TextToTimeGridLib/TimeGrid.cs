@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Text;
 using TextToTimeGridLib.Grids;
 using TimeToTextLib;
@@ -12,7 +10,7 @@ public abstract class TimeGrid
     public virtual int GridHeight => 10;
     public virtual int GridWidth => 11;
 
-    private char[][] _charGrid;
+    private char[][]? _charGrid;
 
     protected abstract string RawGrid { get; }
 
@@ -41,20 +39,9 @@ public abstract class TimeGrid
         throw new ArgumentOutOfRangeException(nameof(lang), lang, "Language not implemented");
     }
 
-    public char[][] CharGrid
-    {
-        get
-        {
-            if (_charGrid == null)
-            {
-                BuildCharGrid();
-            }
+    public char[][] CharGrid => _charGrid ?? BuildCharGrid();
 
-            return _charGrid;
-        }
-    }
-
-    private void BuildCharGrid()
+    private char[][] BuildCharGrid()
     {
         _charGrid = new char[GridHeight][];
 
@@ -78,6 +65,8 @@ public abstract class TimeGrid
         }
 
         Debug.WriteLine("Built character grid");
+
+        return _charGrid;
     }
 
     public Bitmask GetBitMask(string input, bool strict)

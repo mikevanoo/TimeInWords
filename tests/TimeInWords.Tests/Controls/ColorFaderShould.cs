@@ -19,6 +19,6 @@ public class ColorFaderShould
 
         await Task.Delay(1000); // ensure we leave plenty of time to the fade to occur
 
-        (control.Foreground as SolidColorBrush)?.Color.Should().Be(endColor);
+        (control.Foreground as SolidColorBrush)!.Color.Should().Be(endColor);
     }
 }

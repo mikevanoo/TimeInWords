@@ -5,7 +5,7 @@ var grid = new TimeGridEnglish();
 while (true)
 {
     Console.Write("input: ");
-    var input = Console.ReadLine();
+    var input = Console.ReadLine() ?? string.Empty;
 
     var mask = grid.GetBitMask(input, true);
 
