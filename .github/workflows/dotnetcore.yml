@@ -32,6 +32,9 @@ jobs:
           export SSL_CERT_DIR="$HOME/.aspnet/dev-certs/trust:${SSL_CERT_DIR:-/usr/lib/ssl/certs}"
           dotnet dev-certs https --trust
 
+      - name: Restore tools
+        run: dotnet tool restore
+
       - name: Restore dependencies
         run: dotnet restore
 
