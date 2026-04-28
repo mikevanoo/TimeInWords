@@ -15,9 +15,7 @@ public class ColorFaderShould
         var control = Substitute.For<IFadeableControl>();
         control.Foreground = new SolidColorBrush(startColor);
 
-        ColorFader.SetControlForeColor(control, endColor, 3, 0);
-
-        await Task.Delay(1000); // ensure we leave plenty of time to the fade to occur
+        await ColorFader.FadeForegroundAsync(control, endColor, intervals: 3, stepDelayMs: 0);
 
         (control.Foreground as SolidColorBrush)!.Color.Should().Be(endColor);
     }
