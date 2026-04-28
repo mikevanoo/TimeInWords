@@ -5,9 +5,9 @@ name: .NET
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ "main", "feat/*" ]
 
 jobs:
   build:
@@ -24,7 +24,13 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 10.0.x
+          global-json-file: global.json
+
+      # Workaround from https://github.com/dotnet/aspnetcore/issues/65391#issuecomment-4040414045
+      - name: Install SSL Certificates
+        run: |
+          export SSL_CERT_DIR="$HOME/.aspnet/dev-certs/trust:${SSL_CERT_DIR:-/usr/lib/ssl/certs}"
+          dotnet dev-certs https --trust
 
       - name: Restore dependencies
         run: dotnet restore
@@ -32,12 +38,11 @@ jobs:
       - name: Build
         run: dotnet build --no-restore
 
-      - name: Test
-        run: dotnet test --no-build --verbosity normal --logger trx --settings coverlet.runsettings
+      - name: Test with coverage
+        run: dotnet dotnet-coverage collect "dotnet test --no-build --verbosity normal" -f cobertura -o tests/coverage.xml --settings coverage.runsettings
 
-      - name: Publish Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v2.17.1
-        if: always()
-        with:
-          files: |
-            tests/**/TestResults/**/*.trx
+      - name: Generate coverage report
+        run: dotnet reportgenerator -reports:tests/coverage.xml -targetdir:coveragereport -reporttypes:MarkdownSummaryGithub
+
+      - name: Coverage summary
+        run: cat coveragereport/SummaryGithub.md >> $GITHUB_STEP_SUMMARY
