@@ -14,7 +14,7 @@ public class TimeGridFrenchPrecise : TimeGrid
         + '\n'
         + "NEUFDIXONZEDOUZEFG"
         + '\n'
-        + "HEURESJKMOINSLEFGB"
+        + "HEURESJKMOINSFGLEB"
         + '\n'
         + "TREIZEFQUATORZEBGJ"
         + '\n'
