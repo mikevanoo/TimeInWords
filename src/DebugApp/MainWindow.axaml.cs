@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 using System.Timers;
 using Avalonia.Controls;
 using Avalonia.Input.Platform;
@@ -8,6 +7,7 @@ using Avalonia.Threading;
 using TextToTimeGridLib;
 using TextToTimeGridLib.Grids;
 using TimeToTextLib;
+using Timer = System.Timers.Timer;
 
 namespace DebugApp;
 
