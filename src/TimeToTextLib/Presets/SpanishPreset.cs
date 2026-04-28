@@ -1,7 +1,3 @@
-using System;
-using System.Globalization;
-using System.Text;
-
 namespace TimeToTextLib.Presets;
 
 public class SpanishPreset : LanguagePreset
@@ -13,49 +9,24 @@ public class SpanishPreset : LanguagePreset
         var additionalMinutes = AdditionalMinutes(time.Minute);
         var hourForPrefix = minute >= 35 ? hour + 1 : hour;
 
-        var s = new StringBuilder($"{PrefixForHour(hourForPrefix)} ");
-
-        switch (minute)
+        var phrase = minute switch
         {
-            case 0:
-                s.Append(CultureInfo.InvariantCulture, $"{Hour(hour)} EN PUNTO");
-                break;
-            case 5:
-                s.Append(CultureInfo.InvariantCulture, $"{Hour(hour)} Y CINCO");
-                break;
-            case 10:
-                s.Append(CultureInfo.InvariantCulture, $"{Hour(hour)} Y DIEZ");
-                break;
-            case 15:
-                s.Append(CultureInfo.InvariantCulture, $"{Hour(hour)} Y CUARTO");
-                break;
-            case 20:
-                s.Append(CultureInfo.InvariantCulture, $"{Hour(hour)} Y VEINTE");
-                break;
-            case 25:
-                s.Append(CultureInfo.InvariantCulture, $"{Hour(hour)} Y VEINTICINCO");
-                break;
-            case 30:
-                s.Append(CultureInfo.InvariantCulture, $"{Hour(hour)} Y MEDIA");
-                break;
-            case 35:
-                s.Append(CultureInfo.InvariantCulture, $"{Hour(hour + 1)} MENOS VEINTICINCO");
-                break;
-            case 40:
-                s.Append(CultureInfo.InvariantCulture, $"{Hour(hour + 1)} MENOS VEINTE");
-                break;
-            case 45:
-                s.Append(CultureInfo.InvariantCulture, $"{Hour(hour + 1)} MENOS CUARTO");
-                break;
-            case 50:
-                s.Append(CultureInfo.InvariantCulture, $"{Hour(hour + 1)} MENOS DIEZ");
-                break;
-            case 55:
-                s.Append(CultureInfo.InvariantCulture, $"{Hour(hour + 1)} MENOS CINCO");
-                break;
-        }
+            0 => $"{Hour(hour)} EN PUNTO",
+            5 => $"{Hour(hour)} Y CINCO",
+            10 => $"{Hour(hour)} Y DIEZ",
+            15 => $"{Hour(hour)} Y CUARTO",
+            20 => $"{Hour(hour)} Y VEINTE",
+            25 => $"{Hour(hour)} Y VEINTICINCO",
+            30 => $"{Hour(hour)} Y MEDIA",
+            35 => $"{Hour(hour + 1)} MENOS VEINTICINCO",
+            40 => $"{Hour(hour + 1)} MENOS VEINTE",
+            45 => $"{Hour(hour + 1)} MENOS CUARTO",
+            50 => $"{Hour(hour + 1)} MENOS DIEZ",
+            55 => $"{Hour(hour + 1)} MENOS CINCO",
+            _ => throw new ArgumentOutOfRangeException(nameof(time)),
+        };
 
-        return new TimeToTextFormat { TimeAsText = s.ToString(), AdditionalMinutes = additionalMinutes };
+        return new TimeToTextFormat { TimeAsText = $"{PrefixForHour(hourForPrefix)} {phrase}", AdditionalMinutes = additionalMinutes };
     }
 
     protected override string[] Numbers =>

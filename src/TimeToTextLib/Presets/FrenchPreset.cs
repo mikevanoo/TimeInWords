@@ -1,57 +1,30 @@
-﻿using System.Globalization;
-using System.Text;
-
-namespace TimeToTextLib.Presets;
+﻿namespace TimeToTextLib.Presets;
 
 public class FrenchPreset : LanguagePreset
 {
     public override TimeToTextFormat Format(DateTime time)
     {
-        var s = new StringBuilder($"{Prefix} ");
         var minute = MinuteRoundedDown(time.Minute);
         var additionalMinutes = AdditionalMinutes(time.Minute);
 
-        switch (minute)
+        var phrase = minute switch
         {
-            case 0:
-                s.Append(CultureInfo.InvariantCulture, $"{HourWithHeures(time.Hour)}");
-                break;
-            case 5:
-                s.Append(CultureInfo.InvariantCulture, $"{HourWithHeures(time.Hour)} {Numbers[4]}");
-                break;
-            case 10:
-                s.Append(CultureInfo.InvariantCulture, $"{HourWithHeures(time.Hour)} {Numbers[9]}");
-                break;
-            case 15:
-                s.Append(CultureInfo.InvariantCulture, $"{HourWithHeures(time.Hour)} ET QUART");
-                break;
-            case 20:
-                s.Append(CultureInfo.InvariantCulture, $"{HourWithHeures(time.Hour)} VINGT");
-                break;
-            case 25:
-                s.Append(CultureInfo.InvariantCulture, $"{HourWithHeures(time.Hour)} VINGT-CINQ");
-                break;
-            case 30:
-                s.Append(CultureInfo.InvariantCulture, $"{HourWithHeures(time.Hour)} ET DEMIE");
-                break;
-            case 35:
-                s.Append(CultureInfo.InvariantCulture, $"{HourWithHeures(time.Hour + 1)} MOINS VINGT-CINQ");
-                break;
-            case 40:
-                s.Append(CultureInfo.InvariantCulture, $"{HourWithHeures(time.Hour + 1)} MOINS VINGT");
-                break;
-            case 45:
-                s.Append(CultureInfo.InvariantCulture, $"{HourWithHeures(time.Hour + 1)} MOINS LE QUART");
-                break;
-            case 50:
-                s.Append(CultureInfo.InvariantCulture, $"{HourWithHeures(time.Hour + 1)} MOINS DIX");
-                break;
-            case 55:
-                s.Append(CultureInfo.InvariantCulture, $"{HourWithHeures(time.Hour + 1)} MOINS CINQ");
-                break;
-        }
+            0 => HourWithHeures(time.Hour),
+            5 => $"{HourWithHeures(time.Hour)} {Numbers[4]}",
+            10 => $"{HourWithHeures(time.Hour)} {Numbers[9]}",
+            15 => $"{HourWithHeures(time.Hour)} ET QUART",
+            20 => $"{HourWithHeures(time.Hour)} VINGT",
+            25 => $"{HourWithHeures(time.Hour)} VINGT-CINQ",
+            30 => $"{HourWithHeures(time.Hour)} ET DEMIE",
+            35 => $"{HourWithHeures(time.Hour + 1)} MOINS VINGT-CINQ",
+            40 => $"{HourWithHeures(time.Hour + 1)} MOINS VINGT",
+            45 => $"{HourWithHeures(time.Hour + 1)} MOINS LE QUART",
+            50 => $"{HourWithHeures(time.Hour + 1)} MOINS DIX",
+            55 => $"{HourWithHeures(time.Hour + 1)} MOINS CINQ",
+            _ => throw new ArgumentOutOfRangeException(nameof(time)),
+        };
 
-        return new TimeToTextFormat() { TimeAsText = s.ToString(), AdditionalMinutes = additionalMinutes };
+        return new TimeToTextFormat { TimeAsText = $"{Prefix} {phrase}", AdditionalMinutes = additionalMinutes };
     }
 
     protected override string[] Numbers =>

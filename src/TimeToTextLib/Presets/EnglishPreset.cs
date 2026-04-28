@@ -1,58 +1,30 @@
-﻿using System.Globalization;
-using System.Text;
-
-namespace TimeToTextLib.Presets;
+﻿namespace TimeToTextLib.Presets;
 
 public class EnglishPreset : LanguagePreset
 {
     public override TimeToTextFormat Format(DateTime time)
     {
-        var s = new StringBuilder($"{Prefix} ");
         var hour = HourIn12HourClock(time.Hour);
         var minute = MinuteRoundedDown(time.Minute);
         var additionalMinutes = AdditionalMinutes(time.Minute);
 
-        switch (minute)
+        var phrase = minute switch
         {
-            case 0:
-                s.Append(CultureInfo.InvariantCulture, $"{Hour(hour)} OCLOCK");
-                break;
-            case 5:
-                s.Append(CultureInfo.InvariantCulture, $"{GetNumberText(minute)} PAST {Hour(hour)}");
-                break;
-            case 10:
-                s.Append(CultureInfo.InvariantCulture, $"{GetNumberText(minute)} PAST {Hour(hour)}");
-                break;
-            case 15:
-                s.Append(CultureInfo.InvariantCulture, $"A QUARTER PAST {Hour(hour)}");
-                break;
-            case 20:
-                s.Append(CultureInfo.InvariantCulture, $"TWENTY PAST {Hour(hour)}");
-                break;
-            case 25:
-                s.Append(CultureInfo.InvariantCulture, $"TWENTYFIVE PAST {Hour(hour)}");
-                break;
-            case 30:
-                s.Append(CultureInfo.InvariantCulture, $"HALF PAST {Hour(hour)}");
-                break;
-            case 35:
-                s.Append(CultureInfo.InvariantCulture, $"TWENTYFIVE TO {Hour(hour + 1)}");
-                break;
-            case 40:
-                s.Append(CultureInfo.InvariantCulture, $"TWENTY TO {Hour(hour + 1)}");
-                break;
-            case 45:
-                s.Append(CultureInfo.InvariantCulture, $"A QUARTER TO {Hour(hour + 1)}");
-                break;
-            case 50:
-                s.Append(CultureInfo.InvariantCulture, $"TEN TO {Hour(hour + 1)}");
-                break;
-            case 55:
-                s.Append(CultureInfo.InvariantCulture, $"FIVE TO {Hour(hour + 1)}");
-                break;
-        }
+            0 => $"{Hour(hour)} OCLOCK",
+            5 or 10 => $"{GetNumberText(minute)} PAST {Hour(hour)}",
+            15 => $"A QUARTER PAST {Hour(hour)}",
+            20 => $"TWENTY PAST {Hour(hour)}",
+            25 => $"TWENTYFIVE PAST {Hour(hour)}",
+            30 => $"HALF PAST {Hour(hour)}",
+            35 => $"TWENTYFIVE TO {Hour(hour + 1)}",
+            40 => $"TWENTY TO {Hour(hour + 1)}",
+            45 => $"A QUARTER TO {Hour(hour + 1)}",
+            50 => $"TEN TO {Hour(hour + 1)}",
+            55 => $"FIVE TO {Hour(hour + 1)}",
+            _ => throw new ArgumentOutOfRangeException(nameof(time)),
+        };
 
-        return new TimeToTextFormat() { TimeAsText = s.ToString(), AdditionalMinutes = additionalMinutes };
+        return new TimeToTextFormat { TimeAsText = $"{Prefix} {phrase}", AdditionalMinutes = additionalMinutes };
     }
 
     protected override string[] Numbers =>

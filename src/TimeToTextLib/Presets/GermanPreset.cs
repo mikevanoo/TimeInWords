@@ -1,58 +1,31 @@
-using System.Globalization;
-using System.Text;
-
 namespace TimeToTextLib.Presets;
 
 public class GermanPreset : LanguagePreset
 {
     public override TimeToTextFormat Format(DateTime time)
     {
-        var s = new StringBuilder($"{Prefix} ");
         var hour = HourIn12HourClock(time.Hour);
         var minute = MinuteRoundedDown(time.Minute);
         var additionalMinutes = AdditionalMinutes(time.Minute);
 
-        switch (minute)
+        var phrase = minute switch
         {
-            case 0:
-                s.Append(CultureInfo.InvariantCulture, $"{HourForUhr(hour)} UHR");
-                break;
-            case 5:
-                s.Append(CultureInfo.InvariantCulture, $"FÜNF NACH {Hour(hour)}");
-                break;
-            case 10:
-                s.Append(CultureInfo.InvariantCulture, $"ZEHN NACH {Hour(hour)}");
-                break;
-            case 15:
-                s.Append(CultureInfo.InvariantCulture, $"VIERTEL NACH {Hour(hour)}");
-                break;
-            case 20:
-                s.Append(CultureInfo.InvariantCulture, $"ZWANZIG NACH {Hour(hour)}");
-                break;
-            case 25:
-                s.Append(CultureInfo.InvariantCulture, $"FÜNF VOR HALB {Hour(hour + 1)}");
-                break;
-            case 30:
-                s.Append(CultureInfo.InvariantCulture, $"HALB {Hour(hour + 1)}");
-                break;
-            case 35:
-                s.Append(CultureInfo.InvariantCulture, $"FÜNF NACH HALB {Hour(hour + 1)}");
-                break;
-            case 40:
-                s.Append(CultureInfo.InvariantCulture, $"ZWANZIG VOR {Hour(hour + 1)}");
-                break;
-            case 45:
-                s.Append(CultureInfo.InvariantCulture, $"VIERTEL VOR {Hour(hour + 1)}");
-                break;
-            case 50:
-                s.Append(CultureInfo.InvariantCulture, $"ZEHN VOR {Hour(hour + 1)}");
-                break;
-            case 55:
-                s.Append(CultureInfo.InvariantCulture, $"FÜNF VOR {Hour(hour + 1)}");
-                break;
-        }
+            0 => $"{HourForUhr(hour)} UHR",
+            5 => $"FÜNF NACH {Hour(hour)}",
+            10 => $"ZEHN NACH {Hour(hour)}",
+            15 => $"VIERTEL NACH {Hour(hour)}",
+            20 => $"ZWANZIG NACH {Hour(hour)}",
+            25 => $"FÜNF VOR HALB {Hour(hour + 1)}",
+            30 => $"HALB {Hour(hour + 1)}",
+            35 => $"FÜNF NACH HALB {Hour(hour + 1)}",
+            40 => $"ZWANZIG VOR {Hour(hour + 1)}",
+            45 => $"VIERTEL VOR {Hour(hour + 1)}",
+            50 => $"ZEHN VOR {Hour(hour + 1)}",
+            55 => $"FÜNF VOR {Hour(hour + 1)}",
+            _ => throw new ArgumentOutOfRangeException(nameof(time)),
+        };
 
-        return new TimeToTextFormat { TimeAsText = s.ToString(), AdditionalMinutes = additionalMinutes };
+        return new TimeToTextFormat { TimeAsText = $"{Prefix} {phrase}", AdditionalMinutes = additionalMinutes };
     }
 
     private string HourForUhr(int hour) => hour == 1 ? "EIN" : Hour(hour);
