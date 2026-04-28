@@ -1,45 +1,22 @@
-using System;
-using System.Globalization;
-using System.Text;
-
 namespace TimeToTextLib.Presets;
 
 public class FrenchPrecisePreset : LanguagePreset
 {
     public override TimeToTextFormat Format(DateTime time)
     {
-        var s = new StringBuilder($"{Prefix} ");
         var minute = time.Minute;
 
-        if (minute == 0)
+        var phrase = minute switch
         {
-            s.Append(HourWithHeures(time.Hour));
-        }
-        else if (minute == 15)
-        {
-            s.Append(CultureInfo.InvariantCulture, $"{HourWithHeures(time.Hour)} ET QUART");
-        }
-        else if (minute == 30)
-        {
-            s.Append(CultureInfo.InvariantCulture, $"{HourWithHeures(time.Hour)} ET {Demie(time.Hour)}");
-        }
-        else if (minute == 45)
-        {
-            s.Append(CultureInfo.InvariantCulture, $"{HourWithHeures(time.Hour + 1)} MOINS LE QUART");
-        }
-        else if (minute <= 29)
-        {
-            s.Append(CultureInfo.InvariantCulture, $"{HourWithHeures(time.Hour)} {GetNumberText(minute)}");
-        }
-        else
-        {
-            s.Append(
-                CultureInfo.InvariantCulture,
-                $"{HourWithHeures(time.Hour + 1)} MOINS {GetNumberText(60 - minute)}"
-            );
-        }
+            0 => HourWithHeures(time.Hour),
+            15 => $"{HourWithHeures(time.Hour)} ET QUART",
+            30 => $"{HourWithHeures(time.Hour)} ET {Demie(time.Hour)}",
+            45 => $"{HourWithHeures(time.Hour + 1)} MOINS LE QUART",
+            <= 29 => $"{HourWithHeures(time.Hour)} {GetNumberText(minute)}",
+            _ => $"{HourWithHeures(time.Hour + 1)} MOINS {GetNumberText(60 - minute)}",
+        };
 
-        return new TimeToTextFormat { TimeAsText = s.ToString(), AdditionalMinutes = 0 };
+        return new TimeToTextFormat { TimeAsText = $"{Prefix} {phrase}", AdditionalMinutes = 0 };
     }
 
     protected override string[] Numbers =>

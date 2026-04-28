@@ -1,4 +1,3 @@
-using System;
 using System.Globalization;
 using System.Text;
 
@@ -56,8 +55,7 @@ public class GermanPreset : LanguagePreset
         return new TimeToTextFormat { TimeAsText = s.ToString(), AdditionalMinutes = additionalMinutes };
     }
 
-    private string HourForUhr(int hour) =>
-        hour == 1 ? "EIN" : Hour(hour);
+    private string HourForUhr(int hour) => hour == 1 ? "EIN" : Hour(hour);
 
     protected override string[] Numbers =>
         ["EINS", "ZWEI", "DREI", "VIER", "FÜNF", "SECHS", "SIEBEN", "ACHT", "NEUN", "ZEHN", "ELF", "ZWÖLF"];
