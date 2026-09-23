@@ -13,6 +13,14 @@ public class FrenchPrecisePresetShould(ITestOutputHelper testOutputHelper)
     public void FormatTimeToTextCorrectly(DateTime time, string expected) =>
         _preset.Format(time).ToString().Should().BeEquivalentTo(expected);
 
+    [Fact]
+    public void ThrowWhenAskedForTheFifteenMinuteWord() =>
+        new NumberTextAccessor()
+            .Invoking(accessor => accessor.Number(15))
+            .Should()
+            .Throw<ArgumentOutOfRangeException>()
+            .WithMessage("No word form for this number*");
+
 #pragma warning disable xUnit1004
     [Fact(Skip = "test code generator")]
 #pragma warning restore xUnit1004
@@ -31,6 +39,11 @@ public class FrenchPrecisePresetShould(ITestOutputHelper testOutputHelper)
         }
 
         testOutputHelper.WriteLine(result.ToString());
+    }
+
+    private sealed class NumberTextAccessor : FrenchPrecisePreset
+    {
+        public string Number(int number) => GetNumberText(number);
     }
 
     private class FormatTimeToTextCorrectlyTheoryData : TheoryData<DateTime, string>
