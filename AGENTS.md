@@ -34,6 +34,9 @@ so the config belongs in the unit test project folder and is run from there (onl
 ```bash
 cd tests/TextToTimeGridLib.Tests
 dotnet stryker
+
+cd tests/TimeToTextLib.Tests
+dotnet stryker
 ```
 
 The config sets `"test-runner": "mtp"`, which is required — the default VSTest runner cannot see
