@@ -44,11 +44,13 @@ public class SpanishPrecisePresetShould(ITestOutputHelper testOutputHelper)
             Add(new DateTime(2024, 1, 1, 0, 14, 0), "SON LAS DOCE Y CATORCE +0");
             Add(new DateTime(2024, 1, 1, 0, 15, 0), "SON LAS DOCE Y CUARTO +0");
             Add(new DateTime(2024, 1, 1, 0, 16, 0), "SON LAS DOCE Y DIECISEIS +0");
+            Add(new DateTime(2024, 1, 1, 0, 21, 0), "SON LAS DOCE Y VEINTE Y UNA +0");
             Add(new DateTime(2024, 1, 1, 0, 29, 0), "SON LAS DOCE Y VEINTE Y NUEVE +0");
             Add(new DateTime(2024, 1, 1, 0, 30, 0), "SON LAS DOCE Y MEDIA +0");
             Add(new DateTime(2024, 1, 1, 0, 31, 0), "ES LA UNA MENOS VEINTE Y NUEVE +0");
             Add(new DateTime(2024, 1, 1, 0, 34, 0), "ES LA UNA MENOS VEINTE Y SEIS +0");
             Add(new DateTime(2024, 1, 1, 0, 35, 0), "ES LA UNA MENOS VEINTE Y CINCO +0");
+            Add(new DateTime(2024, 1, 1, 0, 39, 0), "ES LA UNA MENOS VEINTE Y UNA +0");
             Add(new DateTime(2024, 1, 1, 0, 44, 0), "ES LA UNA MENOS DIECISEIS +0");
             Add(new DateTime(2024, 1, 1, 0, 45, 0), "ES LA UNA MENOS CUARTO +0");
             Add(new DateTime(2024, 1, 1, 0, 46, 0), "ES LA UNA MENOS CATORCE +0");

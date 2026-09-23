@@ -56,6 +56,7 @@ public class FrenchPrecisePresetShould(ITestOutputHelper testOutputHelper)
             Add(new DateTime(2024, 1, 1, 0, 59, 0), "IL EST UNE HEURE MOINS UNE +0");
             Add(new DateTime(2024, 1, 1, 2, 0, 0), "IL EST DEUX HEURES +0");
             Add(new DateTime(2024, 1, 1, 3, 0, 0), "IL EST TROIS HEURES +0");
+            Add(new DateTime(2024, 1, 1, 3, 30, 0), "IL EST TROIS HEURES ET DEMIE +0");
             Add(new DateTime(2024, 1, 1, 6, 0, 0), "IL EST SIX HEURES +0");
             Add(new DateTime(2024, 1, 1, 7, 0, 0), "IL EST SEPT HEURES +0");
             Add(new DateTime(2024, 1, 1, 8, 0, 0), "IL EST HUIT HEURES +0");
