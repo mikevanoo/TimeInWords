@@ -28,7 +28,7 @@ public class FrenchPreset : LanguagePreset
     }
 
     protected override string[] Numbers =>
-        ["UNE", "DEUX", "TROIS", "QUATRE", "CINQ", "SIX", "SEPT", "HUIT", "NEUF", "DIX", "ONZE", "DOUZE"];
+        ["UNE", "DEUX", "TROIS", "QUATRE", "CINQ", "SIX", "SEPT", "HUIT", "NEUF", "DIX", "ONZE"];
 
     protected override string Prefix => "IL EST";
 

@@ -20,22 +20,8 @@ public class EnglishPrecisePreset : LanguagePreset
         return new TimeToTextFormat { TimeAsText = $"{Prefix} {phrase}", AdditionalMinutes = 0 };
     }
 
-    private string GetNumberTextWithSuffix(int number)
-    {
-        var suffix = number switch
-        {
-            1 => " MINUTE",
-            > 1 and < 15 => " MINUTES",
-            > 15 and < 30 => " MINUTES",
-            > 30 and < 45 => " MINUTES",
-            > 45 and < 60 => " MINUTES",
-            _ => string.Empty,
-        };
-
-        var numberText = GetNumberText(number);
-
-        return numberText + suffix;
-    }
+    private string GetNumberTextWithSuffix(int number) =>
+        GetNumberText(number) + (number == 1 ? " MINUTE" : " MINUTES");
 
     protected override string[] Numbers =>
         [
