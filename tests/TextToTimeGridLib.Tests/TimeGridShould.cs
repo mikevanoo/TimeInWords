@@ -53,6 +53,46 @@ public class TimeGridShould(ITestOutputHelper testOutputHelper)
         timeGrid.CharGrid.Should().BeEquivalentTo(expected);
     }
 
+    [Fact]
+    public void CacheTheCharGridBetweenAccesses()
+    {
+        var timeGrid = new TestTimeGrid();
+
+        var first = timeGrid.CharGrid;
+        var second = timeGrid.CharGrid;
+
+        second.Should().BeSameAs(first);
+    }
+
+    [Fact]
+    public void RenderUnlitCellsAsDotsAndTerminateEveryRowWithANewline()
+    {
+        var timeGrid = new TestTimeGrid();
+        var bitmask = timeGrid.GetBitMask("IT IS TIME", strict: true);
+
+        var actual = timeGrid.ToString(bitmask);
+
+        // Row 0 "ITLISLSTIME" holds IT, IS and TIME; every other cell is unlit.
+        // The rendering must keep the grid rectangular so columns still line up.
+        actual
+            .Should()
+            .Be(
+                """
+                IT.IS..TIME
+                ...........
+                ...........
+                ...........
+                ...........
+                ...........
+                ...........
+                ...........
+                ...........
+                ...........
+
+                """
+            );
+    }
+
     [Theory]
     [ClassData(typeof(GetBitMaskTheoryData))]
     public void BuildCorrectBitmaskFromGivenString(string input, bool strict, string expected)
