@@ -12,7 +12,7 @@ namespace TimeInWords.Views;
 public class TimeInWordsView : Panel, ITimeInWordsView
 {
     public DateTime Time { get; set; } = DateTime.Now;
-    public TimeToTextFormat TimeAsText { get; set; } = new();
+    public TimeToTextFormat TimeAsText { get; set; } = new() { TimeAsText = string.Empty, AdditionalMinutes = 0 };
     public bool[][] GridBitMask { get; set; } = [];
 
     public TextBlock TimeLabel { get; private set; }
