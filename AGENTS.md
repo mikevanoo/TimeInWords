@@ -12,10 +12,43 @@ Languages and resolution modes are listed in `src/TimeInWords/Resources/Language
 ```bash
 dotnet restore
 dotnet build --no-restore
-dotnet test --no-build --verbosity normal --logger trx --settings coverlet.runsettings
+dotnet test --no-build --verbosity normal
 ```
 
 All three commands must pass cleanly before submitting changes. CI runs on Ubuntu with .NET 10.0.
+
+Tests run on Microsoft Testing Platform (`global.json` sets the runner), which rejects the VSTest options
+`--settings` and `--logger`; passing either makes the run report "Zero tests ran". Coverage is collected
+out-of-band, the way CI does it:
+
+```bash
+dotnet dotnet-coverage collect "dotnet test --no-build" -f cobertura -o tests/coverage.xml --settings coverage.runsettings
+```
+
+## Mutation Testing
+
+Stryker.NET is pinned in the tool manifest. It reads `stryker-config.json` from the working directory,
+so the config belongs in the unit test project folder and is run from there (only
+`tests/TextToTimeGridLib.Tests` has one so far):
+
+```bash
+cd tests/TextToTimeGridLib.Tests
+dotnet stryker
+```
+
+The config sets `"test-runner": "mtp"`, which is required — the default VSTest runner cannot see
+Microsoft Testing Platform tests and reports "Zero tests ran". Surviving mutants are usually a missing
+assertion rather than dead code; check whether the behaviour is worth pinning before adding a test for it,
+and prefer `ignore-methods` over a test that cannot fail.
+
+A run leaves a **mutated copy of the library DLL** in the test project's `bin`. The next
+`dotnet test --no-build` then throws `TypeLoadException`, reports "Zero tests ran" for that assembly and
+drops its tests from the totals (375 becomes 319) while the other assemblies still say "passed".
+Always rebuild afterwards:
+
+```bash
+dotnet build --no-restore
+```
 
 ## Architecture
 
