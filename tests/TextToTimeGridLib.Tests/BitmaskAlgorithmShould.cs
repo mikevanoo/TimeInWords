@@ -202,9 +202,7 @@ public class BitmaskAlgorithmShould
         CountLit(bitmask).Should().Be(1);
     }
 
-    private static IEnumerable<bool> AllCells(Bitmask bitmask) =>
-        bitmask.Mask.SelectMany(row => row);
+    private static IEnumerable<bool> AllCells(Bitmask bitmask) => bitmask.Mask.SelectMany(row => row);
 
-    private static int CountLit(Bitmask bitmask) =>
-        AllCells(bitmask).Count(v => v);
+    private static int CountLit(Bitmask bitmask) => AllCells(bitmask).Count(v => v);
 }

@@ -14,20 +14,19 @@ public abstract class TimeGrid
 
     protected abstract string RawGrid { get; }
 
-    private static readonly Dictionary<LanguagePreset.Language, TimeGrid> Instances =
-        new()
-        {
-            { LanguagePreset.Language.English, new TimeGridEnglish() },
-            { LanguagePreset.Language.EnglishPrecise, new TimeGridEnglishPrecise() },
-            { LanguagePreset.Language.Dutch, new TimeGridDutch() },
-            { LanguagePreset.Language.DutchPrecise, new TimeGridDutchPrecise() },
-            { LanguagePreset.Language.French, new TimeGridFrench() },
-            { LanguagePreset.Language.FrenchPrecise, new TimeGridFrenchPrecise() },
-            { LanguagePreset.Language.Spanish, new TimeGridSpanish() },
-            { LanguagePreset.Language.SpanishPrecise, new TimeGridSpanishPrecise() },
-            { LanguagePreset.Language.German, new TimeGridGerman() },
-            { LanguagePreset.Language.GermanPrecise, new TimeGridGermanPrecise() },
-        };
+    private static readonly Dictionary<LanguagePreset.Language, TimeGrid> Instances = new()
+    {
+        { LanguagePreset.Language.English, new TimeGridEnglish() },
+        { LanguagePreset.Language.EnglishPrecise, new TimeGridEnglishPrecise() },
+        { LanguagePreset.Language.Dutch, new TimeGridDutch() },
+        { LanguagePreset.Language.DutchPrecise, new TimeGridDutchPrecise() },
+        { LanguagePreset.Language.French, new TimeGridFrench() },
+        { LanguagePreset.Language.FrenchPrecise, new TimeGridFrenchPrecise() },
+        { LanguagePreset.Language.Spanish, new TimeGridSpanish() },
+        { LanguagePreset.Language.SpanishPrecise, new TimeGridSpanishPrecise() },
+        { LanguagePreset.Language.German, new TimeGridGerman() },
+        { LanguagePreset.Language.GermanPrecise, new TimeGridGermanPrecise() },
+    };
 
     public static TimeGrid Get(LanguagePreset.Language lang)
     {

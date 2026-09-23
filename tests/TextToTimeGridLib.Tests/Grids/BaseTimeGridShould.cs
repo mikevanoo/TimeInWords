@@ -59,8 +59,12 @@ public abstract class BaseTimeGridShould<T>
             var renderedNoNewlines = rendered.Replace("\n", "").Replace(".", "");
             foreach (var word in words)
             {
-                renderedNoNewlines.Should().Contain(word,
-                    because: $"phrase '{format.TimeAsText}' at {hour}:{minute:D2} should resolve word '{word}' in the grid");
+                renderedNoNewlines
+                    .Should()
+                    .Contain(
+                        word,
+                        because: $"phrase '{format.TimeAsText}' at {hour}:{minute:D2} should resolve word '{word}' in the grid"
+                    );
             }
         }
     }
