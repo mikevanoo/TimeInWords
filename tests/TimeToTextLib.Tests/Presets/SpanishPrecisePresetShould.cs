@@ -57,7 +57,12 @@ public class SpanishPrecisePresetShould(ITestOutputHelper testOutputHelper)
             Add(new DateTime(2024, 1, 1, 0, 55, 0), "ES LA UNA MENOS CINCO +0");
             Add(new DateTime(2024, 1, 1, 0, 59, 0), "ES LA UNA MENOS UNA +0");
             Add(new DateTime(2024, 1, 1, 2, 0, 0), "SON LAS DOS EN PUNTO +0");
+            Add(new DateTime(2024, 1, 1, 2, 13, 0), "SON LAS DOS Y TRECE +0");
             Add(new DateTime(2024, 1, 1, 3, 0, 0), "SON LAS TRES EN PUNTO +0");
+            Add(new DateTime(2024, 1, 1, 3, 17, 0), "SON LAS TRES Y DIECISIETE +0");
+            Add(new DateTime(2024, 1, 1, 4, 42, 0), "SON LAS CINCO MENOS DIECIOCHO +0");
+            Add(new DateTime(2024, 1, 1, 5, 19, 0), "SON LAS CINCO Y DIECINUEVE +0");
+            Add(new DateTime(2024, 1, 1, 6, 40, 0), "SON LAS SIETE MENOS VEINTE +0");
             Add(new DateTime(2024, 1, 1, 7, 0, 0), "SON LAS SIETE EN PUNTO +0");
             Add(new DateTime(2024, 1, 1, 8, 0, 0), "SON LAS OCHO EN PUNTO +0");
             Add(new DateTime(2024, 1, 1, 10, 0, 0), "SON LAS DIEZ EN PUNTO +0");

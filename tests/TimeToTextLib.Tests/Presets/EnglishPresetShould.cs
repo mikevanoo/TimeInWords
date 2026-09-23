@@ -52,6 +52,7 @@ public class EnglishPresetShould(ITestOutputHelper testOutputHelper)
             Add(new DateTime(2024, 1, 1, 4, 25, 0), "IT IS TWENTYFIVE PAST FOUR +0");
             Add(new DateTime(2024, 1, 1, 5, 2, 0), "IT IS FIVE OCLOCK +2");
             Add(new DateTime(2024, 1, 1, 6, 3, 0), "IT IS SIX OCLOCK +3");
+            Add(new DateTime(2024, 1, 1, 7, 15, 0), "IT IS A QUARTER PAST SEVEN +0");
             Add(new DateTime(2024, 1, 1, 7, 40, 0), "IT IS TWENTY TO EIGHT +0");
             Add(new DateTime(2024, 1, 1, 8, 55, 0), "IT IS FIVE TO NINE +0");
             Add(new DateTime(2024, 1, 1, 9, 45, 0), "IT IS A QUARTER TO TEN +0");

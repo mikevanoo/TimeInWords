@@ -57,6 +57,7 @@ public class GermanPrecisePresetShould(ITestOutputHelper testOutputHelper)
             Add(new DateTime(2024, 1, 1, 1, 0, 0), "ES IST EIN UHR +0");
             Add(new DateTime(2024, 1, 1, 2, 0, 0), "ES IST ZWEI UHR +0");
             Add(new DateTime(2024, 1, 1, 3, 0, 0), "ES IST DREI UHR +0");
+            Add(new DateTime(2024, 1, 1, 4, 13, 0), "ES IST DREIZEHN MINUTEN NACH VIER +0");
             Add(new DateTime(2024, 1, 1, 6, 0, 0), "ES IST SECHS UHR +0");
             Add(new DateTime(2024, 1, 1, 7, 0, 0), "ES IST SIEBEN UHR +0");
             Add(new DateTime(2024, 1, 1, 8, 0, 0), "ES IST ACHT UHR +0");
