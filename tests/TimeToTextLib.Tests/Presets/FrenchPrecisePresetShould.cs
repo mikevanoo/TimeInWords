@@ -13,6 +13,14 @@ public class FrenchPrecisePresetShould(ITestOutputHelper testOutputHelper)
     public void FormatTimeToTextCorrectly(DateTime time, string expected) =>
         _preset.Format(time).ToString().Should().BeEquivalentTo(expected);
 
+    [Fact]
+    public void ThrowWhenAskedForTheFifteenMinuteWord() =>
+        new NumberTextAccessor()
+            .Invoking(accessor => accessor.Number(15))
+            .Should()
+            .Throw<ArgumentOutOfRangeException>()
+            .WithMessage("No word form for this number*");
+
 #pragma warning disable xUnit1004
     [Fact(Skip = "test code generator")]
 #pragma warning restore xUnit1004
@@ -31,6 +39,11 @@ public class FrenchPrecisePresetShould(ITestOutputHelper testOutputHelper)
         }
 
         testOutputHelper.WriteLine(result.ToString());
+    }
+
+    private sealed class NumberTextAccessor : FrenchPrecisePreset
+    {
+        public string Number(int number) => GetNumberText(number);
     }
 
     private class FormatTimeToTextCorrectlyTheoryData : TheoryData<DateTime, string>
@@ -54,14 +67,27 @@ public class FrenchPrecisePresetShould(ITestOutputHelper testOutputHelper)
             Add(new DateTime(2024, 1, 1, 0, 46, 0), "IL EST UNE HEURE MOINS QUATORZE +0");
             Add(new DateTime(2024, 1, 1, 0, 55, 0), "IL EST UNE HEURE MOINS CINQ +0");
             Add(new DateTime(2024, 1, 1, 0, 59, 0), "IL EST UNE HEURE MOINS UNE +0");
+            Add(new DateTime(2024, 1, 1, 1, 12, 0), "IL EST UNE HEURE DOUZE +0");
             Add(new DateTime(2024, 1, 1, 2, 0, 0), "IL EST DEUX HEURES +0");
+            Add(new DateTime(2024, 1, 1, 2, 13, 0), "IL EST DEUX HEURES TREIZE +0");
             Add(new DateTime(2024, 1, 1, 3, 0, 0), "IL EST TROIS HEURES +0");
+            Add(new DateTime(2024, 1, 1, 3, 30, 0), "IL EST TROIS HEURES ET DEMIE +0");
+            Add(new DateTime(2024, 1, 1, 3, 43, 0), "IL EST QUATRE HEURES MOINS DIX SEPT +0");
+            Add(new DateTime(2024, 1, 1, 4, 18, 0), "IL EST QUATRE HEURES DIX HUIT +0");
+            Add(new DateTime(2024, 1, 1, 5, 32, 0), "IL EST SIX HEURES MOINS VINGT HUIT +0");
+            Add(new DateTime(2024, 1, 1, 5, 41, 0), "IL EST SIX HEURES MOINS DIX NEUF +0");
             Add(new DateTime(2024, 1, 1, 6, 0, 0), "IL EST SIX HEURES +0");
+            Add(new DateTime(2024, 1, 1, 6, 20, 0), "IL EST SIX HEURES VINGT +0");
             Add(new DateTime(2024, 1, 1, 7, 0, 0), "IL EST SEPT HEURES +0");
+            Add(new DateTime(2024, 1, 1, 7, 21, 0), "IL EST SEPT HEURES VINGT ET UNE +0");
             Add(new DateTime(2024, 1, 1, 8, 0, 0), "IL EST HUIT HEURES +0");
+            Add(new DateTime(2024, 1, 1, 8, 38, 0), "IL EST NEUF HEURES MOINS VINGT DEUX +0");
             Add(new DateTime(2024, 1, 1, 9, 0, 0), "IL EST NEUF HEURES +0");
+            Add(new DateTime(2024, 1, 1, 9, 23, 0), "IL EST NEUF HEURES VINGT TROIS +0");
             Add(new DateTime(2024, 1, 1, 10, 0, 0), "IL EST DIX HEURES +0");
+            Add(new DateTime(2024, 1, 1, 10, 36, 0), "IL EST ONZE HEURES MOINS VINGT QUATRE +0");
             Add(new DateTime(2024, 1, 1, 11, 0, 0), "IL EST ONZE HEURES +0");
+            Add(new DateTime(2024, 1, 1, 11, 27, 0), "IL EST ONZE HEURES VINGT SEPT +0");
             Add(new DateTime(2024, 1, 1, 11, 59, 0), "IL EST MIDI MOINS UNE +0");
             Add(new DateTime(2024, 1, 1, 12, 0, 0), "IL EST MIDI +0");
             Add(new DateTime(2024, 1, 1, 12, 30, 0), "IL EST MIDI ET DEMI +0");

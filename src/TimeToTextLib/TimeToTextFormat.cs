@@ -2,9 +2,9 @@
 
 public class TimeToTextFormat
 {
-    public string TimeAsText { get; set; } = string.Empty;
+    public required string TimeAsText { get; init; }
 
-    public int AdditionalMinutes { get; set; }
+    public required int AdditionalMinutes { get; init; }
 
     public override string ToString() => $"{TimeAsText} +{AdditionalMinutes}";
 }

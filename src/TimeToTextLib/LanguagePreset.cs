@@ -74,7 +74,17 @@ public abstract class LanguagePreset
         return GetNumberText(hour);
     }
 
-    protected string GetNumberText(int number) => Numbers[number - 1];
+    protected string GetNumberText(int number)
+    {
+        var text = Numbers[number - 1];
+
+        if (text.Length == 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(number), number, "No word form for this number");
+        }
+
+        return text;
+    }
 
     protected abstract string[] Numbers { get; }
 

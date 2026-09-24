@@ -127,6 +127,44 @@ public class BitmaskAlgorithmShould
     }
 
     [Fact]
+    public void ResumeTheSearchAfterTheCursorForARepeatedWordInStrictMode()
+    {
+        // TEN appears twice: row 3 "HALFBTENFTO" (cols 5-7) and row 9
+        // "TENSEOCLOCK" (cols 0-2). The second TEN must be matched after the
+        // first one ends, so it lands on row 9. A search that restarted every
+        // row at column 0 would re-find the row 3 occurrence instead.
+        var bitmask = _grid.GetBitMask("TEN TEN", strict: true);
+
+        for (var col = 5; col <= 7; col++)
+        {
+            bitmask.Mask[3][col].Should().BeTrue();
+        }
+
+        for (var col = 0; col <= 2; col++)
+        {
+            bitmask.Mask[9][col].Should().BeTrue();
+        }
+
+        CountLit(bitmask).Should().Be(6);
+    }
+
+    [Fact]
+    public void NotMatchAWordThatOnlyOccursBeforeTheCursorInStrictMode()
+    {
+        // Row 0 is "ITLISLSTIME": IT (cols 0-1) sits before IS (cols 3-4).
+        // Once IS is lit the cursor is past IT, and IT occurs nowhere later in
+        // the grid, so it must be treated as missing rather than matched
+        // backwards into cells the phrase has already moved beyond.
+        var bitmask = _grid.GetBitMask("IS IT", strict: true);
+
+        bitmask.Mask[0][3].Should().BeTrue();
+        bitmask.Mask[0][4].Should().BeTrue();
+        bitmask.Mask[0][0].Should().BeFalse();
+        bitmask.Mask[0][1].Should().BeFalse();
+        CountLit(bitmask).Should().Be(2);
+    }
+
+    [Fact]
     public void ConsumeInputCharactersInOrderAcrossTheGridInNonStrictMode()
     {
         // Non-strict ignores word boundaries and spaces. "IT IS" becomes
@@ -164,9 +202,7 @@ public class BitmaskAlgorithmShould
         CountLit(bitmask).Should().Be(1);
     }
 
-    private static IEnumerable<bool> AllCells(Bitmask bitmask) =>
-        bitmask.Mask.SelectMany(row => row);
+    private static IEnumerable<bool> AllCells(Bitmask bitmask) => bitmask.Mask.SelectMany(row => row);
 
-    private static int CountLit(Bitmask bitmask) =>
-        AllCells(bitmask).Count(v => v);
+    private static int CountLit(Bitmask bitmask) => AllCells(bitmask).Count(v => v);
 }

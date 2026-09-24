@@ -28,10 +28,7 @@ public class GermanPrecisePreset : LanguagePreset
 
     private static string MinuteWord(int minutes) => minutes == 1 ? "MINUTE" : "MINUTEN";
 
-    private string MinuteNumber(int minutes) => minutes == 1 ? "EINE" : GetMinuteNumberText(minutes);
-
-    private string GetMinuteNumberText(int minutes) =>
-        minutes >= 21 ? $"{GetNumberText(minutes - 20)} UND ZWANZIG" : GetNumberText(minutes);
+    private string MinuteNumber(int minutes) => minutes == 1 ? "EINE" : GetNumberText(minutes);
 
     protected override string[] Numbers =>
         [

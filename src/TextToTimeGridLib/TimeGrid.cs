@@ -14,20 +14,19 @@ public abstract class TimeGrid
 
     protected abstract string RawGrid { get; }
 
-    private static readonly Dictionary<LanguagePreset.Language, TimeGrid> Instances =
-        new()
-        {
-            { LanguagePreset.Language.English, new TimeGridEnglish() },
-            { LanguagePreset.Language.EnglishPrecise, new TimeGridEnglishPrecise() },
-            { LanguagePreset.Language.Dutch, new TimeGridDutch() },
-            { LanguagePreset.Language.DutchPrecise, new TimeGridDutchPrecise() },
-            { LanguagePreset.Language.French, new TimeGridFrench() },
-            { LanguagePreset.Language.FrenchPrecise, new TimeGridFrenchPrecise() },
-            { LanguagePreset.Language.Spanish, new TimeGridSpanish() },
-            { LanguagePreset.Language.SpanishPrecise, new TimeGridSpanishPrecise() },
-            { LanguagePreset.Language.German, new TimeGridGerman() },
-            { LanguagePreset.Language.GermanPrecise, new TimeGridGermanPrecise() },
-        };
+    private static readonly Dictionary<LanguagePreset.Language, TimeGrid> Instances = new()
+    {
+        { LanguagePreset.Language.English, new TimeGridEnglish() },
+        { LanguagePreset.Language.EnglishPrecise, new TimeGridEnglishPrecise() },
+        { LanguagePreset.Language.Dutch, new TimeGridDutch() },
+        { LanguagePreset.Language.DutchPrecise, new TimeGridDutchPrecise() },
+        { LanguagePreset.Language.French, new TimeGridFrench() },
+        { LanguagePreset.Language.FrenchPrecise, new TimeGridFrenchPrecise() },
+        { LanguagePreset.Language.Spanish, new TimeGridSpanish() },
+        { LanguagePreset.Language.SpanishPrecise, new TimeGridSpanishPrecise() },
+        { LanguagePreset.Language.German, new TimeGridGerman() },
+        { LanguagePreset.Language.GermanPrecise, new TimeGridGermanPrecise() },
+    };
 
     public static TimeGrid Get(LanguagePreset.Language lang)
     {
@@ -154,11 +153,13 @@ public abstract class TimeGrid
 
         foreach (var word in words)
         {
-            var (row, col) = FindWordFrom(rows, word, cursorRow, cursorCol);
-            if (row < 0)
+            var match = FindWordFrom(rows, word, cursorRow, cursorCol);
+            if (match is null)
             {
                 break;
             }
+
+            var (row, col) = match.Value;
 
             for (var c = col; c < col + word.Length; c++)
             {
@@ -172,22 +173,18 @@ public abstract class TimeGrid
         return new Bitmask(output);
     }
 
-    private static (int row, int col) FindWordFrom(string[] rows, string word, int startRow, int startCol)
+    private static (int row, int col)? FindWordFrom(string[] rows, string word, int startRow, int startCol)
     {
         for (var row = startRow; row < rows.Length; row++)
         {
             var from = row == startRow ? startCol : 0;
-            if (from >= rows[row].Length)
-            {
-                continue;
-            }
-
             var found = rows[row].IndexOf(word, from, StringComparison.Ordinal);
             if (found >= 0)
             {
                 return (row, found);
             }
         }
-        return (-1, -1);
+
+        return null;
     }
 }

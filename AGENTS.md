@@ -10,12 +10,72 @@ Languages and resolution modes are listed in `src/TimeInWords/Resources/Language
 ## Build & Test
 
 ```bash
+dotnet tool restore
 dotnet restore
 dotnet build --no-restore
-dotnet test --no-build --verbosity normal --logger trx --settings coverlet.runsettings
+dotnet test --no-build --verbosity normal
 ```
 
-All three commands must pass cleanly before submitting changes. CI runs on Ubuntu with .NET 10.0.
+All four commands must pass cleanly before submitting changes. CI runs on Ubuntu with .NET 10.0.
+`dotnet tool restore` is not optional on a fresh clone: csharpier, dotnet-coverage, reportgenerator
+and Stryker are pinned in the tool manifest, and every other command in this file fails without it.
+
+Tests run on Microsoft Testing Platform (`global.json` sets the runner), which rejects the VSTest options
+`--settings`, `--logger` and `--filter`; passing any of them makes *every* assembly report "Zero tests
+ran" while the run still exits as though it worked. To run a subset, pass xunit's own options after `--`:
+
+```bash
+dotnet test tests/TimeToTextLib.Tests --no-build -- --filter-class "*SpanishPrecisePresetShould"
+dotnet test tests/TimeToTextLib.Tests --no-build -- --filter-method "*ThrowWhenAsked*"
+```
+
+Coverage is collected out-of-band, the way CI does it:
+
+```bash
+dotnet dotnet-coverage collect "dotnet test --no-build" -f cobertura -o tests/coverage.xml --settings coverage.runsettings
+```
+
+## Formatting
+
+Code is formatted with **csharpier**, not `dotnet format` — reaching for the built-in produces a large
+spurious diff.
+
+```bash
+dotnet csharpier check src/ tests/   # verify
+dotnet csharpier format src/ tests/  # fix
+```
+
+`check` prints a `Checked N files in Xms` summary line whether or not it found problems, and lists the
+per-file errors *above* it — so piping to `tail` hides failures. Use the exit code: 1 means drift, 0 means
+clean.
+
+## Mutation Testing
+
+Stryker.NET is pinned in the tool manifest. It reads `stryker-config.json` from the working directory,
+so the config belongs in the unit test project folder and is run from there. Both unit test projects
+have one; the Avalonia UI tests do not:
+
+```bash
+cd tests/TextToTimeGridLib.Tests
+dotnet stryker
+
+cd tests/TimeToTextLib.Tests
+dotnet stryker
+```
+
+The config sets `"test-runner": "mtp"`, which is required — the default VSTest runner cannot see
+Microsoft Testing Platform tests and reports "Zero tests ran". Surviving mutants are usually a missing
+assertion rather than dead code; check whether the behaviour is worth pinning before adding a test for it,
+and prefer `ignore-methods` over a test that cannot fail.
+
+A run leaves a **mutated copy of the library DLL** in the test project's `bin`. The next
+`dotnet test --no-build` then throws `TypeLoadException`, reports "Zero tests ran" for that assembly and
+drops its tests from the totals while the other assemblies still say "passed".
+Always rebuild afterwards:
+
+```bash
+dotnet build --no-restore
+```
 
 ## Architecture
 

@@ -1,0 +1,9 @@
+{
+  "stryker-config": {
+    "project": "TimeToTextLib.csproj",
+    "test-runner": "mtp",
+    "reporters": ["html", "progress"],
+    "thresholds": { "high": 95, "low": 90, "break": 90 },
+    "ignore-methods": ["Debug.Write*"]
+  }
+}

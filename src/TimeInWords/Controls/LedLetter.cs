@@ -15,6 +15,8 @@ internal class LedLetter : TextBlock, IFadeableControl
     private readonly TimeInWordsSettings _settings;
     private CancellationTokenSource? _fadeCts;
 
+    public int FadeStepDelayMs { get; init; } = ColorFader.DefaultStepDelayMs;
+
     public bool Active
     {
         get;
@@ -30,7 +32,12 @@ internal class LedLetter : TextBlock, IFadeableControl
                 _fadeCts?.Cancel();
                 _fadeCts?.Dispose();
                 _fadeCts = new CancellationTokenSource();
-                _ = ColorFader.FadeForegroundAsync(this, endColor, cancellationToken: _fadeCts.Token);
+                _ = ColorFader.FadeForegroundAsync(
+                    this,
+                    endColor,
+                    stepDelayMs: FadeStepDelayMs,
+                    cancellationToken: _fadeCts.Token
+                );
             }
         }
     }

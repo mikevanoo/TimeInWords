@@ -9,6 +9,9 @@ namespace TimeInWords.Controls;
 
 public class ColorFader
 {
+    public const int DefaultIntervals = 20;
+    public const int DefaultStepDelayMs = 20;
+
     private readonly Color _fromColor;
     private readonly Color _toColor;
 
@@ -23,11 +26,15 @@ public class ColorFader
     public static Task FadeForegroundAsync(
         IFadeableControl control,
         Color toColor,
-        int intervals = 20,
-        int stepDelayMs = 20,
+        int intervals = DefaultIntervals,
+        int stepDelayMs = DefaultStepDelayMs,
         CancellationToken cancellationToken = default
     )
     {
+        ArgumentNullException.ThrowIfNull(control);
+        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(intervals);
+        ArgumentOutOfRangeException.ThrowIfNegative(stepDelayMs);
+
         if (control.Foreground is not SolidColorBrush brush)
         {
             return Task.CompletedTask;
@@ -54,13 +61,7 @@ public class ColorFader
 
     private ColorFader(IFadeableControl control, Color fromColor, Color toColor, int intervals)
     {
-        _control = control ?? throw new ArgumentNullException(nameof(control));
-
-        if (intervals == 0)
-        {
-            throw new ArgumentException($"{nameof(intervals)} must be a positive number");
-        }
-
+        _control = control;
         _fromColor = fromColor;
         _toColor = toColor;
         _intervals = intervals;

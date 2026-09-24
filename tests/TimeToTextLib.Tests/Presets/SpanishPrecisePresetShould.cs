@@ -13,6 +13,14 @@ public class SpanishPrecisePresetShould(ITestOutputHelper testOutputHelper)
     public void FormatTimeToTextCorrectly(DateTime time, string expected) =>
         _preset.Format(time).ToString().Should().BeEquivalentTo(expected);
 
+    [Fact]
+    public void ThrowWhenAskedForTheFifteenMinuteWord() =>
+        new NumberTextAccessor()
+            .Invoking(accessor => accessor.Number(15))
+            .Should()
+            .Throw<ArgumentOutOfRangeException>()
+            .WithMessage("No word form for this number*");
+
 #pragma warning disable xUnit1004
     [Fact(Skip = "test code generator")]
 #pragma warning restore xUnit1004
@@ -33,6 +41,11 @@ public class SpanishPrecisePresetShould(ITestOutputHelper testOutputHelper)
         testOutputHelper.WriteLine(result.ToString());
     }
 
+    private sealed class NumberTextAccessor : SpanishPrecisePreset
+    {
+        public string Number(int number) => GetNumberText(number);
+    }
+
     private class FormatTimeToTextCorrectlyTheoryData : TheoryData<DateTime, string>
     {
         public FormatTimeToTextCorrectlyTheoryData()
@@ -44,18 +57,25 @@ public class SpanishPrecisePresetShould(ITestOutputHelper testOutputHelper)
             Add(new DateTime(2024, 1, 1, 0, 14, 0), "SON LAS DOCE Y CATORCE +0");
             Add(new DateTime(2024, 1, 1, 0, 15, 0), "SON LAS DOCE Y CUARTO +0");
             Add(new DateTime(2024, 1, 1, 0, 16, 0), "SON LAS DOCE Y DIECISEIS +0");
+            Add(new DateTime(2024, 1, 1, 0, 21, 0), "SON LAS DOCE Y VEINTE Y UNA +0");
             Add(new DateTime(2024, 1, 1, 0, 29, 0), "SON LAS DOCE Y VEINTE Y NUEVE +0");
             Add(new DateTime(2024, 1, 1, 0, 30, 0), "SON LAS DOCE Y MEDIA +0");
             Add(new DateTime(2024, 1, 1, 0, 31, 0), "ES LA UNA MENOS VEINTE Y NUEVE +0");
             Add(new DateTime(2024, 1, 1, 0, 34, 0), "ES LA UNA MENOS VEINTE Y SEIS +0");
             Add(new DateTime(2024, 1, 1, 0, 35, 0), "ES LA UNA MENOS VEINTE Y CINCO +0");
+            Add(new DateTime(2024, 1, 1, 0, 39, 0), "ES LA UNA MENOS VEINTE Y UNA +0");
             Add(new DateTime(2024, 1, 1, 0, 44, 0), "ES LA UNA MENOS DIECISEIS +0");
             Add(new DateTime(2024, 1, 1, 0, 45, 0), "ES LA UNA MENOS CUARTO +0");
             Add(new DateTime(2024, 1, 1, 0, 46, 0), "ES LA UNA MENOS CATORCE +0");
             Add(new DateTime(2024, 1, 1, 0, 55, 0), "ES LA UNA MENOS CINCO +0");
             Add(new DateTime(2024, 1, 1, 0, 59, 0), "ES LA UNA MENOS UNA +0");
             Add(new DateTime(2024, 1, 1, 2, 0, 0), "SON LAS DOS EN PUNTO +0");
+            Add(new DateTime(2024, 1, 1, 2, 13, 0), "SON LAS DOS Y TRECE +0");
             Add(new DateTime(2024, 1, 1, 3, 0, 0), "SON LAS TRES EN PUNTO +0");
+            Add(new DateTime(2024, 1, 1, 3, 17, 0), "SON LAS TRES Y DIECISIETE +0");
+            Add(new DateTime(2024, 1, 1, 4, 42, 0), "SON LAS CINCO MENOS DIECIOCHO +0");
+            Add(new DateTime(2024, 1, 1, 5, 19, 0), "SON LAS CINCO Y DIECINUEVE +0");
+            Add(new DateTime(2024, 1, 1, 6, 40, 0), "SON LAS SIETE MENOS VEINTE +0");
             Add(new DateTime(2024, 1, 1, 7, 0, 0), "SON LAS SIETE EN PUNTO +0");
             Add(new DateTime(2024, 1, 1, 8, 0, 0), "SON LAS OCHO EN PUNTO +0");
             Add(new DateTime(2024, 1, 1, 10, 0, 0), "SON LAS DIEZ EN PUNTO +0");

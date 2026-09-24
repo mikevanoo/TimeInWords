@@ -43,7 +43,7 @@ internal static class Program
         }
         else
         {
-            _ = new MainPresenter(settings, new MainViewFactory(), cts);
+            _ = new MainPresenter(settings, new MainViewFactory(), new ScreenProvider(), cts);
         }
 
         app.Run(cts.Token);

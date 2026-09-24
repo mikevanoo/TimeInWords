@@ -64,14 +64,5 @@ public class SpanishPrecisePreset : LanguagePreset
 
     protected override string Prefix => "SON LAS";
 
-    private static string PrefixForHour(int hour12)
-    {
-        var h = hour12;
-        if (h == 0)
-        {
-            h = 12;
-        }
-
-        return h == 1 ? "ES LA" : "SON LAS";
-    }
+    private string PrefixForHour(int hour) => hour == 1 ? "ES LA" : Prefix;
 }
