@@ -1,10 +1,6 @@
-﻿using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Headless;
+﻿using Avalonia.Controls;
 using Avalonia.Headless.XUnit;
-using Avalonia.Input;
 using Avalonia.Interactivity;
-using Avalonia.Threading;
 using TimeInWords.Views;
 using TimeToTextLib;
 
