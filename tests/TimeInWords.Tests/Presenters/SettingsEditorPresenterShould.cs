@@ -4,32 +4,56 @@ using TimeToTextLib;
 
 namespace TimeInWords.Tests.Presenters;
 
-public class SettingsEditorPresenterShould
+public sealed class SettingsEditorPresenterShould : IDisposable
 {
+    private readonly ISettingsEditorView _view = Substitute.For<ISettingsEditorView>();
+    private readonly CancellationTokenSource _mainLoopCts = new();
+    private readonly DirectoryInfo _directory = Directory.CreateTempSubdirectory("TimeInWords.Tests.");
+
+    public void Dispose()
+    {
+        _mainLoopCts.Dispose();
+        _directory.Delete(recursive: true);
+    }
+
     [Fact]
     public void ReadSettingsFileAndPassToView()
     {
-        var view = Substitute.For<ISettingsEditorView>();
         var dutchSettingsFilePath = Path.Combine(AppContext.BaseDirectory, "./TestData/Settings_Dutch.json");
 
-        _ = new SettingsEditorPresenter(view, new CancellationTokenSource(), dutchSettingsFilePath);
+        _ = new SettingsEditorPresenter(_view, _mainLoopCts, dutchSettingsFilePath);
 
-        view.Received(1).Show(Arg.Is<TimeInWordsSettings>(s => s.Language == LanguagePreset.Language.Dutch));
+        _view.Received(1).Show(Arg.Is<TimeInWordsSettings>(s => s.Language == LanguagePreset.Language.Dutch));
+    }
+
+    [Fact]
+    public void ReadSettingsFileContainingComments()
+    {
+        var filePath = GivenFile(
+            """
+            // written by hand
+            {
+              /* the clock face */
+              "Language": "German"
+            }
+            """
+        );
+
+        _ = new SettingsEditorPresenter(_view, _mainLoopCts, filePath);
+
+        _view.Received(1).Show(Arg.Is<TimeInWordsSettings>(s => s.Language == LanguagePreset.Language.German));
     }
 
     [Fact]
     public void UseDefaultSettingsWhenFileDoesNotExist()
     {
-        var view = Substitute.For<ISettingsEditorView>();
-        var missingSettingsFilePath = Path.Combine(
-            AppContext.BaseDirectory,
-            "./TestData/this_file_does_not_exist.json"
-        );
+        var missingSettingsFilePath = SettingsFilePath();
 
-        _ = new SettingsEditorPresenter(view, new CancellationTokenSource(), missingSettingsFilePath);
+        _ = new SettingsEditorPresenter(_view, _mainLoopCts, missingSettingsFilePath);
 
         TimeInWordsSettings expectedSettings = new();
-        view.Received(1)
+        _view
+            .Received(1)
             .Show(
                 Arg.Is<TimeInWordsSettings>(s =>
                     s.Language == expectedSettings.Language
@@ -39,23 +63,62 @@ public class SettingsEditorPresenterShould
                     && s.Debug == expectedSettings.Debug
                 )
             );
+        File.Exists(missingSettingsFilePath).Should().BeFalse();
     }
 
     [Fact]
     public void SaveSettingsToFile()
     {
-        var view = Substitute.For<ISettingsEditorView>();
-        var tempFile = Path.Combine(Path.GetTempPath(), $"test_{Guid.NewGuid()}.json");
-        _ = new SettingsEditorPresenter(view, new CancellationTokenSource(), tempFile);
+        var filePath = SettingsFilePath();
+        _ = new SettingsEditorPresenter(_view, _mainLoopCts, filePath);
 
-        var settingsFrench = new TimeInWordsSettings { Language = LanguagePreset.Language.French };
-        view.Saved += Raise.Event<EventHandler<TimeInWordsSettings>>(null, settingsFrench);
-
-        File.Exists(tempFile).Should().BeTrue();
-        var actualSettings = File.ReadAllText(tempFile);
-        var expectedSettings = File.ReadAllText(
-            Path.Combine(AppContext.BaseDirectory, "./TestData/Settings_French.json")
+        _view.Saved += Raise.Event<EventHandler<TimeInWordsSettings>>(
+            null,
+            new TimeInWordsSettings { Language = LanguagePreset.Language.French }
         );
-        actualSettings.Should().Be(expectedSettings);
+
+        // indented, with "\n" line endings whatever the platform, and only the settings that are not ignored
+        File.ReadAllText(filePath).Should().Be("{\n  \"Language\": \"French\"\n}");
+        _mainLoopCts.IsCancellationRequested.Should().BeFalse();
+    }
+
+    [Fact]
+    public void ReplaceTheWholeFileWhenSaving()
+    {
+        var filePath = GivenFile(
+            """
+            {
+              "Language": "SpanishPrecise",
+              "Comment": "this file is longer than the one that replaces it"
+            }
+            """
+        );
+        _ = new SettingsEditorPresenter(_view, _mainLoopCts, filePath);
+
+        _view.Saved += Raise.Event<EventHandler<TimeInWordsSettings>>(
+            null,
+            new TimeInWordsSettings { Language = LanguagePreset.Language.French }
+        );
+
+        File.ReadAllText(filePath).Should().Be("{\n  \"Language\": \"French\"\n}");
+    }
+
+    [Fact]
+    public void ExitWhenTheViewCloses()
+    {
+        _ = new SettingsEditorPresenter(_view, _mainLoopCts, SettingsFilePath());
+
+        _view.Closed += Raise.Event();
+
+        _mainLoopCts.IsCancellationRequested.Should().BeTrue();
+    }
+
+    private string SettingsFilePath() => Path.Combine(_directory.FullName, "appsettings.json");
+
+    private string GivenFile(string contents)
+    {
+        var filePath = SettingsFilePath();
+        File.WriteAllText(filePath, contents);
+        return filePath;
     }
 }
