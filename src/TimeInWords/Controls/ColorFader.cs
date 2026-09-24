@@ -9,6 +9,9 @@ namespace TimeInWords.Controls;
 
 public class ColorFader
 {
+    public const int DefaultIntervals = 20;
+    public const int DefaultStepDelayMs = 20;
+
     private readonly Color _fromColor;
     private readonly Color _toColor;
 
@@ -23,8 +26,8 @@ public class ColorFader
     public static Task FadeForegroundAsync(
         IFadeableControl control,
         Color toColor,
-        int intervals = 20,
-        int stepDelayMs = 20,
+        int intervals = DefaultIntervals,
+        int stepDelayMs = DefaultStepDelayMs,
         CancellationToken cancellationToken = default
     )
     {

@@ -1,18 +1,20 @@
 ﻿using Avalonia.Headless.XUnit;
 using Avalonia.Media;
+using Avalonia.Threading;
 using TimeInWords.Controls;
 
 namespace TimeInWords.Tests.Controls;
 
 public class LedLetterShould
 {
+    private readonly TimeInWordsSettings _settings = new();
+
     [AvaloniaFact]
     public void ShowCorrectText()
     {
-        var settings = new TimeInWordsSettings();
         var expectedText = "test text";
 
-        var ledLetter = new LedLetter(settings, expectedText);
+        var ledLetter = new LedLetter(_settings, expectedText);
 
         ledLetter.Text.Should().Be(expectedText);
     }
@@ -20,36 +22,58 @@ public class LedLetterShould
     [AvaloniaFact]
     public void UseInactiveColorInitially()
     {
-        var settings = new TimeInWordsSettings();
-        var ledLetter = new LedLetter(settings, "X");
+        var ledLetter = new LedLetter(_settings, "X");
 
-        (ledLetter.Foreground as SolidColorBrush)!.Color.Should().Be(settings.InactiveFontColour);
+        ledLetter.Active.Should().BeFalse();
+        ForegroundOf(ledLetter).Should().Be(_settings.InactiveFontColour);
     }
 
     [AvaloniaFact]
-    public async Task UseActiveColorWhenGoingActive()
+    public void FadeRatherThanSwitchColorWhenGoingActive()
     {
-        var settings = new TimeInWordsSettings();
-        var ledLetter = new LedLetter(settings, "X") { Active = true };
+        var ledLetter = new LedLetter(_settings, "X") { Active = true };
 
-        await WaitForColorFade();
+        Dispatcher.UIThread.RunJobs();
 
-        (ledLetter.Foreground as SolidColorBrush)!.Color.Should().Be(settings.ActiveFontColour);
+        // at the default speed the fade has only just started, so the colour has not changed yet
+        ledLetter.FadeStepDelayMs.Should().Be(ColorFader.DefaultStepDelayMs);
+        ForegroundOf(ledLetter).Should().Be(_settings.InactiveFontColour);
     }
 
     [AvaloniaFact]
-    public async Task UseInactiveColorWhenGoingInactive()
+    public void UseActiveColorWhenGoingActive()
     {
-        var settings = new TimeInWordsSettings();
-        var ledLetter = new LedLetter(settings, "X") { Active = true };
+        var ledLetter = new LedLetter(_settings, "X") { FadeStepDelayMs = 0, Active = true };
 
-        await WaitForColorFade();
+        Dispatcher.UIThread.RunJobs();
+
+        ForegroundOf(ledLetter).Should().Be(_settings.ActiveFontColour);
+    }
+
+    [AvaloniaFact]
+    public void UseInactiveColorWhenGoingInactive()
+    {
+        var ledLetter = new LedLetter(_settings, "X") { FadeStepDelayMs = 0, Active = true };
+
+        Dispatcher.UIThread.RunJobs();
 
         ledLetter.Active = false;
-        await WaitForColorFade();
+        Dispatcher.UIThread.RunJobs();
 
-        (ledLetter.Foreground as SolidColorBrush)!.Color.Should().Be(settings.InactiveFontColour);
+        ForegroundOf(ledLetter).Should().Be(_settings.InactiveFontColour);
     }
 
-    private static async Task WaitForColorFade() => await Task.Delay(750);
+    [AvaloniaFact]
+    public void NotFadeWhenSetToItsCurrentState()
+    {
+        var ledLetter = new LedLetter(_settings, "X") { FadeStepDelayMs = 0, Active = false };
+        var foreground = ledLetter.Foreground;
+
+        Dispatcher.UIThread.RunJobs();
+
+        ledLetter.Foreground.Should().BeSameAs(foreground);
+    }
+
+    private static Color ForegroundOf(LedLetter ledLetter) =>
+        ledLetter.Foreground.Should().BeOfType<SolidColorBrush>().Which.Color;
 }
