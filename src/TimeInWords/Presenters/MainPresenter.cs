@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
-using Avalonia.Controls;
 using TimeInWords.Views;
 
 namespace TimeInWords.Presenters;
@@ -14,6 +13,7 @@ public class MainPresenter
     public MainPresenter(
         TimeInWordsSettings settings,
         IMainViewFactory viewFactory,
+        IScreenProvider screenProvider,
         CancellationTokenSource mainLoopCts
     )
     {
@@ -32,8 +32,7 @@ public class MainPresenter
                 return (int)(bound / scaling);
             }
 
-            var tempWindow = new Window();
-            foreach (var screen in tempWindow.Screens.All)
+            foreach (var screen in screenProvider.GetScreens())
             {
                 var newMainView = viewFactory.Create(settings, true);
                 _views.Add(newMainView);
